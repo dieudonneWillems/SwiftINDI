@@ -20,8 +20,7 @@ class SwiftINDITests: XCTestCase {
     }
 
     func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        let client = BasicINDIClient(server: "revisionist.local", port: 7642)
     }
 
     func testPerformanceExample() {

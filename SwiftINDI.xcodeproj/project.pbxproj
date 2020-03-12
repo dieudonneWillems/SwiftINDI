@@ -10,6 +10,9 @@
 		02A9EDC424184AC100484226 /* SwiftINDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02A9EDBA24184AC100484226 /* SwiftINDI.framework */; };
 		02A9EDC924184AC100484226 /* SwiftINDITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A9EDC824184AC100484226 /* SwiftINDITests.swift */; };
 		02A9EDCB24184AC100484226 /* SwiftINDI.h in Headers */ = {isa = PBXBuildFile; fileRef = 02A9EDBD24184AC100484226 /* SwiftINDI.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		02A9EDE72418525000484226 /* BasicINDIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A9EDE62418525000484226 /* BasicINDIClient.swift */; };
+		02A9EDEA2419A1F200484226 /* SwiftSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02A9EDE82419A12E00484226 /* SwiftSocket.framework */; };
+		02A9EDEB2419A1F200484226 /* SwiftSocket.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 02A9EDE82419A12E00484226 /* SwiftSocket.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -22,6 +25,20 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		02A9EDEC2419A1F200484226 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				02A9EDEB2419A1F200484226 /* SwiftSocket.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		02A9EDBA24184AC100484226 /* SwiftINDI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftINDI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		02A9EDBD24184AC100484226 /* SwiftINDI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftINDI.h; sourceTree = "<group>"; };
@@ -29,6 +46,8 @@
 		02A9EDC324184AC100484226 /* SwiftINDITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftINDITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		02A9EDC824184AC100484226 /* SwiftINDITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftINDITests.swift; sourceTree = "<group>"; };
 		02A9EDCA24184AC100484226 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		02A9EDE62418525000484226 /* BasicINDIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicINDIClient.swift; sourceTree = "<group>"; };
+		02A9EDE82419A12E00484226 /* SwiftSocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SwiftSocket.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,6 +55,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02A9EDEA2419A1F200484226 /* SwiftSocket.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -53,6 +73,7 @@
 		02A9EDB024184AC100484226 = {
 			isa = PBXGroup;
 			children = (
+				02A9EDE82419A12E00484226 /* SwiftSocket.framework */,
 				02A9EDBC24184AC100484226 /* SwiftINDI */,
 				02A9EDC724184AC100484226 /* SwiftINDITests */,
 				02A9EDBB24184AC100484226 /* Products */,
@@ -71,6 +92,7 @@
 		02A9EDBC24184AC100484226 /* SwiftINDI */ = {
 			isa = PBXGroup;
 			children = (
+				02A9EDE52418521F00484226 /* INDI */,
 				02A9EDBD24184AC100484226 /* SwiftINDI.h */,
 				02A9EDBE24184AC100484226 /* Info.plist */,
 			);
@@ -84,6 +106,14 @@
 				02A9EDCA24184AC100484226 /* Info.plist */,
 			);
 			path = SwiftINDITests;
+			sourceTree = "<group>";
+		};
+		02A9EDE52418521F00484226 /* INDI */ = {
+			isa = PBXGroup;
+			children = (
+				02A9EDE62418525000484226 /* BasicINDIClient.swift */,
+			);
+			path = INDI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -108,12 +138,15 @@
 				02A9EDB624184AC100484226 /* Sources */,
 				02A9EDB724184AC100484226 /* Frameworks */,
 				02A9EDB824184AC100484226 /* Resources */,
+				02A9EDEC2419A1F200484226 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = SwiftINDI;
+			packageProductDependencies = (
+			);
 			productName = SwiftINDI;
 			productReference = 02A9EDBA24184AC100484226 /* SwiftINDI.framework */;
 			productType = "com.apple.product-type.framework";
@@ -148,6 +181,7 @@
 				TargetAttributes = {
 					02A9EDB924184AC100484226 = {
 						CreatedOnToolsVersion = 11.3.1;
+						LastSwiftMigration = 1130;
 					};
 					02A9EDC224184AC100484226 = {
 						CreatedOnToolsVersion = 11.3.1;
@@ -163,6 +197,8 @@
 				Base,
 			);
 			mainGroup = 02A9EDB024184AC100484226;
+			packageReferences = (
+			);
 			productRefGroup = 02A9EDBB24184AC100484226 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -195,6 +231,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02A9EDE72418525000484226 /* BasicINDIClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -339,6 +376,8 @@
 		02A9EDCF24184AC100484226 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
@@ -346,6 +385,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = SwiftINDI/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -355,7 +398,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.lapsedpacifist.SwiftINDI;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -363,6 +408,8 @@
 		02A9EDD024184AC100484226 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
@@ -370,6 +417,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = SwiftINDI/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -379,6 +430,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.lapsedpacifist.SwiftINDI;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 			};
@@ -387,6 +439,7 @@
 		02A9EDD224184AC100484226 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = J2S9726G2L;
@@ -405,6 +458,7 @@
 		02A9EDD324184AC100484226 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = J2S9726G2L;

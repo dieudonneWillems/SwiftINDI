@@ -20,7 +20,7 @@ class SwiftINDITests: XCTestCase {
     }
 
     func testExample() {
-        let client = BasicINDIClient(server: "revisionist.local", port: 7624)
+        let client = BasicINDIClient(server: "localhost", port: 7624)
         sleep(1)
     }
 

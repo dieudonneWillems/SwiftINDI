@@ -2,8 +2,8 @@
 //  SwiftINDITests.swift
 //  SwiftINDITests
 //
-//  Created by Don Willems on 12/03/2020.
-//  Copyright © 2020 Don Willems. All rights reserved.
+//  Created by Don Willems on 10/03/2020.
+//  Copyright © 2020 lapsedpacifist. All rights reserved.
 //
 
 import XCTest
@@ -20,13 +20,8 @@ class SwiftINDITests: XCTestCase {
     }
 
     func testExample() {
-<<<<<<< Updated upstream
-        let indiClient = BasicClient(host: "localhost", port: 7624)
-        indiClient.connect()
-=======
         let client = BasicINDIClient(server: "revisionist.local", port: 7624)
         sleep(1)
->>>>>>> Stashed changes
     }
 
     func testPerformanceExample() {

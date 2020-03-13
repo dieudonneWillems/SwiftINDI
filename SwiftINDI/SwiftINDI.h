@@ -2,8 +2,8 @@
 //  SwiftINDI.h
 //  SwiftINDI
 //
-//  Created by Don Willems on 12/03/2020.
-//  Copyright © 2020 Don Willems. All rights reserved.
+//  Created by Don Willems on 10/03/2020.
+//  Copyright © 2020 lapsedpacifist. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

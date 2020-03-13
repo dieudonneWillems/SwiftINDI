@@ -20,8 +20,13 @@ class SwiftINDITests: XCTestCase {
     }
 
     func testExample() {
+<<<<<<< Updated upstream
         let indiClient = BasicClient(host: "localhost", port: 7624)
         indiClient.connect()
+=======
+        let client = BasicINDIClient(server: "revisionist.local", port: 7624)
+        sleep(1)
+>>>>>>> Stashed changes
     }
 
     func testPerformanceExample() {

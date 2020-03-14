@@ -16,6 +16,7 @@
 		020D2D68241CE7FB00A97EA5 /* SwiftINDI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 02A9EDBA24184AC100484226 /* SwiftINDI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		020D2D6D241CE95F00A97EA5 /* INDIDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020D2D6C241CE95F00A97EA5 /* INDIDelegate.swift */; };
 		020D2D6F241CF3D500A97EA5 /* INDIDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020D2D6E241CF3D500A97EA5 /* INDIDevice.swift */; };
+		020D2D72241D668800A97EA5 /* INDIProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020D2D71241D668800A97EA5 /* INDIProperty.swift */; };
 		02A9EDC424184AC100484226 /* SwiftINDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02A9EDBA24184AC100484226 /* SwiftINDI.framework */; };
 		02A9EDC924184AC100484226 /* SwiftINDITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A9EDC824184AC100484226 /* SwiftINDITests.swift */; };
 		02A9EDCB24184AC100484226 /* SwiftINDI.h in Headers */ = {isa = PBXBuildFile; fileRef = 02A9EDBD24184AC100484226 /* SwiftINDI.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -77,6 +78,7 @@
 		020D2D62241CE78400A97EA5 /* SwiftINDI_Mac_Test_App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SwiftINDI_Mac_Test_App.entitlements; sourceTree = "<group>"; };
 		020D2D6C241CE95F00A97EA5 /* INDIDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = INDIDelegate.swift; sourceTree = "<group>"; };
 		020D2D6E241CF3D500A97EA5 /* INDIDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = INDIDevice.swift; sourceTree = "<group>"; };
+		020D2D71241D668800A97EA5 /* INDIProperty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = INDIProperty.swift; sourceTree = "<group>"; };
 		02A9EDBA24184AC100484226 /* SwiftINDI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftINDI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		02A9EDBD24184AC100484226 /* SwiftINDI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftINDI.h; sourceTree = "<group>"; };
 		02A9EDBE24184AC100484226 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -144,6 +146,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		020D2D70241D665E00A97EA5 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				020D2D6E241CF3D500A97EA5 /* INDIDevice.swift */,
+				020D2D71241D668800A97EA5 /* INDIProperty.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		02A9EDB024184AC100484226 = {
 			isa = PBXGroup;
 			children = (
@@ -188,9 +199,9 @@
 		02A9EDE52418521F00484226 /* INDI */ = {
 			isa = PBXGroup;
 			children = (
+				020D2D70241D665E00A97EA5 /* Model */,
 				02A9EDE62418525000484226 /* BasicINDIClient.swift */,
 				020D2D6C241CE95F00A97EA5 /* INDIDelegate.swift */,
-				020D2D6E241CF3D500A97EA5 /* INDIDevice.swift */,
 			);
 			path = INDI;
 			sourceTree = "<group>";
@@ -354,6 +365,7 @@
 			files = (
 				020D2D6D241CE95F00A97EA5 /* INDIDelegate.swift in Sources */,
 				02A9EDE72418525000484226 /* BasicINDIClient.swift in Sources */,
+				020D2D72241D668800A97EA5 /* INDIProperty.swift in Sources */,
 				020D2D6F241CF3D500A97EA5 /* INDIDevice.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

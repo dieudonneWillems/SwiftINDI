@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		020D2D56241CE78000A97EA5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020D2D55241CE78000A97EA5 /* AppDelegate.swift */; };
+		020D2D58241CE78000A97EA5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020D2D57241CE78000A97EA5 /* ContentView.swift */; };
+		020D2D5A241CE78400A97EA5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 020D2D59241CE78400A97EA5 /* Assets.xcassets */; };
+		020D2D5D241CE78400A97EA5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 020D2D5C241CE78400A97EA5 /* Preview Assets.xcassets */; };
+		020D2D60241CE78400A97EA5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 020D2D5E241CE78400A97EA5 /* Main.storyboard */; };
+		020D2D67241CE7FB00A97EA5 /* SwiftINDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02A9EDBA24184AC100484226 /* SwiftINDI.framework */; };
+		020D2D68241CE7FB00A97EA5 /* SwiftINDI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 02A9EDBA24184AC100484226 /* SwiftINDI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		020D2D6D241CE95F00A97EA5 /* INDIDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020D2D6C241CE95F00A97EA5 /* INDIDelegate.swift */; };
+		020D2D6F241CF3D500A97EA5 /* INDIDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020D2D6E241CF3D500A97EA5 /* INDIDevice.swift */; };
 		02A9EDC424184AC100484226 /* SwiftINDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02A9EDBA24184AC100484226 /* SwiftINDI.framework */; };
 		02A9EDC924184AC100484226 /* SwiftINDITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A9EDC824184AC100484226 /* SwiftINDITests.swift */; };
 		02A9EDCB24184AC100484226 /* SwiftINDI.h in Headers */ = {isa = PBXBuildFile; fileRef = 02A9EDBD24184AC100484226 /* SwiftINDI.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -16,6 +25,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		020D2D69241CE7FB00A97EA5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 02A9EDB124184AC100484226 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 02A9EDB924184AC100484226;
+			remoteInfo = SwiftINDI;
+		};
 		02A9EDC524184AC100484226 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 02A9EDB124184AC100484226 /* Project object */;
@@ -26,6 +42,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		020D2D6B241CE7FC00A97EA5 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				020D2D68241CE7FB00A97EA5 /* SwiftINDI.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		02A9EDEC2419A1F200484226 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -40,6 +67,16 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		020D2D53241CE78000A97EA5 /* SwiftINDI Mac Test App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SwiftINDI Mac Test App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		020D2D55241CE78000A97EA5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		020D2D57241CE78000A97EA5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		020D2D59241CE78400A97EA5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		020D2D5C241CE78400A97EA5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		020D2D5F241CE78400A97EA5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		020D2D61241CE78400A97EA5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		020D2D62241CE78400A97EA5 /* SwiftINDI_Mac_Test_App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SwiftINDI_Mac_Test_App.entitlements; sourceTree = "<group>"; };
+		020D2D6C241CE95F00A97EA5 /* INDIDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = INDIDelegate.swift; sourceTree = "<group>"; };
+		020D2D6E241CF3D500A97EA5 /* INDIDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = INDIDevice.swift; sourceTree = "<group>"; };
 		02A9EDBA24184AC100484226 /* SwiftINDI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftINDI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		02A9EDBD24184AC100484226 /* SwiftINDI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftINDI.h; sourceTree = "<group>"; };
 		02A9EDBE24184AC100484226 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -51,6 +88,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		020D2D50241CE78000A97EA5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				020D2D67241CE7FB00A97EA5 /* SwiftINDI.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		02A9EDB724184AC100484226 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -70,13 +115,44 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		020D2D54241CE78000A97EA5 /* SwiftINDI Mac Test App */ = {
+			isa = PBXGroup;
+			children = (
+				020D2D55241CE78000A97EA5 /* AppDelegate.swift */,
+				020D2D57241CE78000A97EA5 /* ContentView.swift */,
+				020D2D59241CE78400A97EA5 /* Assets.xcassets */,
+				020D2D5E241CE78400A97EA5 /* Main.storyboard */,
+				020D2D61241CE78400A97EA5 /* Info.plist */,
+				020D2D62241CE78400A97EA5 /* SwiftINDI_Mac_Test_App.entitlements */,
+				020D2D5B241CE78400A97EA5 /* Preview Content */,
+			);
+			path = "SwiftINDI Mac Test App";
+			sourceTree = "<group>";
+		};
+		020D2D5B241CE78400A97EA5 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				020D2D5C241CE78400A97EA5 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		020D2D66241CE7FB00A97EA5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		02A9EDB024184AC100484226 = {
 			isa = PBXGroup;
 			children = (
 				02A9EDE82419A12E00484226 /* SwiftSocket.framework */,
 				02A9EDBC24184AC100484226 /* SwiftINDI */,
 				02A9EDC724184AC100484226 /* SwiftINDITests */,
+				020D2D54241CE78000A97EA5 /* SwiftINDI Mac Test App */,
 				02A9EDBB24184AC100484226 /* Products */,
+				020D2D66241CE7FB00A97EA5 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -85,6 +161,7 @@
 			children = (
 				02A9EDBA24184AC100484226 /* SwiftINDI.framework */,
 				02A9EDC324184AC100484226 /* SwiftINDITests.xctest */,
+				020D2D53241CE78000A97EA5 /* SwiftINDI Mac Test App.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -112,6 +189,8 @@
 			isa = PBXGroup;
 			children = (
 				02A9EDE62418525000484226 /* BasicINDIClient.swift */,
+				020D2D6C241CE95F00A97EA5 /* INDIDelegate.swift */,
+				020D2D6E241CF3D500A97EA5 /* INDIDevice.swift */,
 			);
 			path = INDI;
 			sourceTree = "<group>";
@@ -130,6 +209,25 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		020D2D52241CE78000A97EA5 /* SwiftINDI Mac Test App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 020D2D65241CE78400A97EA5 /* Build configuration list for PBXNativeTarget "SwiftINDI Mac Test App" */;
+			buildPhases = (
+				020D2D4F241CE78000A97EA5 /* Sources */,
+				020D2D50241CE78000A97EA5 /* Frameworks */,
+				020D2D51241CE78000A97EA5 /* Resources */,
+				020D2D6B241CE7FC00A97EA5 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				020D2D6A241CE7FB00A97EA5 /* PBXTargetDependency */,
+			);
+			name = "SwiftINDI Mac Test App";
+			productName = "SwiftINDI Mac Test App";
+			productReference = 020D2D53241CE78000A97EA5 /* SwiftINDI Mac Test App.app */;
+			productType = "com.apple.product-type.application";
+		};
 		02A9EDB924184AC100484226 /* SwiftINDI */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 02A9EDCE24184AC100484226 /* Build configuration list for PBXNativeTarget "SwiftINDI" */;
@@ -179,6 +277,9 @@
 				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = lapsedpacifist;
 				TargetAttributes = {
+					020D2D52241CE78000A97EA5 = {
+						CreatedOnToolsVersion = 11.3.1;
+					};
 					02A9EDB924184AC100484226 = {
 						CreatedOnToolsVersion = 11.3.1;
 						LastSwiftMigration = 1130;
@@ -205,11 +306,22 @@
 			targets = (
 				02A9EDB924184AC100484226 /* SwiftINDI */,
 				02A9EDC224184AC100484226 /* SwiftINDITests */,
+				020D2D52241CE78000A97EA5 /* SwiftINDI Mac Test App */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		020D2D51241CE78000A97EA5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				020D2D60241CE78400A97EA5 /* Main.storyboard in Resources */,
+				020D2D5D241CE78400A97EA5 /* Preview Assets.xcassets in Resources */,
+				020D2D5A241CE78400A97EA5 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		02A9EDB824184AC100484226 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -227,11 +339,22 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		020D2D4F241CE78000A97EA5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				020D2D58241CE78000A97EA5 /* ContentView.swift in Sources */,
+				020D2D56241CE78000A97EA5 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		02A9EDB624184AC100484226 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				020D2D6D241CE95F00A97EA5 /* INDIDelegate.swift in Sources */,
 				02A9EDE72418525000484226 /* BasicINDIClient.swift in Sources */,
+				020D2D6F241CF3D500A97EA5 /* INDIDevice.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -246,6 +369,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		020D2D6A241CE7FB00A97EA5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 02A9EDB924184AC100484226 /* SwiftINDI */;
+			targetProxy = 020D2D69241CE7FB00A97EA5 /* PBXContainerItemProxy */;
+		};
 		02A9EDC624184AC100484226 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 02A9EDB924184AC100484226 /* SwiftINDI */;
@@ -253,7 +381,64 @@
 		};
 /* End PBXTargetDependency section */
 
+/* Begin PBXVariantGroup section */
+		020D2D5E241CE78400A97EA5 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				020D2D5F241CE78400A97EA5 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
+		020D2D63241CE78400A97EA5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "SwiftINDI Mac Test App/SwiftINDI_Mac_Test_App.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"SwiftINDI Mac Test App/Preview Content\"";
+				DEVELOPMENT_TEAM = J2S9726G2L;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = "SwiftINDI Mac Test App/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.lapsedPacifist.SwiftINDI-Mac-Test-App";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		020D2D64241CE78400A97EA5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "SwiftINDI Mac Test App/SwiftINDI_Mac_Test_App.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"SwiftINDI Mac Test App/Preview Content\"";
+				DEVELOPMENT_TEAM = J2S9726G2L;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = "SwiftINDI Mac Test App/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.lapsedPacifist.SwiftINDI-Mac-Test-App";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 		02A9EDCC24184AC100484226 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -477,6 +662,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		020D2D65241CE78400A97EA5 /* Build configuration list for PBXNativeTarget "SwiftINDI Mac Test App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				020D2D63241CE78400A97EA5 /* Debug */,
+				020D2D64241CE78400A97EA5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		02A9EDB424184AC100484226 /* Build configuration list for PBXProject "SwiftINDI" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

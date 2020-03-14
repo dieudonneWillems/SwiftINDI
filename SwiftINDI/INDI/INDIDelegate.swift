@@ -17,6 +17,16 @@ public protocol INDIDelegate {
     // MARK: - Connecting and Disconnecting from an INDI server
     
     /**
+     * This function is called when a connection request was ignored. This may happen when a connection attempt i
+     * is made while the client is already connected to the INDI server.
+     * - Parameter client: The `BasicINDIClient`.
+     * - Parameter server: The server address (host) .
+     * - Parameter port: The port.
+     * - Parameter message: A human readable message explaining while the request was ignored.
+     */
+    func connectionRequestIgnored(_ client: BasicINDIClient, to server: String?, port: Int, message: String)
+    
+    /**
      * This function is called when an INDI client is about to be connected to the specified server.
      * - Parameter client: The `BasicINDIClient` which is to be connected to the server.
      * - Parameter server: The server address (host) .

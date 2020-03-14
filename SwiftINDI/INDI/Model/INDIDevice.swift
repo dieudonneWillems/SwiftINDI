@@ -13,7 +13,7 @@ import Foundation
  */
 public struct INDIDevice {
     
-    public private(set) var properties = [INDIProperty]*
+    public private(set) var properties = [INDIProperty]()
     
     /**
      * The name of the device.

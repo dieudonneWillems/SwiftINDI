@@ -52,6 +52,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, INDIDelegate {
     }
 
     // MARK: - INDI Delegate
+    
+    
+    func connectionRequestIgnored(_ client: BasicINDIClient, to server: String?, port: Int, message: String) {
+        print("Connection request ignored: \(message)")
+    }
+    
     func willConnect(_ client: BasicINDIClient, to server: String, port: Int) {
         print("Will connect \(client)")
     }

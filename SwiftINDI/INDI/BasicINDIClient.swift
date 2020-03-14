@@ -8,6 +8,7 @@
 
 import Foundation
 import SwiftSocket
+import SwiftyXMLParser
 
 /**
  * This class represents the basic INDI client providing low level (INDI) communication with an INDI server instance.
@@ -101,7 +102,7 @@ public class BasicINDIClient : CustomStringConvertible {
      */
     public func setServer(at host: String, port: Int = 7642) throws {
         if connected {
-            // TODO: throw error because the server cannot be set when an active connection exists.
+            throw INDIError.connectionError(message: "The server cannot be changed when a connection to (another) INDI server already exists. The server should first be disconnected.")
         }
         self.server = host
         self.port = port
@@ -120,11 +121,11 @@ public class BasicINDIClient : CustomStringConvertible {
      */
     public func connect() throws {
         if connected {
-            // TODO: Send message to delegate
+            delegate?.connectionRequestIgnored(self, to: server, port: port, message: "The INDI client was already connected to the INDI server.")
             return
         }
         if server == nil {
-            // TODO --> throw error
+            throw INDIError.connectionError(message: "No INDI server was defined, no connection could be made therefore.")
         }
         delegate?.willConnect(self, to: server!, port: port)
         self.tcpClient = TCPClient(address: self.server!, port: Int32(port))
@@ -134,7 +135,7 @@ public class BasicINDIClient : CustomStringConvertible {
                 delegate?.didConnect(self, to: server!, port: port)
                 try self.getDevices()
             case .failure(let error):
-                throw error
+                throw INDIError.connectionError(message: "No connection to the INDI server at \(server!) and port \(port) could be established.", causedBy: error)
         }
     }
     
@@ -145,7 +146,7 @@ public class BasicINDIClient : CustomStringConvertible {
      */
     public func disconnect() {
         if !connected {
-            // TODO: Send message to delegate
+            delegate?.connectionRequestIgnored(self, to: server, port: port, message: "The INDI client was not connected to the INDI server and cannot be disconnected therefore.")
             return
         }
         delegate?.willDisconnect(self, from: server!, port: port)
@@ -161,22 +162,33 @@ public class BasicINDIClient : CustomStringConvertible {
      */
     private func getDevices() throws {
         if !connected || tcpClient == nil {
-            return
+            throw INDIError.connectionError(message: "The INDI server is not connected.")
         }
         switch tcpClient!.send(string: "<getProperties version=\"1.7\"/>" ) {
-          case .success:
-            sleep(1)
-            guard let data = tcpClient!.read(1024*10) else {
-                print("Did not recieve data")
-                return
-            }
-            print("received data")
-            if let response = String(bytes: data, encoding: .utf8) {
-              print("******** RESPONSE ********\n\(response)")
-            }
-          case .failure(let error):
-            print(error)
+            case .success:
+                sleep(1)
+                guard let data = tcpClient!.read(1024*10) else {
+                    print("Did not recieve data")
+                    throw INDIError.connectionError(message: "No data was recieved from the INDI server.")
+                }
+                print("received data")
+                if let response = String(bytes: data, encoding: .utf8) {
+                  print("******** RESPONSE ********\n\(response)")
+                }
+            case .failure(let error):
+                throw INDIError.connectionError(message: "An error occurred when data was send to the INDI server.", causedBy: error)
         }
         return
+    }
+    
+    /**
+     * Parses the response into an XML DOM structure.
+     *
+     * - Parameter response: The response string recieved from the INDI server.
+     * - Returns: The root element of the XML.
+     */
+    private func parseResponse(_ response : String) throws -> XML.Accessor {
+        let xml = try XML.parse(response)
+        return xml
     }
 }

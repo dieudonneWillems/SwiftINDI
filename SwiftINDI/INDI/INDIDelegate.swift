@@ -8,12 +8,44 @@
 
 import Foundation
 
+/**
+ * This protocol defines the interface for creating an `INDIDelegate`. Instances will recieve events such as connecting or disconnecting devices,
+ * changes to the state of a device (changes of INDI properties), or when data is recieved.
+ */
 public protocol INDIDelegate {
     
-    func willConnect(_: BasicINDIClient, to server: String, port: Int)
-    func didConnect(_: BasicINDIClient, to server: String, port: Int)
+    // MARK: - Connecting and Disconnecting from an INDI server
     
-    func willDisconnect(_: BasicINDIClient, from server: String, port: Int)
-    func didDisconnect(_: BasicINDIClient, from server: String, port: Int)
+    /**
+     * This function is called when an INDI client is about to be connected to the specified server.
+     * - Parameter client: The `BasicINDIClient` which is to be connected to the server.
+     * - Parameter server: The server address (host) .
+     * - Parameter port: The port at which the client is to be connected to the server.
+     */
+    func willConnect(_ client: BasicINDIClient, to server: String, port: Int)
+    
+    /**
+     * This function is called when an INDI client has been connected to the specified server.
+     * - Parameter client: The `BasicINDIClient` which was connected to the server.
+     * - Parameter server: The server address (host) .
+     * - Parameter port: The port at which the client is connected to the server.
+     */
+    func didConnect(_ client: BasicINDIClient, to server: String, port: Int)
+    
+    /**
+     * This function is called when an INDI client is about to be disconnected from the specified server.
+     * - Parameter client: The `BasicINDIClient` which is to be disconnected from its server.
+     * - Parameter server: The server address (host) .
+     * - Parameter port: The port at which the client is connected to the server.
+     */
+    func willDisconnect(_ client: BasicINDIClient, from server: String, port: Int)
+    
+    /**
+     * This function is called when an INDI client has been disconnected from the specified server.
+     * - Parameter client: The `BasicINDIClient` which was disconnected from the server.
+     * - Parameter server: The server address (host) .
+     * - Parameter port: The port at which the client was connected to the server.
+     */
+    func didDisconnect(_ client: BasicINDIClient, from server: String, port: Int)
     
 }

@@ -11,8 +11,8 @@ import SwiftUI
 import SwiftINDI
 
 @NSApplicationMain
-class AppDelegate: NSObject, NSApplicationDelegate {
-
+class AppDelegate: NSObject, NSApplicationDelegate, INDIDelegate {
+    
     var window: NSWindow!
     var clients = [BasicINDIClient]()
 
@@ -30,16 +30,42 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         window.setFrameAutosaveName("Main Window")
         window.contentView = NSHostingView(rootView: contentView)
         window.makeKeyAndOrderFront(nil)
+        
+        self.addINDIServer(at: "localhost", port: 7624)
     }
     
     func addINDIServer(at host: String, port: Int) {
-        
+        let indiClient = BasicINDIClient(delegate: self)
+        do {
+            try indiClient.setServer(at: host, port: port)
+            clients.append(indiClient)
+            try indiClient.connect()
+        } catch {
+            print(error)
+        }
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
-        // Insert code here to tear down your application
+        for client in clients {
+            client.disconnect()
+        }
     }
 
-
+    // MARK: - INDI Delegate
+    func willConnect(_ client: BasicINDIClient, to server: String, port: Int) {
+        print("Will connect \(client)")
+    }
+    
+    func didConnect(_ client: BasicINDIClient, to server: String, port: Int) {
+        print("Did connect \(client)")
+    }
+    
+    func willDisconnect(_ client: BasicINDIClient, from server: String, port: Int) {
+        print("Will disconnect \(client)")
+    }
+    
+    func didDisconnect(_ client: BasicINDIClient, from server: String, port: Int) {
+        print("Did disconnect \(client)")
+    }
 }
 

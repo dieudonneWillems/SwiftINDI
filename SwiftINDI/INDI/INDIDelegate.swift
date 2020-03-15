@@ -8,6 +8,7 @@
 
 import Foundation
 
+
 /**
  * This protocol defines the interface for creating an `INDIDelegate`. Instances will recieve events such as connecting or disconnecting devices,
  * changes to the state of a device (changes of INDI properties), or when data is recieved.
@@ -68,5 +69,19 @@ public protocol INDIDelegate {
      * - Parameter port: The port at which the client was connected to the server.
      */
     func didDisconnect(_ client: BasicINDIClient, from server: String, port: Int)
+    
+    
+    // MARK: - Recieving data from the INDI server
+    
+    /**
+     * This function is called when an INDI client recieves data from the INDI server. The recieved data is
+     * in XML form. It provides access to raw INDI XML data.
+     * - Parameter client: The `BasicINDIClient` which was disconnected from the server.
+     * - Parameter size: The number of bytes recieved.
+     * - Parameter xml: The XML string that was recieved.
+     * - Parameter server: The server address (host) .
+     * - Parameter port: The port at which the client was connected to the server.
+     */
+    func recievedData(_ client: BasicINDIClient, size: Int, xml: String, from server: String, port: Int)
     
 }

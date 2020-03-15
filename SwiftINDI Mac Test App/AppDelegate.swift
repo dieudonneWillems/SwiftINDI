@@ -53,6 +53,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, INDIDelegate {
 
     // MARK: - INDI Delegate
     
+    func recievedData(_ client: BasicINDIClient, size: Int, xml: String, from server: String, port: Int) {
+        print("Recieved data from the INDI server of size \(size):\n\(xml)")
+    }
+    
     func encounteredINDIError(_ client: BasicINDIClient, error: Error, message: String) {
         print("Error encountered: \(message) => \(error)")
     }

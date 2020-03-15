@@ -17,9 +17,9 @@
 		020D2D6D241CE95F00A97EA5 /* INDIDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020D2D6C241CE95F00A97EA5 /* INDIDelegate.swift */; };
 		020D2D6F241CF3D500A97EA5 /* INDIDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020D2D6E241CF3D500A97EA5 /* INDIDevice.swift */; };
 		020D2D72241D668800A97EA5 /* INDIProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020D2D71241D668800A97EA5 /* INDIProperty.swift */; };
+		0253D271241E53B3001C5ED4 /* SwiftyXMLParser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 029BBCFE241D90E0004E60E4 /* SwiftyXMLParser.framework */; };
+		0253D272241E53B3001C5ED4 /* SwiftyXMLParser.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 029BBCFE241D90E0004E60E4 /* SwiftyXMLParser.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		029BBD02241D93EA004E60E4 /* INDIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029BBD01241D93EA004E60E4 /* INDIError.swift */; };
-		029BBD03241D9AAD004E60E4 /* SwiftyXMLParser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 029BBCFE241D90E0004E60E4 /* SwiftyXMLParser.framework */; };
-		029BBD04241D9AAD004E60E4 /* SwiftyXMLParser.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 029BBCFE241D90E0004E60E4 /* SwiftyXMLParser.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		02A9EDC424184AC100484226 /* SwiftINDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02A9EDBA24184AC100484226 /* SwiftINDI.framework */; };
 		02A9EDC924184AC100484226 /* SwiftINDITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A9EDC824184AC100484226 /* SwiftINDITests.swift */; };
 		02A9EDCB24184AC100484226 /* SwiftINDI.h in Headers */ = {isa = PBXBuildFile; fileRef = 02A9EDBD24184AC100484226 /* SwiftINDI.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -64,7 +64,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				02A9EDEB2419A1F200484226 /* SwiftSocket.framework in Embed Frameworks */,
-				029BBD04241D9AAD004E60E4 /* SwiftyXMLParser.framework in Embed Frameworks */,
+				0253D272241E53B3001C5ED4 /* SwiftyXMLParser.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -109,7 +109,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				02A9EDEA2419A1F200484226 /* SwiftSocket.framework in Frameworks */,
-				029BBD03241D9AAD004E60E4 /* SwiftyXMLParser.framework in Frameworks */,
+				0253D271241E53B3001C5ED4 /* SwiftyXMLParser.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -435,6 +435,10 @@
 				DEVELOPMENT_TEAM = J2S9726G2L;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = "SwiftINDI Mac Test App/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -459,6 +463,10 @@
 				DEVELOPMENT_TEAM = J2S9726G2L;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = "SwiftINDI Mac Test App/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

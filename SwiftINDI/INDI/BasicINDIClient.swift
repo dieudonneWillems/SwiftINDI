@@ -178,22 +178,14 @@ public class BasicINDIClient : CustomStringConvertible {
         return
     }
     
+    /**
+     * Sends a string message to the INDI server.
+     * - Parameter message: The message to be send.
+     */
     private func send(message: String) {
         switch tcpClient!.send(string: message) {
             case .success:
                 sleep(1)
-                /*
-                guard let data = tcpClient!.read(1024*10) else {
-                    print("Did not recieve data")
-                    let message = "No data was recieved from the INDI server."
-                    let error = INDIError.connectionError(message: message)
-                    self.delegate?.encounteredINDIError(self, error: error, message: message)
-                    return
-                }
-                print("received data")
-                if let response = String(bytes: data, encoding: .utf8) {
-                  print("******** RESPONSE ********\n\(response)")
-                } */
             case .failure(let error):
                 let message = "An error occurred when data was send to the INDI server."
                 let indierror = INDIError.connectionError(message: message, causedBy: error)
@@ -201,15 +193,37 @@ public class BasicINDIClient : CustomStringConvertible {
         }
     }
     
+    /**
+     * Listen for incomming trafic.
+     */
     private func listen() {
         DispatchQueue.global(qos: .background).async { // Start new background thread
             print("Started listening")
             while self.connected {
-                guard let d = self.tcpClient!.read(1, timeout: 1) else { continue }
-                
-                let c = String(bytes: d, encoding: .utf8)
-                print("\(c)")
-                // TODO: Create XML from characters
+                //print("-- \(Date())")
+                guard let d = self.tcpClient!.read(65536, timeout: 1) else { continue }
+                let response = String(bytes: d, encoding: .utf8)
+                //print("\(response!)  \(Date())  \(d.count)b")
+                if response != nil {
+                    do {
+                        let xml = try self.parseResponse(response!)
+                        DispatchQueue.main.async {
+                            self.delegate?.recievedData(self, size: d.count, xml: response!, from: self.server!, port: self.port)
+                        }
+                    } catch {
+                        DispatchQueue.main.async {
+                            let message = "An error occurred when parsing the data to XML.\n\(response!)"
+                            let indierror = INDIError.connectionError(message: message, causedBy: error)
+                            self.delegate?.encounteredINDIError(self, error: indierror, message: message)
+                        }
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        let message = "The response from the INDI server was empty."
+                        let indierror = INDIError.connectionError(message: message)
+                        self.delegate?.encounteredINDIError(self, error: indierror, message: message)
+                    }
+                }
             }
             print("Stopped listening")
         }

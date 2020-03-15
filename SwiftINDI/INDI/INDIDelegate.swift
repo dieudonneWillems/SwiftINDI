@@ -14,7 +14,15 @@ import Foundation
  */
 public protocol INDIDelegate {
     
-    // MARK: - Connecting and Disconnecting from an INDI server
+    // MARK: - Errors and warnings
+    
+    /**
+     * This function is called when an error occurred in the INDI client.
+     * - Parameter client: The `BasicINDIClient`.
+     * - Parameter error: The error that ocurred.
+     * - Parameter message: A human readable message explaining the error that ocurred.
+     */
+    func encounteredINDIError(_ client: BasicINDIClient, error: Error, message: String)
     
     /**
      * This function is called when a connection request was ignored. This may happen when a connection attempt i
@@ -25,6 +33,9 @@ public protocol INDIDelegate {
      * - Parameter message: A human readable message explaining while the request was ignored.
      */
     func connectionRequestIgnored(_ client: BasicINDIClient, to server: String?, port: Int, message: String)
+    
+    
+    // MARK: - Connecting and Disconnecting from an INDI server
     
     /**
      * This function is called when an INDI client is about to be connected to the specified server.

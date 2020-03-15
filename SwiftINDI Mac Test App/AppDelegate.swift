@@ -39,7 +39,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, INDIDelegate {
         do {
             try indiClient.setServer(at: host, port: port)
             clients.append(indiClient)
-            try indiClient.connect()
+            indiClient.connect()
         } catch {
             print(error)
         }
@@ -53,6 +53,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, INDIDelegate {
 
     // MARK: - INDI Delegate
     
+    func encounteredINDIError(_ client: BasicINDIClient, error: Error, message: String) {
+        print("Error encountered: \(message) => \(error)")
+    }
     
     func connectionRequestIgnored(_ client: BasicINDIClient, to server: String?, port: Int, message: String) {
         print("Connection request ignored: \(message)")

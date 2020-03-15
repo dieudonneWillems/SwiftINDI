@@ -115,27 +115,35 @@ public class BasicINDIClient : CustomStringConvertible {
      * `setSetver(at host: String, port: Int = 7642)`.
      * When the server has not yet been specified
      * or when the connection cannot be established, an error will be thrown.
-     *
-     * - Throws: An error is thrown when the client is already connected, the server has not been
-     * specified, or when the connection could not be established.
      */
-    public func connect() throws {
+    public func connect() {
         if connected {
             delegate?.connectionRequestIgnored(self, to: server, port: port, message: "The INDI client was already connected to the INDI server.")
             return
         }
         if server == nil {
-            throw INDIError.connectionError(message: "No INDI server was defined, no connection could be made therefore.")
+            let message = "No INDI server was defined, no connection could be made therefore."
+            let error = INDIError.connectionError(message: message)
+            self.delegate?.encounteredINDIError(self, error: error, message: message)
         }
         delegate?.willConnect(self, to: server!, port: port)
         self.tcpClient = TCPClient(address: self.server!, port: Int32(port))
-        switch tcpClient!.connect(timeout: 1) {
-            case .success:
-                self.connected = true
-                delegate?.didConnect(self, to: server!, port: port)
-                try self.getDevices()
-            case .failure(let error):
-                throw INDIError.connectionError(message: "No connection to the INDI server at \(server!) and port \(port) could be established.", causedBy: error)
+        DispatchQueue.global(qos: .utility).async { // Start new utility thread
+            switch self.tcpClient!.connect(timeout: 1) {
+                case .success:
+                    self.connected = true
+                    DispatchQueue.main.async {
+                        self.delegate?.didConnect(self, to: self.server!, port: self.port)
+                        self.listen()
+                        self.getDevices()
+                    }
+                case .failure(let error):
+                    DispatchQueue.main.async {
+                        let message = "No connection to the INDI server at \(self.server!) and port \(self.port) could be established."
+                        let error = INDIError.connectionError(message: message, causedBy: error)
+                        self.delegate?.encounteredINDIError(self, error: error, message: message)
+                    }
+            }
         }
     }
     
@@ -160,25 +168,51 @@ public class BasicINDIClient : CustomStringConvertible {
      * Requests the list of devices from the INDI server. When devices are found,
      * events will be forwarded to the delegate.
      */
-    private func getDevices() throws {
+    private func getDevices() {
         if !connected || tcpClient == nil {
-            throw INDIError.connectionError(message: "The INDI server is not connected.")
+            let message = "The INDI server is not connected."
+            let error = INDIError.connectionError(message: message)
+            self.delegate?.encounteredINDIError(self, error: error, message: message)
         }
-        switch tcpClient!.send(string: "<getProperties version=\"1.7\"/>" ) {
+        send(message: "<getProperties version=\"1.7\"/>")
+        return
+    }
+    
+    private func send(message: String) {
+        switch tcpClient!.send(string: message) {
             case .success:
                 sleep(1)
+                /*
                 guard let data = tcpClient!.read(1024*10) else {
                     print("Did not recieve data")
-                    throw INDIError.connectionError(message: "No data was recieved from the INDI server.")
+                    let message = "No data was recieved from the INDI server."
+                    let error = INDIError.connectionError(message: message)
+                    self.delegate?.encounteredINDIError(self, error: error, message: message)
+                    return
                 }
                 print("received data")
                 if let response = String(bytes: data, encoding: .utf8) {
                   print("******** RESPONSE ********\n\(response)")
-                }
+                } */
             case .failure(let error):
-                throw INDIError.connectionError(message: "An error occurred when data was send to the INDI server.", causedBy: error)
+                let message = "An error occurred when data was send to the INDI server."
+                let indierror = INDIError.connectionError(message: message, causedBy: error)
+                self.delegate?.encounteredINDIError(self, error: indierror, message: message)
         }
-        return
+    }
+    
+    private func listen() {
+        DispatchQueue.global(qos: .background).async { // Start new background thread
+            print("Started listening")
+            while self.connected {
+                guard let d = self.tcpClient!.read(1, timeout: 1) else { continue }
+                
+                let c = String(bytes: d, encoding: .utf8)
+                print("\(c)")
+                // TODO: Create XML from characters
+            }
+            print("Stopped listening")
+        }
     }
     
     /**

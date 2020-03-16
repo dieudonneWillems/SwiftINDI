@@ -8,7 +8,6 @@
 
 import Foundation
 import SwiftSocket
-import SwiftyXMLParser
 
 /**
  * This class represents the basic INDI client providing low level (INDI) communication with an INDI server instance.
@@ -205,13 +204,11 @@ public class BasicINDIClient : CustomStringConvertible {
                 let response = String(bytes: d, encoding: .utf8)
                 //print("\(response!)  \(Date())  \(d.count)b")
                 if response != nil {
-                    do {
-                        let xml = try self.parseResponse(response!)
-                        DispatchQueue.main.async {
+                    DispatchQueue.main.async {
+                        do {
+                            try self.parseResponse(response!)
                             self.delegate?.recievedData(self, size: d.count, xml: response!, from: self.server!, port: self.port)
-                        }
-                    } catch {
-                        DispatchQueue.main.async {
+                        } catch {
                             let message = "An error occurred when parsing the data to XML.\n\(response!)"
                             let indierror = INDIError.connectionError(message: message, causedBy: error)
                             self.delegate?.encounteredINDIError(self, error: indierror, message: message)
@@ -235,8 +232,37 @@ public class BasicINDIClient : CustomStringConvertible {
      * - Parameter response: The response string recieved from the INDI server.
      * - Returns: The root element of the XML.
      */
-    private func parseResponse(_ response : String) throws -> XML.Accessor {
-        let xml = try XML.parse(response)
-        return xml
+    private func parseResponse(_ response : String) throws {
+        let xmlParser = XMLParser(data: response.data(using: .utf8)!)
+        let parserDelegate = INDIXMLParserDelegate()
+        xmlParser.delegate = parserDelegate
+        xmlParser.parse()
+    }
+}
+
+class INDIXMLParserDelegate : NSObject, XMLParserDelegate {
+    
+    func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
+        print("Start Element:  \(elementName)")
+    }
+
+    func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
+        print("End Element:  \(elementName)")
+    }
+    
+    func parser(_ parser: XMLParser, parseErrorOccurred parseError: Error) {
+        print("XML Parse Error:  \(parseError)")
+    }
+    
+    func parser(_ parser: XMLParser, validationErrorOccurred validationError: Error) {
+        print("XML Validation Error:  \(validationError)")
+    }
+    
+    func parser(_ parser: XMLParser, foundCharacters string: String) {
+        print("Found Characters:  \(string)")
+    }
+    
+    func parser(_ parser: XMLParser, foundCDATA CDATABlock: Data) {
+        print("Found CDATA:  \(CDATABlock)")
     }
 }

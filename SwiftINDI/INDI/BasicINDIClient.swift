@@ -237,6 +237,10 @@ public class BasicINDIClient : CustomStringConvertible {
         }
     }
     
+    /**
+     * Parses a (part of) a response from the INDI server XML in the main thread.
+     * - Parameter response: The response string.
+     */
     private func parseResponseAndCreateEvents(response: String) {
         DispatchQueue.main.async {
             do {
@@ -270,17 +274,50 @@ public class BasicINDIClient : CustomStringConvertible {
     }
 }
 
+/**
+ * Defines the different node types in our DOM model.
+ */
 fileprivate enum NodeType {
+    
+    /**
+     * An element node with possible attributes and sub-nodes.
+     */
     case elementNode
+    
+    /**
+     * A text node containing a string.
+     */
     case textNode
+    
+    /**
+     * A CData node containing binary data.
+     */
     case CDATANode
 }
 
+/**
+ * The SAX parser delegate that recieves the SAX events and creates a DOM mode.
+ */
 fileprivate class INDIXMLParserDelegate : NSObject, XMLParserDelegate {
     
+    /**
+     * The root element.
+     */
     var element : INDINode? = nil
+    
+    /**
+     * The current element being processed.
+     */
     var currentElement : INDINode? = nil
     
+    /**
+     * Called when a new element is started in the XML SAX stream.
+     *  - Parameter parser: The XML SAX parser.
+     *  - Parameter elementName: The name of the element.
+     *  - Parameter namespaceURI: The URI of the namespace.
+     *  - Parameter qName: The qualified name of the element.
+     *  - Parameter attributeDict: The attributes in a dictionary containing the name as the key, and the value as the value.
+     */
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
         print("Start Element:  \(elementName)")
         currentElement = INDINode(elementName: elementName, attributes: attributeDict, parentElement: currentElement)
@@ -289,41 +326,104 @@ fileprivate class INDIXMLParserDelegate : NSObject, XMLParserDelegate {
         }
     }
 
+    /**
+     * Called when an element is done in the XML SAX stream.
+     *  - Parameter parser: The XML SAX parser.
+     *  - Parameter elementName: The name of the element.
+     *  - Parameter namespaceURI: The URI of the namespace.
+     *  - Parameter qName: The qualified name of the element.
+     */
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         print("End Element:  \(elementName)")
         currentElement = currentElement?.parentElement
     }
     
+    /**
+     * Called when a parser error occurred.
+     *  - Parameter parser: The XML SAX parser.
+     *  - Parameter parseError: The error.
+     */
     func parser(_ parser: XMLParser, parseErrorOccurred parseError: Error) {
         print("XML Parse Error:  \(parseError)")
     }
     
+    /**
+     * Called when a validation error occurred.
+     *  - Parameter parser: The XML SAX parser.
+     *  - Parameter validationError: The error.
+     */
     func parser(_ parser: XMLParser, validationErrorOccurred validationError: Error) {
         print("XML Validation Error:  \(validationError)")
     }
     
+    /**
+     * Called when characters are found in the XML SAX stream.
+     *  - Parameter parser: The XML SAX parser.
+     *  - Parameter string: The characters.
+     */
     func parser(_ parser: XMLParser, foundCharacters string: String) {
         print("Found Characters:  \(string)")
         let _ = INDINode(text: string, parentElement: currentElement)
     }
     
+    /**
+     * Called when data are found in the XML SAX stream.
+     *  - Parameter parser: The XML SAX parser.
+     *  - Parameter CDATABlock: The binary data.
+     */
     func parser(_ parser: XMLParser, foundCDATA CDATABlock: Data) {
         print("Found CDATA:  \(CDATABlock)")
         let _ = INDINode(cdata: CDATABlock, parentElement: currentElement)
     }
 }
 
+/**
+ * Represents an XML node (DOM).
+ */
 fileprivate class INDINode : CustomStringConvertible {
     
+    /**
+     * The name of the element, or `nil` if the node is a text or data node.
+     */
     var name: String? = nil
+    
+    /**
+     * The type of the node.
+     */
     let nodeType : NodeType
+    
+    /**
+     * The text in a text node, or `nil` if the node is not a text node.
+     */
     var text: String? = nil
+    
+    /**
+     * The data in a data node, or `nil` if the node is not a data node.
+     */
     var cdata: Data? = nil
+    
+    /**
+     * The attributes of the element node, or `nil` if the node is not an element node.
+     */
     var attributes: [String: String]? = nil
     
+    /**
+     * The child nodes of the element in the order they occurred in the SAX stream.
+     * These nodes can be other element nodes or text or data nodes.
+     */
     var childNodes: [INDINode]? = nil
+    
+    /**
+     * The parent element node of the current node.
+     */
     var parentElement: INDINode? = nil
     
+    /**
+     * Creates a new element node with the specified name and attributes as a child element of the specified parent element.
+     * - Parameter elementName: The name of the element.
+     * - Parameter attributes: The attributes of the element node.
+     * - Parameter parentElement: The parent element.
+     */
     init(elementName: String, attributes: [String: String], parentElement: INDINode?) {
         self.name = elementName
         self.attributes = attributes
@@ -333,6 +433,11 @@ fileprivate class INDINode : CustomStringConvertible {
         self.parentElement?.childNodes?.append(self)
     }
     
+    /**
+     * Creates a new text node as a child node of the specified parent element node.
+     * - Parameter text: The text contained in the text node.
+     * - Parameter parentElement: The parent element.
+     */
     init(text: String, parentElement: INDINode?) {
         self.text = text.trimmingCharacters(in: .whitespacesAndNewlines)
         self.nodeType = .textNode
@@ -340,6 +445,11 @@ fileprivate class INDINode : CustomStringConvertible {
         self.parentElement?.childNodes?.append(self)
     }
     
+    /**
+     * Creates a new data node as a child node of the specified parent element node.
+     * - Parameter cdata: The data contained in the date node.
+     * - Parameter parentElement: The parent element.
+     */
     init(cdata: Data, parentElement: INDINode?) {
         self.cdata = cdata
         self.nodeType = .CDATANode
@@ -347,7 +457,12 @@ fileprivate class INDINode : CustomStringConvertible {
         self.parentElement?.childNodes?.append(self)
     }
     
-    func descriptionString(depth: Int) -> String {
+    /**
+     * Creates a string describing this node indented with `depth` tab characters.
+     * - Parameter depth: The depth of the element from the root element determines the indentation.
+     * - Returns: The description string.
+     */
+    private func descriptionString(depth: Int) -> String {
         var tabs : String = ""
         for _ in 0...depth {
             tabs = tabs + "\t"
@@ -372,6 +487,9 @@ fileprivate class INDINode : CustomStringConvertible {
         return string
     }
     
+    /**
+     * Returns a string describing the node.
+     */
     var description: String {
         return self.descriptionString(depth: 0)
     }

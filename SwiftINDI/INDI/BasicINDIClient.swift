@@ -12,7 +12,7 @@ import SwiftSocket
 /**
  * This class represents the basic INDI client providing low level (INDI) communication with an INDI server instance.
  *
- * Before connecting a client to a server, the server needs first to be specified using the function `setSetver(at host: String, port: Int = 7642)`.
+ * Before connecting a client to a server, the server needs first to be specified using the function `setServer(at host: String, port: Int = 7642)`.
  * The client can then establish a TCP connection using the function `connect()`. To disconnect use the function `disconnect()`.
  */
 public class BasicINDIClient : CustomStringConvertible {
@@ -30,7 +30,7 @@ public class BasicINDIClient : CustomStringConvertible {
      * The server port to which the client is connected (default is 7642).
      *
      * To specify the server and the port to be used, use the function
-     * `setSetver(at host: String, port: Int = 7642)`.
+     * `setServer(at host: String, port: Int = 7642)`.
      */
     public private(set) var port : Int = 7624
     
@@ -70,7 +70,7 @@ public class BasicINDIClient : CustomStringConvertible {
      *
      * No delegate is specified for the client (use the property`delegate: INDIDelegate`) to set the delegate.
      * After initialisation no server has been defined with which the client should connect. Use
-     * `setSetver(at host: String, port: Int = 7642)` to specify the server and port.
+     * `setServer(at host: String, port: Int = 7642)` to specify the server and port.
      */
     public init() {
     }
@@ -111,7 +111,7 @@ public class BasicINDIClient : CustomStringConvertible {
      * Connects the client to the INDI server (establishes a TCP connection with the server).
      *
      * To be able to connect to a server, the server first needs to be specified using the function
-     * `setSetver(at host: String, port: Int = 7642)`.
+     * `setServer(at host: String, port: Int = 7642)`.
      * When the server has not yet been specified
      * or when the connection cannot be established, an error will be thrown.
      */
@@ -198,31 +198,58 @@ public class BasicINDIClient : CustomStringConvertible {
     private func listen() {
         DispatchQueue.global(qos: .background).async { // Start new background thread
             print("Started listening")
+            var current = "" // Current element to be parsed where characters are added to the stream
+            var nodeDepth = 0 // The depth of the element. Elements are returned (current) when the element at depth 0 is closed.
+            var lastc = "" // The previous character added.
+            var nodeBeingClosed = false // Is true when the element is being closed, "</" was encountered.
             while self.connected {
                 //print("-- \(Date())")
-                guard let d = self.tcpClient!.read(65536, timeout: 1) else { continue }
-                let response = String(bytes: d, encoding: .utf8)
-                //print("\(response!)  \(Date())  \(d.count)b")
-                if response != nil {
-                    DispatchQueue.main.async {
-                        do {
-                            try self.parseResponse(response!)
-                            self.delegate?.recievedData(self, size: d.count, xml: response!, from: self.server!, port: self.port)
-                        } catch {
-                            let message = "An error occurred when parsing the data to XML.\n\(response!)"
-                            let indierror = INDIError.connectionError(message: message, causedBy: error)
-                            self.delegate?.encounteredINDIError(self, error: indierror, message: message)
-                        }
+                guard let d = self.tcpClient!.read(1, timeout: 1) else { continue }
+                let c = String(bytes: d, encoding: .utf8) // Current character.
+                if c != nil {
+                    current += c!
+                    if lastc == "<" && c != "/" {  // Start new element
+                        nodeDepth = nodeDepth + 1
+                    } else if lastc == "/" && c == ">" {  // End current element
+                        nodeDepth = nodeDepth - 1
+                    } else if lastc == "<" && c == "/" { // Element starts with </, when this is closed with ">", the element will be closed.
+                        nodeBeingClosed = true
+                    } else if c == ">" && nodeBeingClosed { // Element line started with </ means that ">" closed the node.
+                        nodeBeingClosed = false
+                        nodeDepth = nodeDepth - 1
                     }
-                } else {
-                    DispatchQueue.main.async {
-                        let message = "The response from the INDI server was empty."
-                        let indierror = INDIError.connectionError(message: message)
-                        self.delegate?.encounteredINDIError(self, error: indierror, message: message)
+                    
+                    lastc = c!
+                    if nodeDepth == 0 {  // Root element has been found
+                        let response = current.trimmingCharacters(in: .whitespacesAndNewlines)
+                        print("response=\n\(response)")
+                        if response.count > 3 {
+                            // TODO: parse response element and create events
+                            current = ""
+                            lastc = ""
+                            nodeBeingClosed = false
+                            self.parseResponseAndCreateEvents(response: response)
+                        }
                     }
                 }
             }
             print("Stopped listening")
+        }
+    }
+    
+    private func parseResponseAndCreateEvents(response: String) {
+        DispatchQueue.main.async {
+            do {
+                print("\n\n-----------------------------------------------------")
+                print(response)
+                print("-----------------------------------------------------")
+                try self.parseResponse(response)
+                self.delegate?.recievedData(self, size: response.count, xml: response, from: self.server!, port: self.port)
+            } catch {
+                let message = "An error occurred when parsing the data to XML.\n\(response)"
+                let indierror = INDIError.connectionError(message: message, causedBy: error)
+                self.delegate?.encounteredINDIError(self, error: indierror, message: message)
+            }
         }
     }
     
@@ -233,21 +260,38 @@ public class BasicINDIClient : CustomStringConvertible {
      * - Returns: The root element of the XML.
      */
     private func parseResponse(_ response : String) throws {
-        let xmlParser = XMLParser(data: response.data(using: .utf8)!)
+        let xmlParser = XMLParser(data: response.trimmingCharacters(in: .whitespacesAndNewlines).data(using: .utf8)!)
         let parserDelegate = INDIXMLParserDelegate()
         xmlParser.delegate = parserDelegate
         xmlParser.parse()
+        if parserDelegate.element != nil {
+            print("\(parserDelegate.element!)")
+        }
     }
 }
 
-class INDIXMLParserDelegate : NSObject, XMLParserDelegate {
+fileprivate enum NodeType {
+    case elementNode
+    case textNode
+    case CDATANode
+}
+
+fileprivate class INDIXMLParserDelegate : NSObject, XMLParserDelegate {
+    
+    var element : INDINode? = nil
+    var currentElement : INDINode? = nil
     
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
         print("Start Element:  \(elementName)")
+        currentElement = INDINode(elementName: elementName, attributes: attributeDict, parentElement: currentElement)
+        if currentElement?.parentElement == nil {
+            element = currentElement
+        }
     }
 
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         print("End Element:  \(elementName)")
+        currentElement = currentElement?.parentElement
     }
     
     func parser(_ parser: XMLParser, parseErrorOccurred parseError: Error) {
@@ -260,9 +304,76 @@ class INDIXMLParserDelegate : NSObject, XMLParserDelegate {
     
     func parser(_ parser: XMLParser, foundCharacters string: String) {
         print("Found Characters:  \(string)")
+        let _ = INDINode(text: string, parentElement: currentElement)
     }
     
     func parser(_ parser: XMLParser, foundCDATA CDATABlock: Data) {
         print("Found CDATA:  \(CDATABlock)")
+        let _ = INDINode(cdata: CDATABlock, parentElement: currentElement)
     }
 }
+
+fileprivate class INDINode : CustomStringConvertible {
+    
+    var name: String? = nil
+    let nodeType : NodeType
+    var text: String? = nil
+    var cdata: Data? = nil
+    var attributes: [String: String]? = nil
+    
+    var childNodes: [INDINode]? = nil
+    var parentElement: INDINode? = nil
+    
+    init(elementName: String, attributes: [String: String], parentElement: INDINode?) {
+        self.name = elementName
+        self.attributes = attributes
+        self.nodeType = .elementNode
+        self.childNodes = [INDINode]()
+        self.parentElement = parentElement
+        self.parentElement?.childNodes?.append(self)
+    }
+    
+    init(text: String, parentElement: INDINode?) {
+        self.text = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        self.nodeType = .textNode
+        self.parentElement = parentElement
+        self.parentElement?.childNodes?.append(self)
+    }
+    
+    init(cdata: Data, parentElement: INDINode?) {
+        self.cdata = cdata
+        self.nodeType = .CDATANode
+        self.parentElement = parentElement
+        self.parentElement?.childNodes?.append(self)
+    }
+    
+    func descriptionString(depth: Int) -> String {
+        var tabs : String = ""
+        for _ in 0...depth {
+            tabs = tabs + "\t"
+        }
+        var string = ""
+        switch nodeType {
+        case .elementNode:
+            string = string + tabs + "[ELEMENT] \(name!)\n"
+            for key in self.attributes!.keys {
+                string = string + tabs + "\t\t\(key) = \(self.attributes![key]!)\n"
+            }
+        case .textNode:
+            string = string + tabs + "\t[TEXT]  \(text!)\n"
+        case .CDATANode:
+            string = string + tabs + "\t[CDATA] \n"
+        }
+        if self.childNodes != nil {
+            for child in self.childNodes! {
+                string += child.descriptionString(depth: depth + 1)
+            }
+        }
+        return string
+    }
+    
+    var description: String {
+        return self.descriptionString(depth: 0)
+    }
+}
+

@@ -31,7 +31,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, INDIDelegate {
         window.contentView = NSHostingView(rootView: contentView)
         window.makeKeyAndOrderFront(nil)
         
-        self.addINDIServer(at: "localhost", port: 7624)
+        self.addINDIServer(at: "revisionist.local", port: 7624)
     }
     
     func addINDIServer(at host: String, port: Int) {

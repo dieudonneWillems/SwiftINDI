@@ -17,6 +17,8 @@
 		020D2D6D241CE95F00A97EA5 /* INDIDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020D2D6C241CE95F00A97EA5 /* INDIDelegate.swift */; };
 		020D2D6F241CF3D500A97EA5 /* INDIDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020D2D6E241CF3D500A97EA5 /* INDIDevice.swift */; };
 		020D2D72241D668800A97EA5 /* INDIProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020D2D71241D668800A97EA5 /* INDIProperty.swift */; };
+		020FE5E624226A6E00427BE6 /* INDITextProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020FE5E524226A6E00427BE6 /* INDITextProperty.swift */; };
+		020FE5E824226AD700427BE6 /* INDIDefaultProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020FE5E724226AD700427BE6 /* INDIDefaultProperty.swift */; };
 		029BBD02241D93EA004E60E4 /* INDIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029BBD01241D93EA004E60E4 /* INDIError.swift */; };
 		02A9EDC424184AC100484226 /* SwiftINDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02A9EDBA24184AC100484226 /* SwiftINDI.framework */; };
 		02A9EDC924184AC100484226 /* SwiftINDITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A9EDC824184AC100484226 /* SwiftINDITests.swift */; };
@@ -80,6 +82,8 @@
 		020D2D6C241CE95F00A97EA5 /* INDIDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = INDIDelegate.swift; sourceTree = "<group>"; };
 		020D2D6E241CF3D500A97EA5 /* INDIDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = INDIDevice.swift; sourceTree = "<group>"; };
 		020D2D71241D668800A97EA5 /* INDIProperty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = INDIProperty.swift; sourceTree = "<group>"; };
+		020FE5E524226A6E00427BE6 /* INDITextProperty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = INDITextProperty.swift; sourceTree = "<group>"; };
+		020FE5E724226AD700427BE6 /* INDIDefaultProperty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = INDIDefaultProperty.swift; sourceTree = "<group>"; };
 		029BBD01241D93EA004E60E4 /* INDIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = INDIError.swift; sourceTree = "<group>"; };
 		02A9EDBA24184AC100484226 /* SwiftINDI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftINDI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		02A9EDBD24184AC100484226 /* SwiftINDI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftINDI.h; sourceTree = "<group>"; };
@@ -153,6 +157,8 @@
 			children = (
 				020D2D6E241CF3D500A97EA5 /* INDIDevice.swift */,
 				020D2D71241D668800A97EA5 /* INDIProperty.swift */,
+				020FE5E724226AD700427BE6 /* INDIDefaultProperty.swift */,
+				020FE5E524226A6E00427BE6 /* INDITextProperty.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -375,7 +381,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				020D2D6D241CE95F00A97EA5 /* INDIDelegate.swift in Sources */,
+				020FE5E624226A6E00427BE6 /* INDITextProperty.swift in Sources */,
 				02A9EDE72418525000484226 /* BasicINDIClient.swift in Sources */,
+				020FE5E824226AD700427BE6 /* INDIDefaultProperty.swift in Sources */,
 				020D2D72241D668800A97EA5 /* INDIProperty.swift in Sources */,
 				020D2D6F241CF3D500A97EA5 /* INDIDevice.swift in Sources */,
 				029BBD02241D93EA004E60E4 /* INDIError.swift in Sources */,

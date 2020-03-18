@@ -74,7 +74,7 @@ public enum INDIPropertyState {
 
 
 /**
- * This protocol defines the intrerface of an INDI property.
+ * This protocol defines the intrerface of a vector of INDI properties.
  *
  * The different types of INDI properties need to conform to this interface, but will also
  * define their own parameters.
@@ -141,4 +141,37 @@ public protocol INDIPropertyVector {
      * A commentary (description) of the property.
      */
     var message : String? {get}
+    
+    /**
+     * The member properties of this vector.
+     */
+    var memberProperties : [INDIProperty] {get}
+}
+
+
+/**
+ * This protocol defines the intrerface of an INDI property.
+ *
+ * The different types of INDI properties need to conform to this interface, but will also
+ * define their own parameters.
+ */
+public protocol INDIProperty {
+    
+    /**
+     * The type of the INDI property (text, numeric, switch, light, or BLOB).
+     */
+    var propertyType : INDIPropertyType {get}
+    
+    /**
+     * The name of the INDI property.
+     */
+    var name : String {get}
+    
+    /**
+     * The name of the INDI property that should be used in a graphical user interface (GUI),
+     * i.e. a human readable name. If this property is not defined (i.e. is `nil`), the `name`
+     * of the INDI property should be used as the label.
+     */
+    var label : String? {get}
+    
 }

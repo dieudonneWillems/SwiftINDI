@@ -165,8 +165,18 @@ public class INDIDefaultProperty : INDIProperty {
         self.name = name
         self.label = label
         self.propertyType = type
+        self.value = nil
         if (vector as? INDIDefaultPropertyVector) != nil {
             (vector as! INDIDefaultPropertyVector)._memberProperties.append(self)
+        }
+    }
+    
+    /**
+     * The current value of the property, or `nil` if the property's value has not been set.
+     */
+    public var value: Any? {
+        willSet(newValue) {
+            // TODO: Notify client and forward to INDI server.
         }
     }
 }

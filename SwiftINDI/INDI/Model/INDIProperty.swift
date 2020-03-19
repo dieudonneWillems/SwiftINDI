@@ -174,4 +174,9 @@ public protocol INDIProperty {
      */
     var label : String? {get}
     
+    /**
+     * The current value of the property, or `nil` if the property's value has not been set.
+     */
+    var value: Any? {get set}
+    
 }

@@ -56,4 +56,15 @@ public class INDISwitchProperty : INDIDefaultProperty {
     init(_ name: String, label: String?, inPropertyVector vector: INDITextPropertyVector) {
         super.init(name, of: .switchProperty, label: label, inPropertyVector: vector)
     }
+    
+    /**
+     * The current value of the switch property, or `nil` if the property's value has not been set.
+     */
+    public var switchValue : String? {
+        get {
+            return value as? String
+        } set {
+            value = newValue
+        }
+    }
 }

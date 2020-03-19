@@ -57,4 +57,14 @@ public class INDILightProperty : INDIDefaultProperty {
     init(_ name: String, label: String?, inPropertyVector vector: INDITextPropertyVector) {
         super.init(name, of: .lightProperty, label: label, inPropertyVector: vector)
     }
+    
+    /**
+     * The current value of the light property, or `nil` if the property's value has not been set.
+     * Light properties can only be read.
+     */
+    public var lightValue : INDIPropertyState? {
+        get {
+            return value as? INDIPropertyState
+        }
+    }
 }

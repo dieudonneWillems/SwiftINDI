@@ -57,4 +57,15 @@ public class INDITextProperty : INDIDefaultProperty {
     init(_ name: String, label: String?, inPropertyVector vector: INDITextPropertyVector) {
         super.init(name, of: .textProperty, label: label, inPropertyVector: vector)
     }
+    
+    /**
+     * The current value of the text property, or `nil` if the property's value has not been set.
+     */
+    public var textValue : String? {
+        get {
+            return value as? String
+        } set {
+            value = newValue
+        }
+    }
 }

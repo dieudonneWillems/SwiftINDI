@@ -81,4 +81,15 @@ public class INDINumberProperty : INDIDefaultProperty {
         self.stepSize = stepSize
         super.init(name, of: .numberProperty, label: label, inPropertyVector: vector)
     }
+    
+    /**
+     * The current value of the number property, or `nil` if the property's value has not been set.
+     */
+    public var numberValue : Double? {
+        get {
+            return value as? Double
+        } set {
+            value = newValue
+        }
+    }
 }

@@ -57,4 +57,15 @@ public class INDIBLOBProperty : INDIDefaultProperty {
     init(_ name: String, label: String?, inPropertyVector vector: INDITextPropertyVector) {
         super.init(name, of: .BLOBProperty, label: label, inPropertyVector: vector)
     }
+    
+    /**
+     * The current value of the BLOB property, or `nil` if the property's value has not been set.
+     */
+    public var BLOBValue : Data? {
+        get {
+            return value as? Data
+        } set {
+            value = newValue
+        }
+    }
 }

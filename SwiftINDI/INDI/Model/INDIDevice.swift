@@ -13,7 +13,10 @@ import Foundation
  */
 public struct INDIDevice {
     
-    public private(set) var properties = [INDIProperty]()
+    /**
+     * A set of property vectors relevant to this device.
+     */
+    public private(set) var properties = [INDIPropertyVector]()
     
     /**
      * The name of the device.

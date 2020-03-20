@@ -36,8 +36,8 @@ public struct INDIDevice {
      * Defines a new set of values for an INDI property vector and adds it to the property set.
      * - Parameter propertyVector: The property vector to be defined.
      */
-    public func define(propertyVector: INDIPropertyVector) {
-        
+    public mutating func define(propertyVector: INDIPropertyVector) {
+        self.propertyVectors.append(propertyVector)
     }
     
     /**
@@ -46,6 +46,7 @@ public struct INDIDevice {
      *  - Returns: The property vector containing the value.
      */
     public func getPropertyVector(name : String) -> INDIPropertyVector? {
+        // TODO: Implement function
         return nil
     }
     
@@ -54,7 +55,7 @@ public struct INDIDevice {
      * - Parameter propertyVector: The property vector to be set.
      */
     public func set(propertyVector: INDIPropertyVector) {
-        
+        // TODO: Implement function
     }
     
     /**
@@ -62,7 +63,7 @@ public struct INDIDevice {
      * - Parameter propertyVector: The property vector to be deleted.
      */
     public func delete(propertyVector: INDIPropertyVector) {
-        
+        // TODO: Implement function
     }
     
     /**
@@ -70,6 +71,6 @@ public struct INDIDevice {
      * - Parameter property: The property to be deleted.
      */
     public func delete(property: INDIProperty) {
-        
+        // TODO: Implement function
     }
 }

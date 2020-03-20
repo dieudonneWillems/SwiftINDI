@@ -80,5 +80,35 @@ class AppDelegate: NSObject, NSApplicationDelegate, INDIDelegate {
     func didDisconnect(_ client: BasicINDIClient, from server: String, port: Int) {
         print("Did disconnect \(client)")
     }
+    
+    /**
+     * Called when a new device was defined (created) in the client as a result of a response from the INDI server.
+     * - Parameter client: The `BasicINDIClient` which was disconnected from the server.
+     * - Parameter device: The device that was defined.
+     */
+    func deviceDefined(_ client: BasicINDIClient, device: INDIDevice) {
+        print("A device with name '\(device.name)' was defined")
+    }
+    
+    /**
+     * Called when a new property vector was defined (created) in the client as a result of a response from the INDI server.
+     * - Parameter client: The `BasicINDIClient` which was disconnected from the server.
+     * - Parameter device: The device for which a property vector was defined.
+     * - Parameter propertyVector: The property vector that was defined.
+     */
+    func propertyVectorDefined(_ client: BasicINDIClient, device: INDIDevice, propertyVector: INDIPropertyVector) {
+        print("A property vector with name '\(propertyVector.name)' was defined for device '\(device.name)'")
+    }
+    
+    /**
+     * Called when a new property was defined (created) in the client as a result of a response from the INDI server.
+     * - Parameter client: The `BasicINDIClient` which was disconnected from the server.
+     * - Parameter device: The device for which a property vector was defined.
+     * - Parameter propertyVector: The property vector of which the newly defined property is a member.
+     * - Parameter property: The property that was defined.
+     */
+    func propertyDefined(_ client: BasicINDIClient, device: INDIDevice, propertyVector: INDIPropertyVector, property: INDIProperty) {
+        print("A property with name '\(property.name)' as a member of vector '\(propertyVector.name)' was defined for device '\(device.name)'")
+    }
 }
 

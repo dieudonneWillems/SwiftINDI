@@ -18,6 +18,16 @@ import SwiftSocket
 public class BasicINDIClient : CustomStringConvertible {
     
     /**
+     * The ISO 8601 Date formatter to parse timestamps.
+     */
+    private static func iso8601() -> DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        formatter.timeZone = TimeZone(secondsFromGMT: 0)
+        return formatter
+    }
+    
+    /**
      * The server adress (host) to which the client can be connected.
      *
      * This value can be `nil` when the server has not been specified yet. To specify
@@ -50,6 +60,11 @@ public class BasicINDIClient : CustomStringConvertible {
      * The TCP connection socket to the server.
      */
     private var tcpClient : TCPClient? = nil
+    
+    /**
+     * A list of devices (INDI drivers) loaded by the INDI server.
+     */
+    public private(set) var devices = [String : INDIDevice]()
     
     /**
      * Returns a string representation describing the client.
@@ -87,6 +102,8 @@ public class BasicINDIClient : CustomStringConvertible {
     public init(delegate: INDIDelegate) {
         self.delegate = delegate
     }
+    
+    // MARK: - Connecting to the INDI server
     
     /**
      * Sets the server (host) and port to which the client can connect. You will need to use this function to
@@ -134,7 +151,7 @@ public class BasicINDIClient : CustomStringConvertible {
                     DispatchQueue.main.async {
                         self.delegate?.didConnect(self, to: self.server!, port: self.port)
                         self.listen()
-                        self.getDevices()
+                        self.loadDevices()
                     }
                 case .failure(let error):
                     DispatchQueue.main.async {
@@ -164,10 +181,10 @@ public class BasicINDIClient : CustomStringConvertible {
     }
     
     /**
-     * Requests the list of devices from the INDI server. When devices are found,
+     * Requests the list of devices and properties from the INDI server. When devices or properties are found,
      * events will be forwarded to the delegate.
      */
-    private func getDevices() {
+    private func loadDevices() {
         if !connected || tcpClient == nil {
             let message = "The INDI server is not connected."
             let error = INDIError.connectionError(message: message)
@@ -224,7 +241,6 @@ public class BasicINDIClient : CustomStringConvertible {
                         let response = current.trimmingCharacters(in: .whitespacesAndNewlines)
                         print("response=\n\(response)")
                         if response.count > 3 {
-                            // TODO: parse response element and create events
                             current = ""
                             lastc = ""
                             nodeBeingClosed = false
@@ -236,6 +252,8 @@ public class BasicINDIClient : CustomStringConvertible {
             print("Stopped listening")
         }
     }
+    
+    // MARK: - Parsing XML responses from the INDI server
     
     /**
      * Parses a (part of) a response from the INDI server XML in the main thread.
@@ -270,9 +288,91 @@ public class BasicINDIClient : CustomStringConvertible {
         xmlParser.parse()
         if parserDelegate.element != nil {
             print("\(parserDelegate.element!)")
+            self.interpret(node: parserDelegate.element!)
+        }
+    }
+    
+    /**
+     * Interprets the XML element and create, change, or delete devices and properties.
+     * - Parameter node: The XML node.
+     */
+    private func interpret(node: INDINode) {
+        if node.name != nil {
+            if node.name!.starts(with: "def") {
+                self.interpretDefinition(node: node)
+            } else if node.name!.starts(with: "set") {
+                
+            } else if node.name!.starts(with: "delProperty") {
+                           
+            } else if node.name!.starts(with: "one") {
+                                      
+            }
+        }
+    }
+    
+    /**
+     * Interprets a property definition.
+     * - Parameter node: The XML node.
+     */
+    private func interpretDefinition(node: INDINode) {
+        let deviceName = node.attributes!["device"]
+        let stateString = node.attributes!["state"]
+        var state : INDIPropertyState = .idle
+        switch stateString?.lowercased() {
+        case "idle":
+            state = .idle
+        case "ok":
+            state = .ok
+        case "busy":
+            state = .busy
+        case "alert":
+            state = .alert
+        default:
+            state = .idle
+        }
+        let permString = node.attributes!["perm"]
+        var readFlag = false
+        var writeFlag = false
+        if permString != nil && permString!.contains("r") {
+            readFlag = true
+        }
+        if permString != nil && permString!.contains("w") {
+            writeFlag = true
+        }
+        let timeoutString = node.attributes!["timeout"]
+        var timeout = 0
+        if timeoutString != nil {
+            let timeoutInt = Int(timeoutString!)
+            if timeoutInt != nil {
+                timeout = timeoutInt!
+            }
+        }
+        let timestampString = node.attributes!["timestamp"]
+        var timestamp : Date? = Date()
+        if timestampString != nil {
+            timestamp = BasicINDIClient.iso8601().date(from: timestampString!)
+        }
+        if deviceName != nil {
+            var device = self.devices[deviceName!]
+            if device == nil {
+                device = INDIDevice(name: deviceName!)
+                self.devices[deviceName!] = device
+                delegate?.deviceDefined(self, device: device!)
+            }
+            if node.name! == "defTextVector" {
+                let textVector = INDITextPropertyVector(node.attributes!["name"]!, device: device!, label: node.attributes!["label"], group: node.attributes!["group"], state: state, read: readFlag, write: writeFlag, timeout: timeout, timestamp: timestamp, message: node.attributes!["message"])
+                // TODO: Parse text properties (child elements)
+                device!.define(propertyVector: textVector)
+                delegate?.propertyVectorDefined(self, device: device!, propertyVector: textVector)
+            }
+            // TODO: Parse other vector types and their members.
         }
     }
 }
+
+
+// MARK: - XML parsing
+
 
 /**
  * Defines the different node types in our DOM model.

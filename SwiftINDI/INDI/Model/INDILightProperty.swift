@@ -54,7 +54,7 @@ public class INDILightProperty : INDIDefaultProperty {
      * of the INDI property should be used as the label.
      * - Parameter vector: The INDI light property vector to which this property will be added as a member.
      */
-    init(_ name: String, label: String?, inPropertyVector vector: INDITextPropertyVector) {
+    init(_ name: String, label: String?, inPropertyVector vector: INDILightPropertyVector) {
         super.init(name, of: .lightProperty, label: label, inPropertyVector: vector)
     }
     
@@ -62,9 +62,11 @@ public class INDILightProperty : INDIDefaultProperty {
      * The current value of the light property, or `nil` if the property's value has not been set.
      * Light properties can only be read.
      */
-    public var lightValue : INDIPropertyState? {
+    public internal(set) var lightValue : INDIPropertyState? {
         get {
             return value as? INDIPropertyState
+        } set {
+            value = newValue
         }
     }
 }

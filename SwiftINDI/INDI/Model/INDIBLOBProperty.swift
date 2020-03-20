@@ -54,7 +54,7 @@ public class INDIBLOBProperty : INDIDefaultProperty {
      * of the INDI property should be used as the label.
      * - Parameter vector: The INDI BLOB property vector to which this property will be added as a member.
      */
-    init(_ name: String, label: String?, inPropertyVector vector: INDITextPropertyVector) {
+    init(_ name: String, label: String?, inPropertyVector vector: INDIBLOBPropertyVector) {
         super.init(name, of: .BLOBProperty, label: label, inPropertyVector: vector)
     }
     

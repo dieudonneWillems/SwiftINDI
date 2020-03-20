@@ -53,7 +53,7 @@ public class INDISwitchProperty : INDIDefaultProperty {
      * of the INDI property should be used as the label.
      * - Parameter vector: The INDI switch property vector to which this property will be added as a member.
      */
-    init(_ name: String, label: String?, inPropertyVector vector: INDITextPropertyVector) {
+    init(_ name: String, label: String?, inPropertyVector vector: INDISwitchPropertyVector) {
         super.init(name, of: .switchProperty, label: label, inPropertyVector: vector)
     }
     

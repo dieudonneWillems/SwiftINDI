@@ -361,11 +361,119 @@ public class BasicINDIClient : CustomStringConvertible {
             }
             if node.name! == "defTextVector" {
                 let textVector = INDITextPropertyVector(node.attributes!["name"]!, device: device!, label: node.attributes!["label"], group: node.attributes!["group"], state: state, read: readFlag, write: writeFlag, timeout: timeout, timestamp: timestamp, message: node.attributes!["message"])
-                // TODO: Parse text properties (child elements)
+                self.interpretTextPropertyDefinitions(from: node, toIncludeIn: textVector)
                 device!.define(propertyVector: textVector)
                 delegate?.propertyVectorDefined(self, device: device!, propertyVector: textVector)
+            } else if node.name! == "defNumberVector" {
+                let numberVector = INDINumberPropertyVector(node.attributes!["name"]!, device: device!, label: node.attributes!["label"], group: node.attributes!["group"], state: state, read: readFlag, write: writeFlag, timeout: timeout, timestamp: timestamp, message: node.attributes!["message"])
+                self.interpretNumberPropertyDefinitions(from: node, toIncludeIn: numberVector)
+                device!.define(propertyVector: numberVector)
+                delegate?.propertyVectorDefined(self, device: device!, propertyVector: numberVector)
+            } else if node.name! == "defSwitchVector" {
+                let switchVector = INDISwitchPropertyVector(node.attributes!["name"]!, device: device!, label: node.attributes!["label"], group: node.attributes!["group"], state: state, read: readFlag, write: writeFlag, timeout: timeout, timestamp: timestamp, message: node.attributes!["message"])
+                self.interpretSwitchPropertyDefinitions(from: node, toIncludeIn: switchVector)
+                device!.define(propertyVector: switchVector)
+                delegate?.propertyVectorDefined(self, device: device!, propertyVector: switchVector)
+            } else if node.name! == "defLightVector" {
+                let lightVector = INDILightPropertyVector(node.attributes!["name"]!, device: device!, label: node.attributes!["label"], group: node.attributes!["group"], state: state, timeout: timeout, timestamp: timestamp, message: node.attributes!["message"]!)
+                self.interpretLightPropertyDefinitions(from: node, toIncludeIn: lightVector)
+                device!.define(propertyVector: lightVector)
+                delegate?.propertyVectorDefined(self, device: device!, propertyVector: lightVector)
+            } else if node.name! == "defBLOBVector" {
+                let blobVector = INDIBLOBPropertyVector(node.attributes!["name"]!, device: device!, label: node.attributes!["label"], group: node.attributes!["group"], state: state, read: readFlag, write: writeFlag, timeout: timeout, timestamp: timestamp, message: node.attributes!["message"])
+                self.interpretBLOBPropertyDefinitions(from: node, toIncludeIn: blobVector)
+                device!.define(propertyVector: blobVector)
+                delegate?.propertyVectorDefined(self, device: device!, propertyVector: blobVector)
             }
-            // TODO: Parse other vector types and their members.
+        }
+    }
+    
+    /**
+     * Interpret all child text property member definitions of a text property vector.
+     * - Parameter parent: The parent (property vector) node.
+     * - Parameter vector: The property vector to which the properties are a member.
+     */
+    private func interpretTextPropertyDefinitions(from parent: INDINode, toIncludeIn vector: INDITextPropertyVector) {
+        for propertyNode in parent.childNodes! {
+            if propertyNode.name != nil && propertyNode.name! == "defText" {
+                let property = INDITextProperty(propertyNode.attributes!["name"]!, label: propertyNode.attributes!["label"], inPropertyVector: vector)
+                property.textValue = propertyNode.text
+            }
+        }
+    }
+    
+    /**
+     * Interpret all child number property member definitions of a number property vector.
+     * - Parameter parent: The parent (property vector) node.
+     * - Parameter vector: The property vector to which the properties are a member.
+     */
+    private func interpretNumberPropertyDefinitions(from parent: INDINode, toIncludeIn vector: INDINumberPropertyVector) {
+        for propertyNode in parent.childNodes! {
+            if propertyNode.name != nil && propertyNode.name! == "defNumber" {
+                let minimum = Double(propertyNode.attributes!["min"]!)
+                let maximum = Double(propertyNode.attributes!["max"]!)
+                let stepsize = Double(propertyNode.attributes!["step"]!)
+                if minimum != nil && maximum != nil && stepsize != nil {
+                    let property = INDINumberProperty(propertyNode.attributes!["name"]!, label: propertyNode.attributes!["label"], format: propertyNode.attributes!["format"]!, minimumValue: minimum!, maximumValue: maximum!, stepSize: stepsize!, inPropertyVector: vector)
+                    let valueText = propertyNode.text
+                    if valueText != nil {
+                        let value = Double(valueText!)
+                        property.numberValue = value
+                    }
+                }
+            }
+        }
+    }
+    
+    /**
+     * Interpret all child switch property member definitions of a switch property vector.
+     * - Parameter parent: The parent (property vector) node.
+     * - Parameter vector: The property vector to which the properties are a member.
+     */
+    private func interpretSwitchPropertyDefinitions(from parent: INDINode, toIncludeIn vector: INDISwitchPropertyVector) {
+        for propertyNode in parent.childNodes! {
+            if propertyNode.name != nil && propertyNode.name! == "defSwitch" {
+                let property = INDISwitchProperty(propertyNode.attributes!["name"]!, label: propertyNode.attributes!["label"], inPropertyVector: vector)
+                property.switchValue = propertyNode.text
+            }
+        }
+    }
+    
+    /**
+     * Interpret all child light property member definitions of a light property vector.
+     * - Parameter parent: The parent (property vector) node.
+     * - Parameter vector: The property vector to which the properties are a member.
+     */
+    private func interpretLightPropertyDefinitions(from parent: INDINode, toIncludeIn vector: INDILightPropertyVector) {
+        for propertyNode in parent.childNodes! {
+            if propertyNode.name != nil && propertyNode.name! == "defLight" {
+                let property = INDILightProperty(propertyNode.attributes!["name"]!, label: propertyNode.attributes!["label"], inPropertyVector: vector)
+                switch propertyNode.text?.lowercased() {
+                case "idle":
+                    property.lightValue = .idle
+                case "ok":
+                    property.lightValue = .ok
+                case "busy":
+                    property.lightValue = .busy
+                case "alert":
+                    property.lightValue = .alert
+                default:
+                    property.lightValue = nil
+                }
+            }
+        }
+    }
+    
+    /**
+     * Interpret all child BLOB property member definitions of a BLOB property vector.
+     * - Parameter parent: The parent (property vector) node.
+     * - Parameter vector: The property vector to which the properties are a member.
+     */
+    private func interpretBLOBPropertyDefinitions(from parent: INDINode, toIncludeIn vector: INDIBLOBPropertyVector) {
+        for propertyNode in parent.childNodes! {
+            if propertyNode.name != nil && propertyNode.name! == "defBLOB" {
+                let _ = INDIBLOBProperty(propertyNode.attributes!["name"]!, label: propertyNode.attributes!["label"], inPropertyVector: vector)
+            }
         }
     }
 }
@@ -495,7 +603,30 @@ fileprivate class INDINode : CustomStringConvertible {
     /**
      * The text in a text node, or `nil` if the node is not a text node.
      */
-    var text: String? = nil
+    var nodeText: String? = nil
+    
+    /**
+     * The text of all child nodes concatenated.
+     */
+    var text: String? {
+        get {
+            if nodeType == .textNode {
+                return nodeText
+            }
+            if childNodes != nil {
+                var string = ""
+                for child in childNodes! {
+                    if child.text != nil {
+                        string += child.text!
+                    }
+                }
+                if string.count > 0 {
+                    return string
+                }
+            }
+            return nil
+        }
+    }
     
     /**
      * The data in a data node, or `nil` if the node is not a data node.
@@ -539,7 +670,7 @@ fileprivate class INDINode : CustomStringConvertible {
      * - Parameter parentElement: The parent element.
      */
     init(text: String, parentElement: INDINode?) {
-        self.text = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        self.nodeText = text.trimmingCharacters(in: .whitespacesAndNewlines)
         self.nodeType = .textNode
         self.parentElement = parentElement
         self.parentElement?.childNodes?.append(self)
@@ -575,7 +706,7 @@ fileprivate class INDINode : CustomStringConvertible {
                 string = string + tabs + "\t\t\(key) = \(self.attributes![key]!)\n"
             }
         case .textNode:
-            string = string + tabs + "\t[TEXT]  \(text!)\n"
+            string = string + tabs + "\t[TEXT]  \(nodeText!)\n"
         case .CDATANode:
             string = string + tabs + "\t[CDATA] \n"
         }

@@ -9,9 +9,9 @@
 import Foundation
 
 /**
- * This structure represents a device connected to  an INDI server.
+ * This class represents a device connected to  an INDI server.
  */
-public struct INDIDevice {
+public class INDIDevice {
     
     /**
      * A set of property vectors relevant to this device.
@@ -36,7 +36,7 @@ public struct INDIDevice {
      * Defines a new set of values for an INDI property vector and adds it to the property set.
      * - Parameter propertyVector: The property vector to be defined.
      */
-    public mutating func define(propertyVector: INDIPropertyVector) {
+    public func define(propertyVector: INDIPropertyVector) {
         self.propertyVectors.append(propertyVector)
     }
     
@@ -72,5 +72,43 @@ public struct INDIDevice {
      */
     public func delete(property: INDIProperty) {
         // TODO: Implement function
+    }
+    
+    // MARK: - Access to property vectors and properties
+    
+    /**
+     * The list of groups that were defined in the properties for this device.
+     */
+    public var groups : [String] {
+        get {
+            var groups = [String]()
+            for propertyVector in self.propertyVectors {
+                var pvgroup = propertyVector.group
+                if pvgroup == nil {
+                    pvgroup = "Other"
+                }
+                if !groups.contains(pvgroup!) {
+                    groups.append(pvgroup!)
+                }
+            }
+            return groups
+        }
+    }
+    
+    /**
+     * Returns the property vectors for this device that are part of a named group.
+     * - Parameter group: The name of the group.
+     * - Returns: The set of property vectors in a specific group.
+     */
+    public func propertyVectors(in group: String) -> [INDIPropertyVector]{
+        var grouped = [INDIPropertyVector]()
+        for propertyVector in self.propertyVectors {
+            if group == propertyVector.group {
+                grouped.append(propertyVector)
+            } else if group == "Other" && propertyVector.group == nil {
+                grouped.append(propertyVector)
+            }
+        }
+        return grouped
     }
 }

@@ -28,6 +28,11 @@ public class BasicINDIClient : CustomStringConvertible {
     }
     
     /**
+     * An optional label (name) to be used when displaying information about the client-server connection.
+     */
+    public var label: String?
+    
+    /**
      * The server adress (host) to which the client can be connected.
      *
      * This value can be `nil` when the server has not been specified yet. To specify
@@ -62,7 +67,16 @@ public class BasicINDIClient : CustomStringConvertible {
     private var tcpClient : TCPClient? = nil
     
     /**
-     * A list of devices (INDI drivers) loaded by the INDI server.
+     *
+     */
+    public var deviceNames : [String] {
+        get {
+            return Array(devices.keys)
+        }
+    }
+    
+    /**
+     * A dictionary of devices (INDI drivers) loaded by the INDI server.
      */
     public private(set) var devices = [String : INDIDevice]()
     
@@ -219,7 +233,7 @@ public class BasicINDIClient : CustomStringConvertible {
             var nodeDepth = 0 // The depth of the element. Elements are returned (current) when the element at depth 0 is closed.
             var lastc = "" // The previous character added.
             var nodeBeingClosed = false // Is true when the element is being closed, "</" was encountered.
-            while self.connected {
+            while self.connected && self.tcpClient != nil {
                 //print("-- \(Date())")
                 guard let d = self.tcpClient!.read(1, timeout: 1) else { continue }
                 let c = String(bytes: d, encoding: .utf8) // Current character.

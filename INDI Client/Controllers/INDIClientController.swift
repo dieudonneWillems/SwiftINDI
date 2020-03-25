@@ -8,16 +8,28 @@
 
 import Cocoa
 import SwiftINDI
+import SwiftINDIGUI
 
 class INDIClientController : NSObject, INDIDelegate {
     
     var clients = [BasicINDIClient]()
+    
+    var serverController : INDIServerController? = nil {
+        didSet {
+            oldValue?.removeAllClients()
+            serverController?.removeAllClients()
+            for client in clients {
+                serverController?.addClient(client)
+            }
+        }
+    }
     
     func addINDIServer(at host: String, port: Int) {
         let indiClient = BasicINDIClient(delegate: self)
         do {
             try indiClient.setServer(at: host, port: port)
             clients.append(indiClient)
+            serverController?.addClient(indiClient)
             indiClient.connect()
         } catch {
             print(error)
@@ -73,7 +85,7 @@ class INDIClientController : NSObject, INDIDelegate {
     func deviceDefined(_ client: BasicINDIClient, device: INDIDevice) {
         print("A device with name '\(device.name)' was defined")
         let appDelegate = (NSApplication.shared.delegate as! AppDelegate)
-        appDelegate.propertyListController?.reload()
+        appDelegate.serverController?.reload()
     }
      
     /**
@@ -85,7 +97,7 @@ class INDIClientController : NSObject, INDIDelegate {
     func propertyVectorDefined(_ client: BasicINDIClient, device: INDIDevice, propertyVector: INDIPropertyVector) {
         print("A property vector with name '\(propertyVector.name)' was defined for device '\(device.name)'")
         let appDelegate = (NSApplication.shared.delegate as! AppDelegate)
-        appDelegate.propertyListController?.reload()
+        appDelegate.serverController?.reload()
     }
      
     /**
@@ -98,6 +110,6 @@ class INDIClientController : NSObject, INDIDelegate {
      func propertyDefined(_ client: BasicINDIClient, device: INDIDevice, propertyVector: INDIPropertyVector, property: INDIProperty) {
         print("A property with name '\(property.name)' as a member of vector '\(propertyVector.name)' was defined for device '\(device.name)'")
         let appDelegate = (NSApplication.shared.delegate as! AppDelegate)
-        appDelegate.propertyListController?.reload()
+        appDelegate.serverController?.reload()
      }
 }

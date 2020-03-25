@@ -26,7 +26,7 @@
 		029FC59D2425355E0027279A /* SwiftINDIGUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 029FC5952425355E0027279A /* SwiftINDIGUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		029FC5A22425357A0027279A /* SwiftINDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02A9EDBA24184AC100484226 /* SwiftINDI.framework */; };
 		029FC5A32425357A0027279A /* SwiftINDI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 02A9EDBA24184AC100484226 /* SwiftINDI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		029FC5AA242593970027279A /* INDIPropertyListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029FC5A8242593970027279A /* INDIPropertyListViewController.swift */; };
+		029FC5AA242593970027279A /* INDIServerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029FC5A8242593970027279A /* INDIServerController.swift */; };
 		029FC5AB242593970027279A /* INDIPropertyListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 029FC5A9242593970027279A /* INDIPropertyListViewController.xib */; };
 		029FC5AC242595EF0027279A /* SwiftINDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02A9EDBA24184AC100484226 /* SwiftINDI.framework */; };
 		029FC5AD242595EF0027279A /* SwiftINDI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 02A9EDBA24184AC100484226 /* SwiftINDI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -127,7 +127,7 @@
 		029FC5952425355E0027279A /* SwiftINDIGUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftINDIGUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		029FC5972425355E0027279A /* SwiftINDIGUI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftINDIGUI.h; sourceTree = "<group>"; };
 		029FC5982425355E0027279A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		029FC5A8242593970027279A /* INDIPropertyListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = INDIPropertyListViewController.swift; sourceTree = "<group>"; };
+		029FC5A8242593970027279A /* INDIServerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = INDIServerController.swift; sourceTree = "<group>"; };
 		029FC5A9242593970027279A /* INDIPropertyListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = INDIPropertyListViewController.xib; sourceTree = "<group>"; };
 		02A9EDBA24184AC100484226 /* SwiftINDI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftINDI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		02A9EDBD24184AC100484226 /* SwiftINDI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftINDI.h; sourceTree = "<group>"; };
@@ -257,7 +257,7 @@
 		029FC5A7242535CC0027279A /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				029FC5A8242593970027279A /* INDIPropertyListViewController.swift */,
+				029FC5A8242593970027279A /* INDIServerController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -268,8 +268,8 @@
 				02A9EDE82419A12E00484226 /* SwiftSocket.framework */,
 				02A9EDBC24184AC100484226 /* SwiftINDI */,
 				02A9EDC724184AC100484226 /* SwiftINDITests */,
-				029FC57F24252AFB0027279A /* INDI Client */,
 				029FC5962425355E0027279A /* SwiftINDIGUI */,
+				029FC57F24252AFB0027279A /* INDI Client */,
 				02A9EDBB24184AC100484226 /* Products */,
 				020D2D66241CE7FB00A97EA5 /* Frameworks */,
 			);
@@ -514,7 +514,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				029FC5AA242593970027279A /* INDIPropertyListViewController.swift in Sources */,
+				029FC5AA242593970027279A /* INDIServerController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

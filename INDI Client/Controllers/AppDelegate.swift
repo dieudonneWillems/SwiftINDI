@@ -17,12 +17,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @IBOutlet weak var clientController : INDIClientController!
 
-    var propertyListController : INDIPropertyListViewController? = nil
+    var serverController : INDIServerController? = nil
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         clientController.addINDIServer(at: "revisionist.local", port: 7624)
-        propertyListController = INDIPropertyListViewController.instance
-        let newView = propertyListController!.view
+        serverController = INDIServerController.instance
+        clientController.serverController = serverController
+        let newView = serverController!.view
         let view = window.contentView!
         view.addSubview(newView)
         newView.translatesAutoresizingMaskIntoConstraints = false
@@ -32,7 +33,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let bottomConstraint = NSLayoutConstraint(item: newView, attribute: NSLayoutConstraint.Attribute.bottom, relatedBy: NSLayoutConstraint.Relation.equal, toItem: view, attribute: NSLayoutConstraint.Attribute.bottom, multiplier: 1, constant: 0)
         view.addConstraints([leadingConstraint, trailingConstraint, topConstraint, bottomConstraint])
         
-        propertyListController?.client = clientController.clients[0]
+        //propertyListController?.client = clientController.clients[0]
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {

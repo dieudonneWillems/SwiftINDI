@@ -85,7 +85,24 @@ public class INDIServerController: NSViewController, NSOutlineViewDataSource, NS
     }
 
     public override func viewDidLoad() {
+        self.registerItemViews()
         super.viewDidLoad()
+    }
+    
+    private var registeredViews = false
+    
+    /**
+     * Load all cell views that can be used in the outline views and registers them.
+     */
+    func registerItemViews() {
+        if !registeredViews {
+            // Load nib files for table view cells used in both navigation and content outline views.
+            let bundle = Bundle(for: type(of: self))
+            let nib = NSNib(nibNamed: "INDIServerItemView", bundle: bundle)
+            // Register view so that it can be used as a cell view.
+            navigationView!.register(nib, forIdentifier: .serverItemView)
+            self.registeredViews = true
+        }
     }
     
     // MARK: - NSOutlineViewDataSource methods
@@ -178,29 +195,44 @@ public class INDIServerController: NSViewController, NSOutlineViewDataSource, NS
      * the navigation view are not a group and are selectable.
      */
     public func outlineView(_ outlineView: NSOutlineView, isGroupItem item: Any) -> Bool {
-        if outlineView == navigationView && (item as? BasicINDIClient) == nil {
+        if outlineView == navigationView && (item as? BasicINDIClient) != nil {
             return true
         }
         return false
     }
     
+    public func outlineView(_ outlineView: NSOutlineView, heightOfRowByItem item: Any) -> CGFloat {
+        if (item as? BasicINDIClient) != nil {
+            return 36.0
+        }
+        return 24.0
+    }
+    
     public func outlineView(_ outlineView: NSOutlineView, viewFor tableColumn: NSTableColumn?, item: Any) -> NSView? {
+        self.registerItemViews()
         if outlineView == navigationView {
-            let cell = outlineView.makeView(withIdentifier: nil, owner: self) as? NSTableCellView
+            let cell = navigationView!.makeView(withIdentifier:.serverItemView, owner: self) as? INDIServerItemView
             if (item as? BasicINDIClient) != nil {
                 var label = ""
                 let client = item as! BasicINDIClient
+                let address = ("\(client.server!):\(client.port)")
                 if client.label != nil {
                     label = client.label!
                 } else if client.server != nil {
-                    label = ("\(client.server!):\(client.port)")
+                    label = client.server!
                 }
-                cell?.textField?.stringValue = label
+                cell?.serverLabel?.stringValue = label
+                cell?.serverAddress?.stringValue = address
+                let connected = client.connected
+                if connected {
+                    cell!.statusView?.image = NSImage(named:"NSStatusAvailable")
+                }
             } else if (item as? INDIDevice) != nil {
                 let device = item as! INDIDevice
                 let label = device.name
-                cell?.textField?.stringValue = label
+                cell?.serverLabel?.stringValue = label
             }
+            return cell
         } else if outlineView == propertyListView {
             let cell = outlineView.makeView(withIdentifier: (tableColumn!.identifier), owner: self) as? NSTableCellView
             if (item as? INDIDevice) != nil {
@@ -218,4 +250,11 @@ public class INDIServerController: NSViewController, NSOutlineViewDataSource, NS
         }
         return nil
     }
+}
+
+extension NSUserInterfaceItemIdentifier {
+    static let serverItemView = NSUserInterfaceItemIdentifier("serverItemView")
+    static let deviceItemView = NSUserInterfaceItemIdentifier("deviceItemView")
+    
+    static let propertyItemView = NSUserInterfaceItemIdentifier("propertyItemView")
 }

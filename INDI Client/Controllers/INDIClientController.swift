@@ -24,8 +24,8 @@ class INDIClientController : NSObject, INDIDelegate {
         }
     }
     
-    func addINDIServer(at host: String, port: Int) {
-        let indiClient = BasicINDIClient(delegate: self)
+    func addINDIServer(at host: String, port: Int, with label: String? = nil) {
+        let indiClient = BasicINDIClient(label: label, delegate: self)
         do {
             try indiClient.setServer(at: host, port: port)
             clients.append(indiClient)

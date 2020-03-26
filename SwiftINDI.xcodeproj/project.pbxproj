@@ -16,6 +16,8 @@
 		020FE5EC2422E43A00427BE6 /* INDISwitchProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020FE5EB2422E43A00427BE6 /* INDISwitchProperty.swift */; };
 		020FE5EE2422E5FD00427BE6 /* INDILightProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020FE5ED2422E5FD00427BE6 /* INDILightProperty.swift */; };
 		020FE5F02422EB5D00427BE6 /* INDIBLOBProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020FE5EF2422EB5D00427BE6 /* INDIBLOBProperty.swift */; };
+		029061A2242CB68200778B28 /* INDIServerItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 029061A1242CB68200778B28 /* INDIServerItemView.xib */; };
+		029061A4242CB9FE00778B28 /* INDIServerItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029061A3242CB9FE00778B28 /* INDIServerItemView.swift */; };
 		029BBD02241D93EA004E60E4 /* INDIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029BBD01241D93EA004E60E4 /* INDIError.swift */; };
 		029FC58124252AFB0027279A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029FC58024252AFB0027279A /* AppDelegate.swift */; };
 		029FC58324252AFC0027279A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 029FC58224252AFC0027279A /* Assets.xcassets */; };
@@ -116,6 +118,8 @@
 		020FE5EB2422E43A00427BE6 /* INDISwitchProperty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = INDISwitchProperty.swift; sourceTree = "<group>"; };
 		020FE5ED2422E5FD00427BE6 /* INDILightProperty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = INDILightProperty.swift; sourceTree = "<group>"; };
 		020FE5EF2422EB5D00427BE6 /* INDIBLOBProperty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = INDIBLOBProperty.swift; sourceTree = "<group>"; };
+		029061A1242CB68200778B28 /* INDIServerItemView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = INDIServerItemView.xib; sourceTree = "<group>"; };
+		029061A3242CB9FE00778B28 /* INDIServerItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = INDIServerItemView.swift; sourceTree = "<group>"; };
 		029BBD01241D93EA004E60E4 /* INDIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = INDIError.swift; sourceTree = "<group>"; };
 		029FC57E24252AFB0027279A /* INDI Client.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "INDI Client.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		029FC58024252AFB0027279A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -250,6 +254,8 @@
 			isa = PBXGroup;
 			children = (
 				029FC5A9242593970027279A /* INDIPropertyListViewController.xib */,
+				029061A3242CB9FE00778B28 /* INDIServerItemView.swift */,
+				029061A1242CB68200778B28 /* INDIServerItemView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -480,6 +486,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				029061A2242CB68200778B28 /* INDIServerItemView.xib in Resources */,
 				029FC5AB242593970027279A /* INDIPropertyListViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -514,6 +521,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				029061A4242CB9FE00778B28 /* INDIServerItemView.swift in Sources */,
 				029FC5AA242593970027279A /* INDIServerController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

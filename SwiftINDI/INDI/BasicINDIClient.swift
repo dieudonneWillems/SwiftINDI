@@ -67,7 +67,7 @@ public class BasicINDIClient : CustomStringConvertible {
     private var tcpClient : TCPClient? = nil
     
     /**
-     *
+     * The names of the devices connected to the INDI server.
      */
     public var deviceNames : [String] {
         get {
@@ -105,6 +105,19 @@ public class BasicINDIClient : CustomStringConvertible {
     }
     
     /**
+     * Initialises the client with the specified label to be used in a GUI.
+     *
+     * No delegate is specified for the client (use the property`delegate: INDIDelegate`) to set the delegate.
+     * After initialisation no server has been defined with which the client should connect. Use
+     * `setServer(at host: String, port: Int = 7642)` to specify the server and port.
+     *
+     * - Parameter label: The label presented to the user.
+     */
+    public init(label: String?) {
+        self.label = label
+    }
+    
+    /**
      * Initialises the client with the specified delegate that will recieve events. The delegate will recieve events such
      * as when a device is connected or disconnected, when device parameters change, or when data is recieved.
      *
@@ -115,6 +128,22 @@ public class BasicINDIClient : CustomStringConvertible {
      */
     public init(delegate: INDIDelegate) {
         self.delegate = delegate
+    }
+    
+    /**
+     * Initialises the client with the specified delegate that will recieve events. The delegate will recieve events such
+     * as when a device is connected or disconnected, when device parameters change, or when data is recieved.
+     * The user can also specify a label to represent the client to the user in a GUI.
+     *
+     * After initialisation no server has been defined with which the client should connect. Use
+     * `setSetver(at host: String, port: Int = 7642)` to specify the server and port.
+     *
+     * - Parameter label: The label presented to the user.
+     * - Parameter delegate: The `INDIDelegate` that will recieve events.
+     */
+    public init(label: String?, delegate: INDIDelegate) {
+        self.delegate = delegate
+        self.label = label
     }
     
     // MARK: - Connecting to the INDI server

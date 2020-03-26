@@ -38,7 +38,7 @@
                                                 <color key="backgroundColor" name="_sourceListBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                 <tableColumns>
-                                                    <tableColumn width="111" minWidth="16" maxWidth="1000" id="sod-7b-Oel">
+                                                    <tableColumn identifier="NavCell" width="111" minWidth="16" maxWidth="1000" id="sod-7b-Oel">
                                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
                                                             <font key="font" metaFont="label" size="11"/>
                                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -69,7 +69,7 @@
                                                                     <outlet property="textField" destination="v1D-B3-yzd" id="XLF-VQ-Nnk"/>
                                                                 </connections>
                                                             </tableCellView>
-                                                            <tableCellView identifier="DataCell" id="blf-Jt-3hO">
+                                                            <tableCellView id="blf-Jt-3hO">
                                                                 <rect key="frame" x="1" y="17" width="111" height="17"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                 <subviews>

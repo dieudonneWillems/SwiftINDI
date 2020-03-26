@@ -70,9 +70,8 @@ public class INDIServerController: NSViewController, NSOutlineViewDataSource, NS
     public var device : INDIDevice? {
         didSet {
             if device != nil {
-                if (view as? NSOutlineView) != nil {
-                    (view as! NSOutlineView).needsDisplay = true
-                }
+                propertyListView?.reloadData()
+                propertyListView?.needsDisplay = true
             }
         }
     }
@@ -98,9 +97,12 @@ public class INDIServerController: NSViewController, NSOutlineViewDataSource, NS
         if !registeredViews {
             // Load nib files for table view cells used in both navigation and content outline views.
             let bundle = Bundle(for: type(of: self))
-            let nib = NSNib(nibNamed: "INDIServerItemView", bundle: bundle)
+            let nibServerItem = NSNib(nibNamed: "INDIServerItemView", bundle: bundle)
             // Register view so that it can be used as a cell view.
-            navigationView!.register(nib, forIdentifier: .serverItemView)
+            navigationView!.register(nibServerItem, forIdentifier: .serverItemView)
+            
+            let nibDeviceItem = NSNib(nibNamed: "INDIDeviceItemView", bundle: bundle)
+            navigationView!.register(nibDeviceItem, forIdentifier: .deviceItemView)
             self.registeredViews = true
         }
     }
@@ -112,7 +114,12 @@ public class INDIServerController: NSViewController, NSOutlineViewDataSource, NS
             if item == nil {
                 return clients[index]
             } else if (item as? BasicINDIClient) != nil {
-                return (item as! BasicINDIClient).devices
+                let client = (item as! BasicINDIClient)
+                let deviceNames = client.deviceNames
+                let device = client.devices[deviceNames[index]]
+                if device != nil {
+                    return device!
+                }
             }
         } else if outlineView == propertyListView {
             if item == nil {
@@ -197,22 +204,38 @@ public class INDIServerController: NSViewController, NSOutlineViewDataSource, NS
     public func outlineView(_ outlineView: NSOutlineView, isGroupItem item: Any) -> Bool {
         if outlineView == navigationView && (item as? BasicINDIClient) != nil {
             return true
+        } else if outlineView == propertyListView && (item as? String) != nil {
+            return true // Group of property vectors.
         }
         return false
     }
     
     public func outlineView(_ outlineView: NSOutlineView, heightOfRowByItem item: Any) -> CGFloat {
         if (item as? BasicINDIClient) != nil {
-            return 36.0
+            return 38.0
+        } else if (item as? INDIDevice) != nil {
+            return 22.0
         }
-        return 24.0
+        return 18.0
     }
+    
+    public func outlineViewSelectionDidChange(_ notification: Notification) {
+        if (notification.object as? NSOutlineView) != nil && (notification.object as? NSOutlineView) == navigationView {
+            if navigationView?.selectedRow != nil {
+                let selectedItem = navigationView?.item(atRow: navigationView!.selectedRow)
+                if (selectedItem as? INDIDevice) != nil {
+                    self.device = (selectedItem as! INDIDevice)
+                }
+            }
+        }
+    }
+		
     
     public func outlineView(_ outlineView: NSOutlineView, viewFor tableColumn: NSTableColumn?, item: Any) -> NSView? {
         self.registerItemViews()
         if outlineView == navigationView {
-            let cell = navigationView!.makeView(withIdentifier:.serverItemView, owner: self) as? INDIServerItemView
             if (item as? BasicINDIClient) != nil {
+                let cell = navigationView!.makeView(withIdentifier:.serverItemView, owner: self) as? INDIServerItemView
                 var label = ""
                 let client = item as! BasicINDIClient
                 let address = ("\(client.server!):\(client.port)")
@@ -227,24 +250,29 @@ public class INDIServerController: NSViewController, NSOutlineViewDataSource, NS
                 if connected {
                     cell!.statusView?.image = NSImage(named:"NSStatusAvailable")
                 }
+                return cell
             } else if (item as? INDIDevice) != nil {
+                let cell = navigationView!.makeView(withIdentifier:.deviceItemView, owner: self) as? INDIDeviceItemView
                 let device = item as! INDIDevice
                 let label = device.name
-                cell?.serverLabel?.stringValue = label
+                cell?.deviceName?.stringValue = label
+                return cell
             }
-            return cell
         } else if outlineView == propertyListView {
             let cell = outlineView.makeView(withIdentifier: (tableColumn!.identifier), owner: self) as? NSTableCellView
-            if (item as? INDIDevice) != nil {
+            if (item as? String) != nil {
+                cell?.textField?.stringValue = item as! String
+            } else if (item as? INDIPropertyVector) != nil {
                 if tableColumn?.title == "Property" {
-                    cell?.textField?.stringValue = (item as! INDIDevice).name
+                    let propertyVector = item as! INDIPropertyVector
+                    var label = propertyVector.label
+                    if label == nil {
+                        label = propertyVector.name
+                    }
+                    cell?.textField?.stringValue = label!
                 } else {
                     cell?.textField?.stringValue = ""
                 }
-            } else if (item as? String) != nil {
-                cell?.textField?.stringValue = item as! String
-            } else if (item as? INDIPropertyVector) != nil {
-                cell?.textField?.stringValue = (item as! INDIPropertyVector).name
             }
             return cell
         }

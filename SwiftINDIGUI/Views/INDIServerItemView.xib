@@ -9,11 +9,11 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="c22-O7-iKe" customClass="INDIServerItemView" customModule="SwiftINDIGUI" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="307" height="50"/>
+            <rect key="frame" x="0.0" y="0.0" width="307" height="38"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="msx-ck-Dng">
-                    <rect key="frame" x="18" y="33" width="271" height="16"/>
+                    <rect key="frame" x="18" y="19" width="271" height="16"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="16" id="57n-pC-FnH"/>
                     </constraints>
@@ -24,18 +24,18 @@
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1n3-0J-vnj">
-                    <rect key="frame" x="18" y="19" width="291" height="14"/>
+                    <rect key="frame" x="18" y="4" width="291" height="14"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="14" id="93y-ba-XV6"/>
                     </constraints>
                     <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" title="server:port" id="FdG-ed-mwy">
-                        <font key="font" metaFont="label" size="11"/>
+                        <font key="font" metaFont="message" size="11"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="q9m-7d-Db3">
-                    <rect key="frame" x="0.0" y="32" width="18" height="18"/>
+                    <rect key="frame" x="0.0" y="18" width="18" height="18"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="18" id="CNj-eP-v11"/>
                         <constraint firstAttribute="height" constant="18" id="ozE-Bx-Qkq"/>
@@ -43,7 +43,7 @@
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSActionTemplate" id="GNQ-JR-hsM"/>
                 </imageView>
                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RZU-kr-Ceb">
-                    <rect key="frame" x="289" y="32" width="18" height="18"/>
+                    <rect key="frame" x="289" y="18" width="18" height="18"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="18" id="TwM-im-wOc"/>
                         <constraint firstAttribute="width" constant="18" id="rgB-KT-9bc"/>
@@ -52,12 +52,12 @@
                 </imageView>
             </subviews>
             <constraints>
-                <constraint firstItem="RZU-kr-Ceb" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" id="6nu-qh-BOm"/>
-                <constraint firstItem="1n3-0J-vnj" firstAttribute="top" secondItem="msx-ck-Dng" secondAttribute="bottom" id="ATF-fa-4Dj"/>
+                <constraint firstItem="RZU-kr-Ceb" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" constant="2" id="6nu-qh-BOm"/>
+                <constraint firstItem="1n3-0J-vnj" firstAttribute="top" secondItem="msx-ck-Dng" secondAttribute="bottom" constant="1" id="ATF-fa-4Dj"/>
                 <constraint firstItem="msx-ck-Dng" firstAttribute="leading" secondItem="q9m-7d-Db3" secondAttribute="trailing" constant="2" id="Dee-NB-kTv"/>
-                <constraint firstItem="q9m-7d-Db3" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" id="NQK-Aw-KFQ"/>
+                <constraint firstItem="q9m-7d-Db3" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" constant="2" id="NQK-Aw-KFQ"/>
                 <constraint firstItem="1n3-0J-vnj" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="20" id="Pbg-fg-Ysn"/>
-                <constraint firstItem="msx-ck-Dng" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" constant="1" id="eej-Wb-LlX"/>
+                <constraint firstItem="msx-ck-Dng" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" constant="3" id="eej-Wb-LlX"/>
                 <constraint firstAttribute="trailing" secondItem="RZU-kr-Ceb" secondAttribute="trailing" id="lDd-Pi-j9D"/>
                 <constraint firstItem="q9m-7d-Db3" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" id="ocH-gX-SLf"/>
                 <constraint firstAttribute="trailing" secondItem="1n3-0J-vnj" secondAttribute="trailing" id="svi-YR-u0Z"/>
@@ -69,7 +69,7 @@
                 <outlet property="serverLabel" destination="msx-ck-Dng" id="lc4-SI-Jef"/>
                 <outlet property="statusView" destination="RZU-kr-Ceb" id="DWD-TO-QDS"/>
             </connections>
-            <point key="canvasLocation" x="-29.5" y="-28"/>
+            <point key="canvasLocation" x="-29.5" y="-34"/>
         </customView>
     </objects>
     <resources>

@@ -38,6 +38,8 @@
 		02A9EDE72418525000484226 /* BasicINDIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A9EDE62418525000484226 /* BasicINDIClient.swift */; };
 		02A9EDEA2419A1F200484226 /* SwiftSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02A9EDE82419A12E00484226 /* SwiftSocket.framework */; };
 		02A9EDEB2419A1F200484226 /* SwiftSocket.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 02A9EDE82419A12E00484226 /* SwiftSocket.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		02F8488E242D6334007D3084 /* INDIDeviceItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02F8488D242D6334007D3084 /* INDIDeviceItemView.xib */; };
+		02F84890242D6525007D3084 /* INDIDeviceItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F8488F242D6525007D3084 /* INDIDeviceItemView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -141,6 +143,8 @@
 		02A9EDCA24184AC100484226 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		02A9EDE62418525000484226 /* BasicINDIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicINDIClient.swift; sourceTree = "<group>"; };
 		02A9EDE82419A12E00484226 /* SwiftSocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SwiftSocket.framework; sourceTree = "<group>"; };
+		02F8488D242D6334007D3084 /* INDIDeviceItemView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = INDIDeviceItemView.xib; sourceTree = "<group>"; };
+		02F8488F242D6525007D3084 /* INDIDeviceItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = INDIDeviceItemView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -256,6 +260,8 @@
 				029FC5A9242593970027279A /* INDIPropertyListViewController.xib */,
 				029061A3242CB9FE00778B28 /* INDIServerItemView.swift */,
 				029061A1242CB68200778B28 /* INDIServerItemView.xib */,
+				02F8488F242D6525007D3084 /* INDIDeviceItemView.swift */,
+				02F8488D242D6334007D3084 /* INDIDeviceItemView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -487,6 +493,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				029061A2242CB68200778B28 /* INDIServerItemView.xib in Resources */,
+				02F8488E242D6334007D3084 /* INDIDeviceItemView.xib in Resources */,
 				029FC5AB242593970027279A /* INDIPropertyListViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -522,6 +529,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				029061A4242CB9FE00778B28 /* INDIServerItemView.swift in Sources */,
+				02F84890242D6525007D3084 /* INDIDeviceItemView.swift in Sources */,
 				029FC5AA242593970027279A /* INDIServerController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

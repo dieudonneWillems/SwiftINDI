@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="15705" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15705"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner"/>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="c22-O7-iKe" customClass="INDIDeviceItemView" customModule="SwiftINDIGUI" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="260" height="56"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="GaB-Zz-uhN">
+                    <rect key="frame" x="0.0" y="36" width="18" height="18"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="18" id="HFZ-hc-VEn"/>
+                        <constraint firstAttribute="height" constant="18" id="U0s-w4-Gr3"/>
+                    </constraints>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSSlideshowTemplate" id="c6Z-Ss-Jfp"/>
+                </imageView>
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="AOa-TP-Ioi">
+                    <rect key="frame" x="242" y="36" width="18" height="18"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="18" id="GSA-iN-kmz"/>
+                        <constraint firstAttribute="width" constant="18" id="LsO-YG-u0u"/>
+                    </constraints>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSStatusNone" id="sMZ-SZ-AOf"/>
+                </imageView>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9Ep-XL-f08">
+                    <rect key="frame" x="24" y="39" width="212" height="14"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="14" id="p2i-7b-o0i"/>
+                    </constraints>
+                    <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="nzk-9c-YFC">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="AOa-TP-Ioi" secondAttribute="trailing" id="3e5-DM-nUk"/>
+                <constraint firstItem="GaB-Zz-uhN" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" id="IXb-Jh-v50"/>
+                <constraint firstItem="AOa-TP-Ioi" firstAttribute="leading" secondItem="9Ep-XL-f08" secondAttribute="trailing" constant="8" id="PzQ-2F-gsh"/>
+                <constraint firstItem="9Ep-XL-f08" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" constant="3" id="Sdk-Ap-QIC"/>
+                <constraint firstItem="GaB-Zz-uhN" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" constant="2" id="Zmg-hy-FRX"/>
+                <constraint firstItem="9Ep-XL-f08" firstAttribute="leading" secondItem="GaB-Zz-uhN" secondAttribute="trailing" constant="8" id="ota-JG-Mvl"/>
+                <constraint firstItem="AOa-TP-Ioi" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" constant="2" id="vQk-Wd-Fhw"/>
+            </constraints>
+            <connections>
+                <outlet property="deviceName" destination="9Ep-XL-f08" id="9cp-xh-CD2"/>
+                <outlet property="iconView" destination="GaB-Zz-uhN" id="HIg-xY-cj3"/>
+                <outlet property="statusView" destination="AOa-TP-Ioi" id="aWi-qk-D6G"/>
+            </connections>
+            <point key="canvasLocation" x="15" y="-49"/>
+        </customView>
+    </objects>
+    <resources>
+        <image name="NSSlideshowTemplate" width="17" height="14"/>
+        <image name="NSStatusNone" width="16" height="16"/>
+    </resources>
+</document>

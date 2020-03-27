@@ -36,8 +36,10 @@
 		02A9EDC924184AC100484226 /* SwiftINDITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A9EDC824184AC100484226 /* SwiftINDITests.swift */; };
 		02A9EDCB24184AC100484226 /* SwiftINDI.h in Headers */ = {isa = PBXBuildFile; fileRef = 02A9EDBD24184AC100484226 /* SwiftINDI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		02A9EDE72418525000484226 /* BasicINDIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A9EDE62418525000484226 /* BasicINDIClient.swift */; };
-		02A9EDEA2419A1F200484226 /* SwiftSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02A9EDE82419A12E00484226 /* SwiftSocket.framework */; };
-		02A9EDEB2419A1F200484226 /* SwiftSocket.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 02A9EDE82419A12E00484226 /* SwiftSocket.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		02DD873B242E086B000D1F1D /* SwiftSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02DD8739242E0812000D1F1D /* SwiftSocket.framework */; };
+		02DD873C242E086B000D1F1D /* SwiftSocket.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 02DD8739242E0812000D1F1D /* SwiftSocket.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		02DD873E242E6D90000D1F1D /* INDIPropertyVectorItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02DD873D242E6D90000D1F1D /* INDIPropertyVectorItemView.swift */; };
+		02DD8740242E6DD0000D1F1D /* INDIPropertyVectorItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02DD873F242E6DD0000D1F1D /* INDIPropertyVectorItemView.xib */; };
 		02F8488E242D6334007D3084 /* INDIDeviceItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02F8488D242D6334007D3084 /* INDIDeviceItemView.xib */; };
 		02F84890242D6525007D3084 /* INDIDeviceItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F8488F242D6525007D3084 /* INDIDeviceItemView.swift */; };
 /* End PBXBuildFile section */
@@ -103,7 +105,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				02A9EDEB2419A1F200484226 /* SwiftSocket.framework in Embed Frameworks */,
+				02DD873C242E086B000D1F1D /* SwiftSocket.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -142,7 +144,9 @@
 		02A9EDC824184AC100484226 /* SwiftINDITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftINDITests.swift; sourceTree = "<group>"; };
 		02A9EDCA24184AC100484226 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		02A9EDE62418525000484226 /* BasicINDIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicINDIClient.swift; sourceTree = "<group>"; };
-		02A9EDE82419A12E00484226 /* SwiftSocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SwiftSocket.framework; sourceTree = "<group>"; };
+		02DD8739242E0812000D1F1D /* SwiftSocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SwiftSocket.framework; sourceTree = "<group>"; };
+		02DD873D242E6D90000D1F1D /* INDIPropertyVectorItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = INDIPropertyVectorItemView.swift; sourceTree = "<group>"; };
+		02DD873F242E6DD0000D1F1D /* INDIPropertyVectorItemView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = INDIPropertyVectorItemView.xib; sourceTree = "<group>"; };
 		02F8488D242D6334007D3084 /* INDIDeviceItemView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = INDIDeviceItemView.xib; sourceTree = "<group>"; };
 		02F8488F242D6525007D3084 /* INDIDeviceItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = INDIDeviceItemView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -169,7 +173,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				02A9EDEA2419A1F200484226 /* SwiftSocket.framework in Frameworks */,
+				02DD873B242E086B000D1F1D /* SwiftSocket.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -262,6 +266,8 @@
 				029061A1242CB68200778B28 /* INDIServerItemView.xib */,
 				02F8488F242D6525007D3084 /* INDIDeviceItemView.swift */,
 				02F8488D242D6334007D3084 /* INDIDeviceItemView.xib */,
+				02DD873D242E6D90000D1F1D /* INDIPropertyVectorItemView.swift */,
+				02DD873F242E6DD0000D1F1D /* INDIPropertyVectorItemView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -277,7 +283,7 @@
 		02A9EDB024184AC100484226 = {
 			isa = PBXGroup;
 			children = (
-				02A9EDE82419A12E00484226 /* SwiftSocket.framework */,
+				02DD8739242E0812000D1F1D /* SwiftSocket.framework */,
 				02A9EDBC24184AC100484226 /* SwiftINDI */,
 				02A9EDC724184AC100484226 /* SwiftINDITests */,
 				029FC5962425355E0027279A /* SwiftINDIGUI */,
@@ -362,8 +368,8 @@
 			buildRules = (
 			);
 			dependencies = (
-				029FC59B2425355E0027279A /* PBXTargetDependency */,
 				029FC5A52425357A0027279A /* PBXTargetDependency */,
+				029FC59B2425355E0027279A /* PBXTargetDependency */,
 			);
 			name = "INDI Client";
 			productName = "INDI Client";
@@ -436,7 +442,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1130;
-				LastUpgradeCheck = 1130;
+				LastUpgradeCheck = 1140;
 				ORGANIZATIONNAME = lapsedpacifist;
 				TargetAttributes = {
 					029FC57D24252AFB0027279A = {
@@ -493,6 +499,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				029061A2242CB68200778B28 /* INDIServerItemView.xib in Resources */,
+				02DD8740242E6DD0000D1F1D /* INDIPropertyVectorItemView.xib in Resources */,
 				02F8488E242D6334007D3084 /* INDIDeviceItemView.xib in Resources */,
 				029FC5AB242593970027279A /* INDIPropertyListViewController.xib in Resources */,
 			);
@@ -530,6 +537,7 @@
 			files = (
 				029061A4242CB9FE00778B28 /* INDIServerItemView.swift in Sources */,
 				02F84890242D6525007D3084 /* INDIDeviceItemView.swift in Sources */,
+				02DD873E242E6D90000D1F1D /* INDIPropertyVectorItemView.swift in Sources */,
 				029FC5AA242593970027279A /* INDIServerController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -603,6 +611,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "INDI Client/INDI_Client.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = J2S9726G2L;
@@ -624,6 +633,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "INDI Client/INDI_Client.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = J2S9726G2L;

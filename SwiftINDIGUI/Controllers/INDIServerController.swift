@@ -103,6 +103,10 @@ public class INDIServerController: NSViewController, NSOutlineViewDataSource, NS
             
             let nibDeviceItem = NSNib(nibNamed: "INDIDeviceItemView", bundle: bundle)
             navigationView!.register(nibDeviceItem, forIdentifier: .deviceItemView)
+            
+            let nibPropertyVectorItem = NSNib(nibNamed: "INDIPropertyVectorItemView", bundle: bundle)
+            navigationView!.register(nibPropertyVectorItem, forIdentifier: .propertyVectorItemView)
+            
             self.registeredViews = true
         }
     }
@@ -248,7 +252,9 @@ public class INDIServerController: NSViewController, NSOutlineViewDataSource, NS
                 cell?.serverAddress?.stringValue = address
                 let connected = client.connected
                 if connected {
-                    cell!.statusView?.image = NSImage(named:"NSStatusAvailable")
+                    cell!.status = .ok
+                } else {
+                    cell!.status = .idle
                 }
                 return cell
             } else if (item as? INDIDevice) != nil {
@@ -259,22 +265,25 @@ public class INDIServerController: NSViewController, NSOutlineViewDataSource, NS
                 return cell
             }
         } else if outlineView == propertyListView {
-            let cell = outlineView.makeView(withIdentifier: (tableColumn!.identifier), owner: self) as? NSTableCellView
             if (item as? String) != nil {
-                cell?.textField?.stringValue = item as! String
+                if tableColumn?.identifier.rawValue == "PropertyName" {
+                    let cell = outlineView.makeView(withIdentifier: .propertyVectorItemView, owner: self) as? INDIPropertyVectorItemView
+                    cell?.propertyVectorName?.stringValue = item as! String
+                    return cell
+                }
             } else if (item as? INDIPropertyVector) != nil {
-                if tableColumn?.title == "Property" {
+                if tableColumn?.identifier.rawValue == "PropertyName" {
+                    let cell = outlineView.makeView(withIdentifier: (tableColumn!.identifier), owner: self) as? INDIPropertyVectorItemView
                     let propertyVector = item as! INDIPropertyVector
                     var label = propertyVector.label
                     if label == nil {
                         label = propertyVector.name
                     }
-                    cell?.textField?.stringValue = label!
+                    cell?.propertyVectorName?.stringValue = label!
+                    return cell
                 } else {
-                    cell?.textField?.stringValue = ""
                 }
             }
-            return cell
         }
         return nil
     }
@@ -285,4 +294,10 @@ extension NSUserInterfaceItemIdentifier {
     static let deviceItemView = NSUserInterfaceItemIdentifier("deviceItemView")
     
     static let propertyItemView = NSUserInterfaceItemIdentifier("propertyItemView")
+    static let propertyVectorItemView = NSUserInterfaceItemIdentifier("propertyVectorItemView")
+    static let textPropertyItemView = NSUserInterfaceItemIdentifier("textPropertyItemView")
+    static let numberPropertyItemView = NSUserInterfaceItemIdentifier("numberPropertyItemView")
+    static let switchPropertyItemView = NSUserInterfaceItemIdentifier("switchPropertyItemView")
+    static let lightPropertyItemView = NSUserInterfaceItemIdentifier("lightPropertyItemView")
+    static let BLOBPropertyItemView = NSUserInterfaceItemIdentifier("BLOBPropertyItemView")
 }

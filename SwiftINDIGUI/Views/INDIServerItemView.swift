@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import SwiftINDI
 
 class INDIServerItemView: NSView {
     
@@ -15,4 +16,18 @@ class INDIServerItemView: NSView {
     @IBOutlet weak public var iconView : NSImageView?
     @IBOutlet weak public var statusView : NSImageView?
     
+    var status : INDIPropertyState = .idle {
+        didSet {
+            switch status {
+            case .idle:
+                self.statusView?.image = NSImage(named:"NSStatusNone")
+            case .busy:
+                self.statusView?.image = NSImage(named:"NSStatusPartiallyAvailable")
+            case .ok:
+                self.statusView?.image = NSImage(named:"NSStatusAvailable")
+            case .alert:
+                self.statusView?.image = NSImage(named:"NSStatusUnavailable")
+            }
+        }
+    }
 }

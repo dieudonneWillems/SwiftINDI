@@ -64,12 +64,22 @@ public class INDIServerController: NSViewController, NSOutlineViewDataSource, NS
         self.reload()
     }
     
+    private var rootLevelPropertyItems = [Any]()
+    
     /**
      * The device whose information is shown.
      */
     public var device : INDIDevice? {
         didSet {
             if device != nil {
+                rootLevelPropertyItems.removeAll()
+                for group in device!.groups {
+                    rootLevelPropertyItems.append(group)
+                    let propertyVectors = device!.propertyVectors(in: group)
+                    for propertyVector in propertyVectors {
+                        rootLevelPropertyItems.append(propertyVector)
+                    }
+                }
                 propertyListView?.reloadData()
                 propertyListView?.needsDisplay = true
             }
@@ -104,8 +114,17 @@ public class INDIServerController: NSViewController, NSOutlineViewDataSource, NS
             let nibDeviceItem = NSNib(nibNamed: "INDIDeviceItemView", bundle: bundle)
             navigationView!.register(nibDeviceItem, forIdentifier: .deviceItemView)
             
+            let nibGroupItem = NSNib(nibNamed: "INDIGroupItemView", bundle: bundle)
+            propertyListView!.register(nibGroupItem, forIdentifier: .groupItemView)
+            
             let nibPropertyVectorItem = NSNib(nibNamed: "INDIPropertyVectorItemView", bundle: bundle)
-            navigationView!.register(nibPropertyVectorItem, forIdentifier: .propertyVectorItemView)
+            propertyListView!.register(nibPropertyVectorItem, forIdentifier: .propertyVectorItemView)
+            
+            let nibPropertyItem = NSNib(nibNamed: "INDIPropertyItemView", bundle: bundle)
+            propertyListView!.register(nibPropertyItem, forIdentifier: .propertyItemView)
+            
+            let nibTextPropertyItem = NSNib(nibNamed: "INDITextPropertyValueView", bundle: bundle)
+            propertyListView!.register(nibTextPropertyItem, forIdentifier: .textPropertyItemView)
             
             self.registeredViews = true
         }
@@ -127,11 +146,7 @@ public class INDIServerController: NSViewController, NSOutlineViewDataSource, NS
             }
         } else if outlineView == propertyListView {
             if item == nil {
-                return device!.groups[index]
-            } else if (item as? INDIDevice) != nil {
-                return (item as! INDIDevice).groups[index]
-            } else if (item as? String) != nil {
-                return device!.propertyVectors(in: item as! String)[index]
+                return rootLevelPropertyItems[index]
             } else if (item as? INDIPropertyVector) != nil {
                 return (item as! INDIPropertyVector).memberProperties[index]
             }
@@ -145,11 +160,8 @@ public class INDIServerController: NSViewController, NSOutlineViewDataSource, NS
                 return (item as! BasicINDIClient).devices.count > 0
             }
         } else if outlineView == propertyListView {
-            if (item as? INDIDevice) != nil {
-                let ngroups = (item as! INDIDevice).groups.count
-                return ngroups > 0
-            } else if (item as? String) != nil {
-                return device!.propertyVectors(in: item as! String).count > 0
+            if (item as? String) != nil {
+                return false //group
             } else if (item as? INDIPropertyVector) != nil {
                 return (item as! INDIPropertyVector).memberProperties.count > 0
             }
@@ -166,13 +178,9 @@ public class INDIServerController: NSViewController, NSOutlineViewDataSource, NS
             }
         } else if outlineView == propertyListView {
             if item == nil {
-                if device != nil {
-                    return device!.groups.count
-                }
-            } else if (item as? INDIDevice) != nil {
-                return (item as! INDIDevice).groups.count
+                return rootLevelPropertyItems.count
             } else if (item as? String) != nil {
-                return device!.propertyVectors(in: item as! String).count
+                return 0 // group
             } else if (item as? INDIPropertyVector) != nil {
                 return (item as! INDIPropertyVector).memberProperties.count
             }
@@ -188,9 +196,7 @@ public class INDIServerController: NSViewController, NSOutlineViewDataSource, NS
                 return (item as! INDIDevice)
             }
         } else if outlineView == propertyListView {
-            if (item as? INDIDevice) != nil {
-                return (item as! INDIDevice).name
-            } else if (item as? String) != nil {
+            if (item as? String) != nil {
                 return item
             } else if (item as? INDIPropertyVector) != nil {
                 return (item as! INDIPropertyVector).name
@@ -219,8 +225,10 @@ public class INDIServerController: NSViewController, NSOutlineViewDataSource, NS
             return 38.0
         } else if (item as? INDIDevice) != nil {
             return 22.0
+        } else if (item as? INDIProperty) != nil {
+            return 16.0
         }
-        return 18.0
+        return 24.0
     }
     
     public func outlineViewSelectionDidChange(_ notification: Notification) {
@@ -265,25 +273,45 @@ public class INDIServerController: NSViewController, NSOutlineViewDataSource, NS
                 return cell
             }
         } else if outlineView == propertyListView {
-            if (item as? String) != nil {
-                if tableColumn?.identifier.rawValue == "PropertyName" {
-                    let cell = outlineView.makeView(withIdentifier: .propertyVectorItemView, owner: self) as? INDIPropertyVectorItemView
-                    cell?.propertyVectorName?.stringValue = item as! String
-                    return cell
-                }
+            if tableColumn == nil {
+                let cell = outlineView.makeView(withIdentifier: .groupItemView, owner: self) as? INDIGroupItemView
+                cell?.groupName?.stringValue = item as! String
+                return cell
             } else if (item as? INDIPropertyVector) != nil {
                 if tableColumn?.identifier.rawValue == "PropertyName" {
-                    let cell = outlineView.makeView(withIdentifier: (tableColumn!.identifier), owner: self) as? INDIPropertyVectorItemView
+                    let cell = outlineView.makeView(withIdentifier: .propertyVectorItemView, owner: self) as? INDIPropertyVectorItemView
                     let propertyVector = item as! INDIPropertyVector
                     var label = propertyVector.label
                     if label == nil {
                         label = propertyVector.name
                     }
                     cell?.propertyVectorName?.stringValue = label!
+                    cell?.status = propertyVector.state
                     return cell
                 } else {
                 }
-            }
+            } else if (item as? INDIProperty) != nil {
+                if tableColumn?.identifier.rawValue == "PropertyName" {
+                    let cell = outlineView.makeView(withIdentifier: .propertyItemView, owner: self) as? INDIPropertyItemVIew
+                    let property = item as! INDIProperty
+                    var label = property.label
+                    if label == nil {
+                        label = property.name
+                    }
+                    cell?.propertyName?.stringValue = label!
+                    return cell
+                } else {
+                    if (item as? INDIProperty) != nil {
+                        let cell = outlineView.makeView(withIdentifier: .textPropertyItemView, owner: self) as? INDITextPropertyValueView
+                        let property = item as! INDIProperty
+                        let value = property.value
+                        if value != nil {
+                            cell?.textValue?.stringValue = "\(value!)"
+                            return cell
+                        }
+                    }
+                }
+           }
         }
         return nil
     }
@@ -293,6 +321,7 @@ extension NSUserInterfaceItemIdentifier {
     static let serverItemView = NSUserInterfaceItemIdentifier("serverItemView")
     static let deviceItemView = NSUserInterfaceItemIdentifier("deviceItemView")
     
+    static let groupItemView = NSUserInterfaceItemIdentifier("groupItemView")
     static let propertyItemView = NSUserInterfaceItemIdentifier("propertyItemView")
     static let propertyVectorItemView = NSUserInterfaceItemIdentifier("propertyVectorItemView")
     static let textPropertyItemView = NSUserInterfaceItemIdentifier("textPropertyItemView")

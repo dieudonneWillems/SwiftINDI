@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16096" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16096"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner"/>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="c22-O7-iKe" customClass="INDIGroupItemView" customModule="SwiftINDIGUI" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="316" height="24"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="GZb-3Z-kgP">
+                    <rect key="frame" x="-2" y="4" width="320" height="16"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="16" id="RAg-U0-yDi"/>
+                    </constraints>
+                    <textFieldCell key="cell" lineBreakMode="truncatingTail" title="Label" usesSingleLineMode="YES" id="9NR-9R-FEN">
+                        <font key="font" metaFont="systemBold"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+            </subviews>
+            <constraints>
+                <constraint firstItem="GZb-3Z-kgP" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" constant="4" id="3IH-MX-PSM"/>
+                <constraint firstItem="GZb-3Z-kgP" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" id="5fZ-UK-dOL"/>
+                <constraint firstAttribute="trailing" secondItem="GZb-3Z-kgP" secondAttribute="trailing" id="C92-bL-YUz"/>
+                <constraint firstAttribute="bottom" secondItem="GZb-3Z-kgP" secondAttribute="bottom" constant="4" id="HGy-q3-vch"/>
+            </constraints>
+            <connections>
+                <outlet property="groupName" destination="GZb-3Z-kgP" id="ucd-8n-JPu"/>
+            </connections>
+            <point key="canvasLocation" x="56" y="154"/>
+        </customView>
+    </objects>
+</document>

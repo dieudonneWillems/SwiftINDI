@@ -217,9 +217,9 @@ public class BasicINDIClient : CustomStringConvertible {
             return
         }
         delegate?.willDisconnect(self, from: server!, port: port)
+        self.connected = false
         tcpClient?.close()
         tcpClient = nil
-        self.connected = false
         delegate?.didDisconnect(self, from: server!, port: port)
     }
     

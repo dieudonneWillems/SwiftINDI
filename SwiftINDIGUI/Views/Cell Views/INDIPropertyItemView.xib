@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16096" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16096"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner"/>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="c22-O7-iKe" customClass="INDIPropertyItemVIew" customModule="SwiftINDIGUI" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="397" height="16"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0Yv-W4-ka9">
+                    <rect key="frame" x="-2" y="1" width="401" height="14"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="14" id="p2X-ul-ZMe"/>
+                    </constraints>
+                    <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" title="Label" id="ydP-wA-JEj">
+                        <font key="font" metaFont="message" size="11"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="0Yv-W4-ka9" secondAttribute="bottom" constant="1" id="2jU-oZ-13i"/>
+                <constraint firstAttribute="bottom" secondItem="0Yv-W4-ka9" secondAttribute="bottom" constant="1" id="T4h-FO-6AQ"/>
+                <constraint firstAttribute="trailing" secondItem="0Yv-W4-ka9" secondAttribute="trailing" id="gj9-x6-5qs"/>
+                <constraint firstItem="0Yv-W4-ka9" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" id="u79-F9-gml"/>
+            </constraints>
+            <connections>
+                <outlet property="propertyName" destination="0Yv-W4-ka9" id="bgF-wh-ofe"/>
+            </connections>
+            <point key="canvasLocation" x="96.5" y="33"/>
+        </customView>
+    </objects>
+</document>

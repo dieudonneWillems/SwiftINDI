@@ -40,6 +40,12 @@
 		02DD873C242E086B000D1F1D /* SwiftSocket.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 02DD8739242E0812000D1F1D /* SwiftSocket.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		02DD873E242E6D90000D1F1D /* INDIPropertyVectorItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02DD873D242E6D90000D1F1D /* INDIPropertyVectorItemView.swift */; };
 		02DD8740242E6DD0000D1F1D /* INDIPropertyVectorItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02DD873F242E6DD0000D1F1D /* INDIPropertyVectorItemView.xib */; };
+		02DD8742242EC660000D1F1D /* INDIGroupItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02DD8741242EC660000D1F1D /* INDIGroupItemView.xib */; };
+		02DD8744242EC75C000D1F1D /* INDIGroupItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02DD8743242EC75C000D1F1D /* INDIGroupItemView.swift */; };
+		02DD8747242ECB58000D1F1D /* INDIPropertyItemVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02DD8746242ECB58000D1F1D /* INDIPropertyItemVIew.swift */; };
+		02DD8749242ECC3E000D1F1D /* INDIPropertyItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02DD8748242ECC3E000D1F1D /* INDIPropertyItemView.xib */; };
+		02DD874B242ED0FB000D1F1D /* INDITextPropertyValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02DD874A242ED0FB000D1F1D /* INDITextPropertyValueView.swift */; };
+		02DD874D242ED241000D1F1D /* INDITextPropertyValueView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02DD874C242ED241000D1F1D /* INDITextPropertyValueView.xib */; };
 		02F8488E242D6334007D3084 /* INDIDeviceItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02F8488D242D6334007D3084 /* INDIDeviceItemView.xib */; };
 		02F84890242D6525007D3084 /* INDIDeviceItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F8488F242D6525007D3084 /* INDIDeviceItemView.swift */; };
 /* End PBXBuildFile section */
@@ -147,6 +153,12 @@
 		02DD8739242E0812000D1F1D /* SwiftSocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SwiftSocket.framework; sourceTree = "<group>"; };
 		02DD873D242E6D90000D1F1D /* INDIPropertyVectorItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = INDIPropertyVectorItemView.swift; sourceTree = "<group>"; };
 		02DD873F242E6DD0000D1F1D /* INDIPropertyVectorItemView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = INDIPropertyVectorItemView.xib; sourceTree = "<group>"; };
+		02DD8741242EC660000D1F1D /* INDIGroupItemView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = INDIGroupItemView.xib; sourceTree = "<group>"; };
+		02DD8743242EC75C000D1F1D /* INDIGroupItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = INDIGroupItemView.swift; sourceTree = "<group>"; };
+		02DD8746242ECB58000D1F1D /* INDIPropertyItemVIew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = INDIPropertyItemVIew.swift; sourceTree = "<group>"; };
+		02DD8748242ECC3E000D1F1D /* INDIPropertyItemView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = INDIPropertyItemView.xib; sourceTree = "<group>"; };
+		02DD874A242ED0FB000D1F1D /* INDITextPropertyValueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = INDITextPropertyValueView.swift; sourceTree = "<group>"; };
+		02DD874C242ED241000D1F1D /* INDITextPropertyValueView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = INDITextPropertyValueView.xib; sourceTree = "<group>"; };
 		02F8488D242D6334007D3084 /* INDIDeviceItemView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = INDIDeviceItemView.xib; sourceTree = "<group>"; };
 		02F8488F242D6525007D3084 /* INDIDeviceItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = INDIDeviceItemView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -261,13 +273,8 @@
 		029FC5A6242535C40027279A /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				02DD8745242ECB2D000D1F1D /* Cell Views */,
 				029FC5A9242593970027279A /* INDIPropertyListViewController.xib */,
-				029061A3242CB9FE00778B28 /* INDIServerItemView.swift */,
-				029061A1242CB68200778B28 /* INDIServerItemView.xib */,
-				02F8488F242D6525007D3084 /* INDIDeviceItemView.swift */,
-				02F8488D242D6334007D3084 /* INDIDeviceItemView.xib */,
-				02DD873D242E6D90000D1F1D /* INDIPropertyVectorItemView.swift */,
-				02DD873F242E6DD0000D1F1D /* INDIPropertyVectorItemView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -332,6 +339,25 @@
 				020D2D6C241CE95F00A97EA5 /* INDIDelegate.swift */,
 			);
 			path = INDI;
+			sourceTree = "<group>";
+		};
+		02DD8745242ECB2D000D1F1D /* Cell Views */ = {
+			isa = PBXGroup;
+			children = (
+				029061A3242CB9FE00778B28 /* INDIServerItemView.swift */,
+				029061A1242CB68200778B28 /* INDIServerItemView.xib */,
+				02F8488F242D6525007D3084 /* INDIDeviceItemView.swift */,
+				02F8488D242D6334007D3084 /* INDIDeviceItemView.xib */,
+				02DD8743242EC75C000D1F1D /* INDIGroupItemView.swift */,
+				02DD8741242EC660000D1F1D /* INDIGroupItemView.xib */,
+				02DD873D242E6D90000D1F1D /* INDIPropertyVectorItemView.swift */,
+				02DD873F242E6DD0000D1F1D /* INDIPropertyVectorItemView.xib */,
+				02DD8746242ECB58000D1F1D /* INDIPropertyItemVIew.swift */,
+				02DD8748242ECC3E000D1F1D /* INDIPropertyItemView.xib */,
+				02DD874A242ED0FB000D1F1D /* INDITextPropertyValueView.swift */,
+				02DD874C242ED241000D1F1D /* INDITextPropertyValueView.xib */,
+			);
+			path = "Cell Views";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -498,9 +524,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02DD8742242EC660000D1F1D /* INDIGroupItemView.xib in Resources */,
 				029061A2242CB68200778B28 /* INDIServerItemView.xib in Resources */,
+				02DD874D242ED241000D1F1D /* INDITextPropertyValueView.xib in Resources */,
 				02DD8740242E6DD0000D1F1D /* INDIPropertyVectorItemView.xib in Resources */,
 				02F8488E242D6334007D3084 /* INDIDeviceItemView.xib in Resources */,
+				02DD8749242ECC3E000D1F1D /* INDIPropertyItemView.xib in Resources */,
 				029FC5AB242593970027279A /* INDIPropertyListViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -535,7 +564,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02DD8747242ECB58000D1F1D /* INDIPropertyItemVIew.swift in Sources */,
+				02DD874B242ED0FB000D1F1D /* INDITextPropertyValueView.swift in Sources */,
 				029061A4242CB9FE00778B28 /* INDIServerItemView.swift in Sources */,
+				02DD8744242EC75C000D1F1D /* INDIGroupItemView.swift in Sources */,
 				02F84890242D6525007D3084 /* INDIDeviceItemView.swift in Sources */,
 				02DD873E242E6D90000D1F1D /* INDIPropertyVectorItemView.swift in Sources */,
 				029FC5AA242593970027279A /* INDIServerController.swift in Sources */,

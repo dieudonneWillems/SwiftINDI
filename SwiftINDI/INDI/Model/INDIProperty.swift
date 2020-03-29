@@ -104,6 +104,13 @@ public protocol INDIPropertyVector {
     var label : String? {get}
     
     /**
+     * The name of the INDI property that should be used in a graphical user interface (GUI),
+     * i.e. a human readble name. This property will have the same value of the `label`
+     * property if this is not `nil`, otherwise it wil have the same value as the `name` property.
+     */
+    var uiLabel : String {get}
+    
+    /**
      * The name of the group to which the INDI property belongs. If this property is `nil`, it is
      * not defined, i.e. blank.
      */
@@ -173,6 +180,13 @@ public protocol INDIProperty {
      * of the INDI property should be used as the label.
      */
     var label : String? {get}
+    
+    /**
+     * The name of the INDI property that should be used in a graphical user interface (GUI),
+     * i.e. a human readble name. This property will have the same value of the `label`
+     * property if this is not `nil`, otherwise it wil have the same value as the `name` property.
+     */
+    var uiLabel : String {get}
     
     /**
      * The current value of the property, or `nil` if the property's value has not been set.

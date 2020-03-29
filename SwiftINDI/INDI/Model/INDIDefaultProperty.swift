@@ -37,6 +37,18 @@ public class INDIDefaultPropertyVector : INDIPropertyVector {
     public let label: String?
     
     /**
+     * The name of the INDI property that should be used in a graphical user interface (GUI),
+     * i.e. a human readble name. This property will have the same value of the `label`
+     * property if this is not `nil`, otherwise it wil have the same value as the `name` property.
+     */
+    public var uiLabel : String {
+        get {
+            return label != nil ? label! : name
+        }
+        
+    }
+    
+    /**
      * The name of the group to which the INDI property belongs. If this property is `nil`, it is
      * not defined, i.e. blank.
      */
@@ -47,7 +59,7 @@ public class INDIDefaultPropertyVector : INDIPropertyVector {
      * A GUI may represent the state in different colours. Suggested colours would be gray, green, yellow, and
      * red respectively.
      */
-    public let state: INDIPropertyState
+    public var state: INDIPropertyState
     
     /**
      * Specifies that the INDI property can be read by the client.
@@ -68,7 +80,7 @@ public class INDIDefaultPropertyVector : INDIPropertyVector {
     /**
      * The moment when the propery was valid.
      */
-    public let timestamp: Date?
+    public var timestamp: Date?
     
     /**
      * A commentary (description) of the property.
@@ -149,6 +161,18 @@ public class INDIDefaultProperty : INDIProperty {
      * of the INDI property should be used as the label.
      */
     public let label: String?
+    
+    /**
+     * The name of the INDI property that should be used in a graphical user interface (GUI),
+     * i.e. a human readble name. This property will have the same value of the `label`
+     * property if this is not `nil`, otherwise it wil have the same value as the `name` property.
+     */
+    public var uiLabel : String {
+        get {
+            return label != nil ? label! : name
+        }
+        
+    }
     
     /**
      * Initialises the INDI property with the supplied values. INDI properties and

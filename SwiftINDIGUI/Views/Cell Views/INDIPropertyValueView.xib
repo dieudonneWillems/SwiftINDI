@@ -8,7 +8,7 @@
         <customObject id="-2" userLabel="File's Owner"/>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <customView id="c22-O7-iKe" customClass="INDITextPropertyValueView" customModule="SwiftINDIGUI" customModuleProvider="target">
+        <customView id="c22-O7-iKe" customClass="INDIPropertyValueView" customModule="SwiftINDIGUI" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="480" height="16"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
@@ -18,7 +18,7 @@
                         <constraint firstAttribute="height" constant="14" id="9t1-1F-emP"/>
                     </constraints>
                     <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" selectable="YES" editable="YES" title="Label" id="Vex-UY-7Pt">
-                        <font key="font" metaFont="message" size="11"/>
+                        <font key="font" metaFont="label" size="11"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
@@ -30,7 +30,7 @@
                     </constraints>
                     <buttonCell key="cell" type="roundRect" title="Edit" bezelStyle="roundedRect" alignment="center" controlSize="small" state="on" imageScaling="proportionallyDown" inset="2" id="F6v-AO-25x">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="message" size="11"/>
+                        <font key="font" metaFont="label" size="11"/>
                     </buttonCell>
                 </button>
             </subviews>
@@ -44,6 +44,7 @@
                 <constraint firstItem="3yw-Tx-wiW" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" constant="1" id="sdV-zm-3w7"/>
             </constraints>
             <connections>
+                <outlet property="editButton" destination="3yw-Tx-wiW" id="q6b-AJ-2F5"/>
                 <outlet property="textValue" destination="d0r-Tb-U72" id="V0b-VL-yo3"/>
             </connections>
             <point key="canvasLocation" x="138" y="143"/>

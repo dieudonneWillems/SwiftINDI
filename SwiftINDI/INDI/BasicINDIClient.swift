@@ -413,7 +413,18 @@ public class BasicINDIClient : CustomStringConvertible {
                 device!.define(propertyVector: numberVector)
                 delegate?.propertyVectorDefined(self, device: device!, propertyVector: numberVector)
             } else if node.name! == "defSwitchVector" {
-                let switchVector = INDISwitchPropertyVector(node.attributes!["name"]!, device: device!, label: node.attributes!["label"], group: node.attributes!["group"], state: state, read: readFlag, write: writeFlag, timeout: timeout, timestamp: timestamp, message: node.attributes!["message"])
+                var switchRule : INDISwitchRule = .oneOfMany
+                switch node.attributes!["rule"] {
+                case "OneOfMany":
+                    switchRule = .oneOfMany
+                case "AtMostOne":
+                    switchRule = .atMostOne
+                case "AnyOfMany":
+                    switchRule = .anyOfMany
+                default:
+                    switchRule = .oneOfMany
+                }
+                let switchVector = INDISwitchPropertyVector(node.attributes!["name"]!, device: device!, label: node.attributes!["label"], group: node.attributes!["group"], state: state, rule: switchRule, read: readFlag, write: writeFlag, timeout: timeout, timestamp: timestamp, message: node.attributes!["message"])
                 self.interpretSwitchPropertyDefinitions(from: node, toIncludeIn: switchVector)
                 device!.define(propertyVector: switchVector)
                 delegate?.propertyVectorDefined(self, device: device!, propertyVector: switchVector)

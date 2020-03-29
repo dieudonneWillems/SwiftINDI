@@ -167,6 +167,8 @@ public class INDIServerController: NSViewController, NSOutlineViewDataSource, NS
                 return false //group
             } else if (item as? INDITextPropertyVector) != nil { // only text properties are presented with multiple items
                 return (item as! INDITextPropertyVector).memberProperties.count > 0
+            } else if (item as? INDINumberPropertyVector) != nil { // only number properties are presented with multiple items
+                return (item as! INDINumberPropertyVector).memberProperties.count > 0
             } else if (item as? INDIPropertyVector) != nil { // for other properties the value is presented in the property vector view
                 return false
             }
@@ -188,6 +190,8 @@ public class INDIServerController: NSViewController, NSOutlineViewDataSource, NS
                 return 0 // group
             } else if (item as? INDITextPropertyVector) != nil { // only text properties are presented with multiple items
                 return (item as! INDITextPropertyVector).memberProperties.count
+            } else if (item as? INDINumberPropertyVector) != nil { // only text properties are presented with multiple items
+                return (item as! INDINumberPropertyVector).memberProperties.count
             } else if (item as? INDIPropertyVector) != nil { // for other properties the value is presented in the property vector view
                 return 0
             }
@@ -292,12 +296,14 @@ public class INDIServerController: NSViewController, NSOutlineViewDataSource, NS
                     cell?.propertyVectorName?.stringValue = label
                     cell?.status = propertyVector.state
                     return cell
-                } else {
-                    if (item as? INDISwitchPropertyVector) != nil {
-                        let property = item as! INDISwitchPropertyVector
-                        let cell = outlineView.makeView(withIdentifier: .propertyVectorValueView, owner: self) as? INDIPropertyVectorValueView
+                } else if (item as? INDISwitchPropertyVector) != nil {
+                    let property = item as! INDISwitchPropertyVector
+                    let cell = outlineView.makeView(withIdentifier: .propertyVectorValueView, owner: self) as? INDIPropertyVectorValueView
+                    var onString = ""
+                    if property.memberProperties.count == 1 {
+                        onString = "\((property.memberProperties[0] as! INDISwitchProperty).switchState.rawValue)"
+                    } else {
                         let onProps = property.on
-                        var onString = ""
                         for onProp in onProps {
                             let propLabel = onProp.uiLabel
                             if onString.count > 0 {
@@ -306,9 +312,19 @@ public class INDIServerController: NSViewController, NSOutlineViewDataSource, NS
                                 onString = propLabel
                             }
                         }
-                        cell?.textValue?.stringValue = onString
-                        return cell
                     }
+                    cell?.textValue?.stringValue = onString
+                    return cell
+                } else if (item as? INDIPropertyVector)!.memberProperties.count == 1 {
+                    let property = item as! INDIPropertyVector
+                    let cell = outlineView.makeView(withIdentifier: .propertyVectorValueView, owner: self) as? INDIPropertyVectorValueView
+                    let value = property.memberProperties[0].value
+                    if value != nil {
+                        cell?.textValue?.stringValue = "\(value!)"
+                    } else {
+                        cell?.textValue?.stringValue = ""
+                    }
+                    return cell
                 }
             } else if (item as? INDIProperty) != nil {
                 if tableColumn?.identifier.rawValue == "PropertyName" {

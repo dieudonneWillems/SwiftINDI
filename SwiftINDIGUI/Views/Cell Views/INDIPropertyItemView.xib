@@ -13,7 +13,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0Yv-W4-ka9">
-                    <rect key="frame" x="-2" y="1" width="401" height="14"/>
+                    <rect key="frame" x="22" y="1" width="377" height="14"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="14" id="p2X-ul-ZMe"/>
                     </constraints>
@@ -28,7 +28,7 @@
                 <constraint firstAttribute="bottom" secondItem="0Yv-W4-ka9" secondAttribute="bottom" constant="1" id="2jU-oZ-13i"/>
                 <constraint firstAttribute="bottom" secondItem="0Yv-W4-ka9" secondAttribute="bottom" constant="1" id="T4h-FO-6AQ"/>
                 <constraint firstAttribute="trailing" secondItem="0Yv-W4-ka9" secondAttribute="trailing" id="gj9-x6-5qs"/>
-                <constraint firstItem="0Yv-W4-ka9" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" id="u79-F9-gml"/>
+                <constraint firstItem="0Yv-W4-ka9" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="24" id="u79-F9-gml"/>
             </constraints>
             <connections>
                 <outlet property="propertyName" destination="0Yv-W4-ka9" id="bgF-wh-ofe"/>

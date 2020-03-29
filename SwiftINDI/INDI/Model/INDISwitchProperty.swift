@@ -11,7 +11,7 @@ import Foundation
 /**
  * The state of the switch property (`.on` or  `.off`).
  */
-public enum INDISwitchState {
+public enum INDISwitchState : String {
     
     /**
      * Specifies that the switch is ON.
@@ -29,7 +29,7 @@ public enum INDISwitchState {
  * only one of the possible values is allowed to be `.on`, whether exactly one the values need to
  * be `.on`, or whether any of the values can be `.on`.
  */
-public enum INDISwitchRule {
+public enum INDISwitchRule : String {
     
     /**
      * Exactly one of the member properties need to have a switch state that is `.on`. All other

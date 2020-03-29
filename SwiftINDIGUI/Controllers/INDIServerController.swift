@@ -295,7 +295,7 @@ public class INDIServerController: NSViewController, NSOutlineViewDataSource, NS
                 } else {
                     if (item as? INDISwitchPropertyVector) != nil {
                         let property = item as! INDISwitchPropertyVector
-                        let cell = outlineView.makeView(withIdentifier: .propertyVectorValueView, owner: self) as? INDIPropertyValueView
+                        let cell = outlineView.makeView(withIdentifier: .propertyVectorValueView, owner: self) as? INDIPropertyVectorValueView
                         let onProps = property.on
                         var onString = ""
                         for onProp in onProps {
@@ -322,7 +322,7 @@ public class INDIServerController: NSViewController, NSOutlineViewDataSource, NS
                     return cell
                 } else {
                     if (item as? INDIProperty) != nil {
-                        let cell = outlineView.makeView(withIdentifier: .propertyItemView, owner: self) as? INDIPropertyValueView
+                        let cell = outlineView.makeView(withIdentifier: .propertyValueView, owner: self) as? INDIPropertyValueView
                         let property = item as! INDIProperty
                         let value = property.value
                         if value != nil {

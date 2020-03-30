@@ -37,7 +37,15 @@ public class INDIDevice {
      * - Parameter propertyVector: The property vector to be defined.
      */
     public func define(propertyVector: INDIPropertyVector) {
-        self.propertyVectors.append(propertyVector)
+        if !self.propertyVectors.contains(where: { $0 == propertyVector }) {
+            self.propertyVectors.append(propertyVector)
+        } else {
+            let index = self.propertyVectors.firstIndex(where: { $0 == propertyVector })
+            if index != nil {
+                self.propertyVectors.remove(at: index!)
+            }
+            self.propertyVectors.append(propertyVector)
+        }
     }
     
     /**

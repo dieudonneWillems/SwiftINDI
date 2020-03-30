@@ -194,3 +194,25 @@ public protocol INDIProperty {
     var value: Any? {get set}
     
 }
+
+
+
+/**
+ * Tests whether the property vectors are equal. Property vectors are equal if their `name` s are equal.
+ * - Parameter lhs: The left hand property vector.
+ * - Parameter rhs: The right hand property vector.
+ * - Returns: `true` when the property vectors are equal, `false` if they are not.
+ */
+public func == (lhs: INDIPropertyVector, rhs: INDIPropertyVector) -> Bool {
+    return lhs.name == rhs.name
+}
+
+/**
+ * Tests whether the properties are equal. Properties are equal if their `name` s are equal.
+ * - Parameter lhs: The left hand property.
+ * - Parameter rhs: The right hand property.
+ * - Returns: `true` when the properties are equal, `false` if they are not.
+ */
+public func == (lhs: INDIProperty, rhs: INDIProperty) -> Bool {
+    return lhs.name == rhs.name
+}

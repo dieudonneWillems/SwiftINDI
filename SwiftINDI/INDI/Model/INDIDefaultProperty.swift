@@ -145,6 +145,7 @@ public class INDIDefaultPropertyVector : INDIPropertyVector {
  */
 public class INDIDefaultProperty : INDIProperty {
     
+    
     /**
      * The type of the INDI property (text, numeric, switch, light, or BLOB).
      */

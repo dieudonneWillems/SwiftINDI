@@ -13,38 +13,24 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="d0r-Tb-U72">
-                    <rect key="frame" x="-2" y="1" width="444" height="14"/>
+                    <rect key="frame" x="-2" y="1" width="484" height="14"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="14" id="9t1-1F-emP"/>
                     </constraints>
                     <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" selectable="YES" editable="YES" title="Label" id="Vex-UY-7Pt">
-                        <font key="font" metaFont="label" size="11"/>
+                        <font key="font" metaFont="message" size="11"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3yw-Tx-wiW">
-                    <rect key="frame" x="448" y="1" width="25" height="14"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="14" id="bld-HT-Gpl"/>
-                    </constraints>
-                    <buttonCell key="cell" type="roundRect" title="Edit" bezelStyle="roundedRect" alignment="center" controlSize="small" state="on" imageScaling="proportionallyDown" inset="2" id="F6v-AO-25x">
-                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="label" size="11"/>
-                    </buttonCell>
-                </button>
             </subviews>
             <constraints>
                 <constraint firstItem="d0r-Tb-U72" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" id="BQ5-Zj-OM2"/>
-                <constraint firstAttribute="bottom" secondItem="3yw-Tx-wiW" secondAttribute="bottom" constant="1" id="ZlT-8v-1v5"/>
-                <constraint firstItem="3yw-Tx-wiW" firstAttribute="leading" secondItem="d0r-Tb-U72" secondAttribute="trailing" constant="8" id="a7X-W5-gfw"/>
                 <constraint firstAttribute="bottom" secondItem="d0r-Tb-U72" secondAttribute="bottom" constant="1" id="qIi-BN-kYJ"/>
-                <constraint firstAttribute="trailing" secondItem="3yw-Tx-wiW" secondAttribute="trailing" constant="7" id="qT5-62-pHs"/>
                 <constraint firstItem="d0r-Tb-U72" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" constant="1" id="r2l-Mq-oAC"/>
-                <constraint firstItem="3yw-Tx-wiW" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" constant="1" id="sdV-zm-3w7"/>
+                <constraint firstAttribute="trailing" secondItem="d0r-Tb-U72" secondAttribute="trailing" id="ztp-73-hBl"/>
             </constraints>
             <connections>
-                <outlet property="editButton" destination="3yw-Tx-wiW" id="q6b-AJ-2F5"/>
                 <outlet property="textValue" destination="d0r-Tb-U72" id="V0b-VL-yo3"/>
             </connections>
             <point key="canvasLocation" x="138" y="143"/>

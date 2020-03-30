@@ -11,6 +11,5 @@ import Cocoa
 class INDIPropertyValueView: NSView {
     
     @IBOutlet weak public var textValue : NSTextField?
-    @IBOutlet weak public var editButton : NSButton?
     
 }

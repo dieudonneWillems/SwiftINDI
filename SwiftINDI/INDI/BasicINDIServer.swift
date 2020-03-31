@@ -1,5 +1,5 @@
 //
-//  BasicINDIClient.swift
+//  BasicINDIServer.swift
 //  SwiftINDI
 //
 //  Created by Don Willems on 10/03/2020.
@@ -15,7 +15,7 @@ import SwiftSocket
  * Before connecting a client to a server, the server needs first to be specified using the function `setServer(at host: String, port: Int = 7642)`.
  * The client can then establish a TCP connection using the function `connect()`. To disconnect use the function `disconnect()`.
  */
-public class BasicINDIClient : CustomStringConvertible {
+public class BasicINDIServer : CustomStringConvertible {
     
     /**
      * The ISO 8601 Date formatter to parse timestamps.
@@ -37,9 +37,9 @@ public class BasicINDIClient : CustomStringConvertible {
      *
      * This value can be `nil` when the server has not been specified yet. To specify
      * the server and the port to be used, use the function
-     * `setSetver(at host: String, port: Int = 7642)`.
+     * `setServer(at host: String, port: Int = 7642)`.
      */
-    public private(set) var server : String?
+    public private(set) var host : String?
     
     /**
      * The server port to which the client is connected (default is 7642).
@@ -86,9 +86,9 @@ public class BasicINDIClient : CustomStringConvertible {
     public var description: String {
         get {
             if connected {
-                return "INDI Client connected to INDI Server at \(server!) with port \(port)"
-            } else if server != nil {
-                return "INDI Client disconnected from INDI Server at \(server!) with port \(port)"
+                return "INDI Client connected to INDI Server at \(host!) with port \(port)"
+            } else if host != nil {
+                return "INDI Client disconnected from INDI Server at \(host!) with port \(port)"
             }
             return "INDI Client not associated with an INDI Server."
         }
@@ -163,7 +163,7 @@ public class BasicINDIClient : CustomStringConvertible {
         if connected {
             throw INDIError.connectionError(message: "The server cannot be changed when a connection to (another) INDI server already exists. The server should first be disconnected.")
         }
-        self.server = host
+        self.host = host
         self.port = port
     }
     
@@ -177,28 +177,28 @@ public class BasicINDIClient : CustomStringConvertible {
      */
     public func connect() {
         if connected {
-            delegate?.connectionRequestIgnored(self, to: server, port: port, message: "The INDI client was already connected to the INDI server.")
+            delegate?.connectionRequestIgnored(self, to: host, port: port, message: "The INDI client was already connected to the INDI server.")
             return
         }
-        if server == nil {
+        if host == nil {
             let message = "No INDI server was defined, no connection could be made therefore."
             let error = INDIError.connectionError(message: message)
             self.delegate?.encounteredINDIError(self, error: error, message: message)
         }
-        delegate?.willConnect(self, to: server!, port: port)
-        self.tcpClient = TCPClient(address: self.server!, port: Int32(port))
+        delegate?.willConnect(self, to: host!, port: port)
+        self.tcpClient = TCPClient(address: self.host!, port: Int32(port))
         DispatchQueue.global(qos: .utility).async { // Start new utility thread
             switch self.tcpClient!.connect(timeout: 1) {
                 case .success:
                     self.connected = true
                     DispatchQueue.main.async {
-                        self.delegate?.didConnect(self, to: self.server!, port: self.port)
+                        self.delegate?.didConnect(self, to: self.host!, port: self.port)
                         self.listen()
                         self.loadDevices()
                     }
                 case .failure(let error):
                     DispatchQueue.main.async {
-                        let message = "No connection to the INDI server at \(self.server!) and port \(self.port) could be established."
+                        let message = "No connection to the INDI server at \(self.host!) and port \(self.port) could be established."
                         let error = INDIError.connectionError(message: message, causedBy: error)
                         self.delegate?.encounteredINDIError(self, error: error, message: message)
                     }
@@ -213,14 +213,14 @@ public class BasicINDIClient : CustomStringConvertible {
      */
     public func disconnect() {
         if !connected {
-            delegate?.connectionRequestIgnored(self, to: server, port: port, message: "The INDI client was not connected to the INDI server and cannot be disconnected therefore.")
+            delegate?.connectionRequestIgnored(self, to: host, port: port, message: "The INDI client was not connected to the INDI server and cannot be disconnected therefore.")
             return
         }
-        delegate?.willDisconnect(self, from: server!, port: port)
+        delegate?.willDisconnect(self, from: host!, port: port)
         self.connected = false
         tcpClient?.close()
         tcpClient = nil
-        delegate?.didDisconnect(self, from: server!, port: port)
+        delegate?.didDisconnect(self, from: host!, port: port)
     }
     
     /**
@@ -309,7 +309,7 @@ public class BasicINDIClient : CustomStringConvertible {
                 print(response)
                 print("-----------------------------------------------------")
                 try self.parseResponse(response)
-                self.delegate?.recievedData(self, size: response.count, xml: response, from: self.server!, port: self.port)
+                self.delegate?.recievedData(self, size: response.count, xml: response, from: self.host!, port: self.port)
             } catch {
                 let message = "An error occurred when parsing the data to XML.\n\(response)"
                 let indierror = INDIError.connectionError(message: message, causedBy: error)
@@ -393,12 +393,12 @@ public class BasicINDIClient : CustomStringConvertible {
         let timestampString = node.attributes!["timestamp"]
         var timestamp : Date? = Date()
         if timestampString != nil {
-            timestamp = BasicINDIClient.iso8601().date(from: timestampString!)
+            timestamp = BasicINDIServer.iso8601().date(from: timestampString!)
         }
         if deviceName != nil {
             var device = self.devices[deviceName!]
             if device == nil {
-                device = INDIDevice(name: deviceName!)
+                device = INDIDevice(name: deviceName!, server: self)
                 self.devices[deviceName!] = device
                 delegate?.deviceDefined(self, device: device!)
             }

@@ -18,6 +18,8 @@
 		020FE5F02422EB5D00427BE6 /* INDIBLOBProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020FE5EF2422EB5D00427BE6 /* INDIBLOBProperty.swift */; };
 		02249D9E2430EDF800BE9BDB /* INDIPropertyVectorValueView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02249D9D2430EDF800BE9BDB /* INDIPropertyVectorValueView.xib */; };
 		02249DA02430EE4A00BE9BDB /* INDIPropertyVectorValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02249D9F2430EE4A00BE9BDB /* INDIPropertyVectorValueView.swift */; };
+		028E360E24339E0A000A73C4 /* INDITextPropertyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 028E360D24339E0A000A73C4 /* INDITextPropertyView.xib */; };
+		028E361124339E6B000A73C4 /* INDITextPropertyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 028E361024339E6B000A73C4 /* INDITextPropertyView.swift */; };
 		029061A2242CB68200778B28 /* INDIServerItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 029061A1242CB68200778B28 /* INDIServerItemView.xib */; };
 		029061A4242CB9FE00778B28 /* INDIServerItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029061A3242CB9FE00778B28 /* INDIServerItemView.swift */; };
 		029BBD02241D93EA004E60E4 /* INDIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029BBD01241D93EA004E60E4 /* INDIError.swift */; };
@@ -37,7 +39,7 @@
 		02A9EDC424184AC100484226 /* SwiftINDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02A9EDBA24184AC100484226 /* SwiftINDI.framework */; };
 		02A9EDC924184AC100484226 /* SwiftINDITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A9EDC824184AC100484226 /* SwiftINDITests.swift */; };
 		02A9EDCB24184AC100484226 /* SwiftINDI.h in Headers */ = {isa = PBXBuildFile; fileRef = 02A9EDBD24184AC100484226 /* SwiftINDI.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		02A9EDE72418525000484226 /* BasicINDIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A9EDE62418525000484226 /* BasicINDIClient.swift */; };
+		02A9EDE72418525000484226 /* BasicINDIServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A9EDE62418525000484226 /* BasicINDIServer.swift */; };
 		02DD873B242E086B000D1F1D /* SwiftSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02DD8739242E0812000D1F1D /* SwiftSocket.framework */; };
 		02DD873C242E086B000D1F1D /* SwiftSocket.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 02DD8739242E0812000D1F1D /* SwiftSocket.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		02DD873E242E6D90000D1F1D /* INDIPropertyVectorItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02DD873D242E6D90000D1F1D /* INDIPropertyVectorItemView.swift */; };
@@ -132,6 +134,8 @@
 		020FE5EF2422EB5D00427BE6 /* INDIBLOBProperty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = INDIBLOBProperty.swift; sourceTree = "<group>"; };
 		02249D9D2430EDF800BE9BDB /* INDIPropertyVectorValueView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = INDIPropertyVectorValueView.xib; sourceTree = "<group>"; };
 		02249D9F2430EE4A00BE9BDB /* INDIPropertyVectorValueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = INDIPropertyVectorValueView.swift; sourceTree = "<group>"; };
+		028E360D24339E0A000A73C4 /* INDITextPropertyView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = INDITextPropertyView.xib; sourceTree = "<group>"; };
+		028E361024339E6B000A73C4 /* INDITextPropertyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = INDITextPropertyView.swift; sourceTree = "<group>"; };
 		029061A1242CB68200778B28 /* INDIServerItemView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = INDIServerItemView.xib; sourceTree = "<group>"; };
 		029061A3242CB9FE00778B28 /* INDIServerItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = INDIServerItemView.swift; sourceTree = "<group>"; };
 		029BBD01241D93EA004E60E4 /* INDIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = INDIError.swift; sourceTree = "<group>"; };
@@ -153,7 +157,7 @@
 		02A9EDC324184AC100484226 /* SwiftINDITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftINDITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		02A9EDC824184AC100484226 /* SwiftINDITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftINDITests.swift; sourceTree = "<group>"; };
 		02A9EDCA24184AC100484226 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		02A9EDE62418525000484226 /* BasicINDIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicINDIClient.swift; sourceTree = "<group>"; };
+		02A9EDE62418525000484226 /* BasicINDIServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicINDIServer.swift; sourceTree = "<group>"; };
 		02DD8739242E0812000D1F1D /* SwiftSocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SwiftSocket.framework; sourceTree = "<group>"; };
 		02DD873D242E6D90000D1F1D /* INDIPropertyVectorItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = INDIPropertyVectorItemView.swift; sourceTree = "<group>"; };
 		02DD873F242E6DD0000D1F1D /* INDIPropertyVectorItemView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = INDIPropertyVectorItemView.xib; sourceTree = "<group>"; };
@@ -226,6 +230,15 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		028E360F24339E14000A73C4 /* Popover Views */ = {
+			isa = PBXGroup;
+			children = (
+				028E361024339E6B000A73C4 /* INDITextPropertyView.swift */,
+				028E360D24339E0A000A73C4 /* INDITextPropertyView.xib */,
+			);
+			path = "Popover Views";
+			sourceTree = "<group>";
+		};
 		029BBD00241D93CB004E60E4 /* Errors */ = {
 			isa = PBXGroup;
 			children = (
@@ -277,6 +290,7 @@
 		029FC5A6242535C40027279A /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				028E360F24339E14000A73C4 /* Popover Views */,
 				02DD8745242ECB2D000D1F1D /* Cell Views */,
 				029FC5A9242593970027279A /* INDIPropertyListViewController.xib */,
 			);
@@ -339,7 +353,7 @@
 			children = (
 				029BBD00241D93CB004E60E4 /* Errors */,
 				020D2D70241D665E00A97EA5 /* Model */,
-				02A9EDE62418525000484226 /* BasicINDIClient.swift */,
+				02A9EDE62418525000484226 /* BasicINDIServer.swift */,
 				020D2D6C241CE95F00A97EA5 /* INDIDelegate.swift */,
 			);
 			path = INDI;
@@ -538,6 +552,7 @@
 				02F8488E242D6334007D3084 /* INDIDeviceItemView.xib in Resources */,
 				02DD8749242ECC3E000D1F1D /* INDIPropertyItemView.xib in Resources */,
 				029FC5AB242593970027279A /* INDIPropertyListViewController.xib in Resources */,
+				028E360E24339E0A000A73C4 /* INDITextPropertyView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -579,6 +594,7 @@
 				02F84890242D6525007D3084 /* INDIDeviceItemView.swift in Sources */,
 				02DD873E242E6D90000D1F1D /* INDIPropertyVectorItemView.swift in Sources */,
 				029FC5AA242593970027279A /* INDIServerController.swift in Sources */,
+				028E361124339E6B000A73C4 /* INDITextPropertyView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -590,7 +606,7 @@
 				020D2D6D241CE95F00A97EA5 /* INDIDelegate.swift in Sources */,
 				020FE5E624226A6E00427BE6 /* INDITextProperty.swift in Sources */,
 				020FE5EE2422E5FD00427BE6 /* INDILightProperty.swift in Sources */,
-				02A9EDE72418525000484226 /* BasicINDIClient.swift in Sources */,
+				02A9EDE72418525000484226 /* BasicINDIServer.swift in Sources */,
 				020FE5E824226AD700427BE6 /* INDIDefaultProperty.swift in Sources */,
 				020D2D72241D668800A97EA5 /* INDIProperty.swift in Sources */,
 				020FE5F02422EB5D00427BE6 /* INDIBLOBProperty.swift in Sources */,

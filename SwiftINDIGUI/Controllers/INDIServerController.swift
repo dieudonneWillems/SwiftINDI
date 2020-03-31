@@ -29,14 +29,14 @@ public class INDIServerController: NSViewController, NSOutlineViewDataSource, NS
     /**
      * The list of INDI clients (each connected to one server).
      */
-    public private(set) var clients = [BasicINDIClient]()
+    public private(set) var servers = [BasicINDIServer]()
     
     /**
      * Adds a client to the GUI.
      * - Parameter client: The client to be added.
      */
-    public func addClient(_ client: BasicINDIClient) {
-        clients.append(client)
+    public func addClient(_ client: BasicINDIServer) {
+        servers.append(client)
         self.reload()
     }
     
@@ -45,8 +45,8 @@ public class INDIServerController: NSViewController, NSOutlineViewDataSource, NS
      * - Parameter client: The client to be inserted.
      * - Parameter index: The index in the list.
      */
-    public func insertClient(_ client: BasicINDIClient, at index: Int) {
-        clients.insert(client, at: index)
+    public func insertClient(_ client: BasicINDIServer, at index: Int) {
+        servers.insert(client, at: index)
         self.reload()
     }
     
@@ -55,12 +55,12 @@ public class INDIServerController: NSViewController, NSOutlineViewDataSource, NS
      * - Parameter index: The index in the list.
      */
     public func removeClient(at index: Int) {
-        clients.remove(at: index)
+        servers.remove(at: index)
         self.reload()
     }
     
-    public func removeAllClients() {
-        clients.removeAll()
+    public func removeAllServers() {
+        servers.removeAll()
         self.reload()
     }
     
@@ -138,9 +138,9 @@ public class INDIServerController: NSViewController, NSOutlineViewDataSource, NS
     public func outlineView(_ outlineView: NSOutlineView, child index: Int, ofItem item: Any?) -> Any {
         if outlineView == navigationView {
             if item == nil {
-                return clients[index]
-            } else if (item as? BasicINDIClient) != nil {
-                let client = (item as! BasicINDIClient)
+                return servers[index]
+            } else if (item as? BasicINDIServer) != nil {
+                let client = (item as! BasicINDIServer)
                 let deviceNames = client.deviceNames
                 let device = client.devices[deviceNames[index]]
                 if device != nil {
@@ -159,8 +159,8 @@ public class INDIServerController: NSViewController, NSOutlineViewDataSource, NS
     
     public func outlineView(_ outlineView: NSOutlineView, isItemExpandable item: Any) -> Bool {
         if outlineView == navigationView {
-            if (item as? BasicINDIClient) != nil {
-                return (item as! BasicINDIClient).devices.count > 0
+            if (item as? BasicINDIServer) != nil {
+                return (item as! BasicINDIServer).devices.count > 0
             }
         } else if outlineView == propertyListView {
             if (item as? String) != nil {
@@ -179,9 +179,9 @@ public class INDIServerController: NSViewController, NSOutlineViewDataSource, NS
     public func outlineView(_ outlineView: NSOutlineView, numberOfChildrenOfItem item: Any?) -> Int {
         if outlineView == navigationView {
             if item == nil {
-                return clients.count
-            } else if (item as? BasicINDIClient) != nil {
-                return (item as! BasicINDIClient).devices.count
+                return servers.count
+            } else if (item as? BasicINDIServer) != nil {
+                return (item as! BasicINDIServer).devices.count
             }
         } else if outlineView == propertyListView {
             if item == nil {
@@ -201,8 +201,8 @@ public class INDIServerController: NSViewController, NSOutlineViewDataSource, NS
     
     public func outlineView(_ outlineView: NSOutlineView, objectValueFor tableColumn: NSTableColumn?, byItem item: Any?) -> Any? {
         if outlineView == navigationView {
-            if (item as? BasicINDIClient) != nil {
-                return (item as! BasicINDIClient)
+            if (item as? BasicINDIServer) != nil {
+                return (item as! BasicINDIServer)
             } else if (item as? INDIDevice) != nil {
                 return (item as! INDIDevice)
             }
@@ -219,11 +219,11 @@ public class INDIServerController: NSViewController, NSOutlineViewDataSource, NS
     // MARK:- NSOutlineView Delegate methods
     
     /**
-     * Grouped items are only used in the navigation view, i.e. when the item is a `BasicINDIClient`. Devices, which are also shown in
+     * Grouped items are only used in the navigation view, i.e. when the item is a `BasicINDIServer`. Devices, which are also shown in
      * the navigation view are not a group and are selectable.
      */
     public func outlineView(_ outlineView: NSOutlineView, isGroupItem item: Any) -> Bool {
-        if outlineView == navigationView && (item as? BasicINDIClient) != nil {
+        if outlineView == navigationView && (item as? BasicINDIServer) != nil {
             return true
         } else if outlineView == propertyListView && (item as? String) != nil {
             return true // Group of property vectors.
@@ -232,7 +232,7 @@ public class INDIServerController: NSViewController, NSOutlineViewDataSource, NS
     }
     
     public func outlineView(_ outlineView: NSOutlineView, heightOfRowByItem item: Any) -> CGFloat {
-        if (item as? BasicINDIClient) != nil {
+        if (item as? BasicINDIServer) != nil {
             return 38.0
         } else if (item as? INDIDevice) != nil {
             return 22.0
@@ -257,19 +257,19 @@ public class INDIServerController: NSViewController, NSOutlineViewDataSource, NS
     public func outlineView(_ outlineView: NSOutlineView, viewFor tableColumn: NSTableColumn?, item: Any) -> NSView? {
         self.registerItemViews()
         if outlineView == navigationView {
-            if (item as? BasicINDIClient) != nil {
+            if (item as? BasicINDIServer) != nil {
                 let cell = navigationView!.makeView(withIdentifier:.serverItemView, owner: self) as? INDIServerItemView
                 var label = ""
-                let client = item as! BasicINDIClient
-                let address = ("\(client.server!):\(client.port)")
-                if client.label != nil {
-                    label = client.label!
-                } else if client.server != nil {
-                    label = client.server!
+                let server = item as! BasicINDIServer
+                let address = ("\(server.host!):\(server.port)")
+                if server.label != nil {
+                    label = server.label!
+                } else if server.host != nil {
+                    label = server.host!
                 }
                 cell?.serverLabel?.stringValue = label
                 cell?.serverAddress?.stringValue = address
-                let connected = client.connected
+                let connected = server.connected
                 if connected {
                     cell!.status = .ok
                 } else {

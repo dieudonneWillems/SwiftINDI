@@ -24,12 +24,18 @@ public class INDIDevice {
     public let name : String
     
     /**
+     * The INDI server to which this device is connected
+     */
+    public let server : BasicINDIServer
+    
+    /**
      * Initialises a device with the specified name.
      *
      * - Parameter name: The name of the device.
      */
-    public init(name: String) {
+    public init(name: String, server: BasicINDIServer) {
         self.name = name
+        self.server = server
     }
     
     /**

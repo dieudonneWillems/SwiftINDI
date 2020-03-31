@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16096" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16096"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner"/>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="c22-O7-iKe" customClass="INDITextPropertyView" customModule="SwiftINDIGUI" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="240" height="76"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Bic-s7-7L0">
+                    <rect key="frame" x="2" y="58" width="236" height="14"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="14" id="P55-zA-qUc"/>
+                    </constraints>
+                    <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" title="Label" id="WfT-6r-gDA">
+                        <font key="font" size="11" name="HelveticaNeue-Medium"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="HmJ-9T-DEw">
+                    <rect key="frame" x="4" y="13" width="66" height="14"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="14" id="ABA-og-nRK"/>
+                        <constraint firstAttribute="width" constant="62" id="WGS-Tw-aEI"/>
+                    </constraints>
+                    <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" alignment="right" title="Value" id="mTe-ku-0xQ">
+                        <font key="font" metaFont="toolTip"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Cu6-Qe-pxi">
+                    <rect key="frame" x="4" y="36" width="66" height="14"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="14" id="CmA-OO-jCr"/>
+                        <constraint firstAttribute="width" constant="62" id="x9i-SW-JJc"/>
+                    </constraints>
+                    <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" alignment="right" title="Identifier" id="hme-MZ-jAA">
+                        <font key="font" metaFont="toolTip"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="g9M-Mu-FPO">
+                    <rect key="frame" x="74" y="36" width="164" height="14"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="14" id="rbJ-Zh-wWC"/>
+                    </constraints>
+                    <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" alignment="left" title="Identifier" id="22N-Dz-NWZ">
+                        <font key="font" metaFont="toolTip"/>
+                        <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="RI6-AP-Hxv">
+                    <rect key="frame" x="0.0" y="-2" width="240" height="5"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="n6b-Q5-58Q"/>
+                    </constraints>
+                </box>
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="6hx-gd-cDK">
+                    <rect key="frame" x="76" y="11" width="160" height="19"/>
+                    <textFieldCell key="cell" controlSize="small" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Value of this Text Property" drawsBackground="YES" id="96l-2h-ntb">
+                        <font key="font" metaFont="toolTip"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <connections>
+                        <action selector="textPropertyValueChangedWithSender:" target="c22-O7-iKe" id="zcp-we-mer"/>
+                    </connections>
+                </textField>
+            </subviews>
+            <constraints>
+                <constraint firstItem="Bic-s7-7L0" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" constant="4" id="Cot-3W-ZFS"/>
+                <constraint firstItem="6hx-gd-cDK" firstAttribute="top" secondItem="g9M-Mu-FPO" secondAttribute="bottom" constant="6" id="G0I-EZ-e6T"/>
+                <constraint firstItem="RI6-AP-Hxv" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" id="O2P-XN-vDv"/>
+                <constraint firstItem="6hx-gd-cDK" firstAttribute="leading" secondItem="HmJ-9T-DEw" secondAttribute="trailing" constant="8" id="P7J-mC-GQp"/>
+                <constraint firstItem="HmJ-9T-DEw" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="6" id="QGn-mh-8SS"/>
+                <constraint firstAttribute="trailing" secondItem="6hx-gd-cDK" secondAttribute="trailing" constant="4" id="QcQ-Dx-KFk"/>
+                <constraint firstAttribute="bottom" secondItem="RI6-AP-Hxv" secondAttribute="bottom" id="RCW-Ig-mj6"/>
+                <constraint firstItem="g9M-Mu-FPO" firstAttribute="top" secondItem="Bic-s7-7L0" secondAttribute="bottom" constant="8" id="RD7-0B-jI1"/>
+                <constraint firstAttribute="trailing" secondItem="g9M-Mu-FPO" secondAttribute="trailing" constant="4" id="SM1-Mh-qaO"/>
+                <constraint firstItem="g9M-Mu-FPO" firstAttribute="leading" secondItem="Cu6-Qe-pxi" secondAttribute="trailing" constant="8" id="UdT-fe-i71"/>
+                <constraint firstAttribute="trailing" secondItem="Bic-s7-7L0" secondAttribute="trailing" constant="4" id="YCl-Pg-W00"/>
+                <constraint firstItem="Cu6-Qe-pxi" firstAttribute="top" secondItem="Bic-s7-7L0" secondAttribute="bottom" constant="8" id="hdK-FB-Lwb"/>
+                <constraint firstItem="Cu6-Qe-pxi" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="6" id="kHa-0L-zU9"/>
+                <constraint firstAttribute="trailing" secondItem="RI6-AP-Hxv" secondAttribute="trailing" id="p7M-xy-yhI"/>
+                <constraint firstItem="Bic-s7-7L0" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="4" id="pN7-Ks-2EY"/>
+                <constraint firstItem="6hx-gd-cDK" firstAttribute="leading" secondItem="HmJ-9T-DEw" secondAttribute="trailing" constant="8" id="pjM-kP-196"/>
+                <constraint firstItem="RI6-AP-Hxv" firstAttribute="top" secondItem="6hx-gd-cDK" secondAttribute="bottom" constant="10" id="v7h-LF-g6p"/>
+                <constraint firstItem="HmJ-9T-DEw" firstAttribute="top" secondItem="Cu6-Qe-pxi" secondAttribute="bottom" constant="9" id="yel-vU-Aaq"/>
+            </constraints>
+            <connections>
+                <outlet property="identifierTF" destination="g9M-Mu-FPO" id="ocg-ta-BsO"/>
+                <outlet property="labelTF" destination="Bic-s7-7L0" id="vJr-1a-oYT"/>
+                <outlet property="valueTF" destination="6hx-gd-cDK" id="wjo-NA-des"/>
+            </connections>
+            <point key="canvasLocation" x="20" y="63"/>
+        </customView>
+    </objects>
+</document>

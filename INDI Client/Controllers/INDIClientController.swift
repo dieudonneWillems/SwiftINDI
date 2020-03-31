@@ -112,4 +112,24 @@ class INDIClientController : NSObject, INDIDelegate {
         let appDelegate = (NSApplication.shared.delegate as! AppDelegate)
         appDelegate.serverController?.reload()
      }
+     
+     /**
+      * Called when a property's value will change.
+      * - Parameter server: The `BasicINDIServer`.
+      * - Parameter property: The property whose value will be changed.
+      * - Parameter device: The device for which the property was defined.
+      */
+    func propertyWillChange(_ server: BasicINDIServer, property: INDIProperty, device: INDIDevice) {
+        print("The value of the property \(property.name) will change.")
+    }
+     
+     /**
+      * Called when a property's value did change.
+      * - Parameter server: The `BasicINDIServer`.
+      * - Parameter property: The property whose value was changed.
+      * - Parameter device: The device for which the property was defined.
+      */
+    func propertyDidChange(_ server: BasicINDIServer, property: INDIProperty, device: INDIDevice) {
+        print("The value of the property \(property.name) did change.")
+    }
 }

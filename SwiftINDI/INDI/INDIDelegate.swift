@@ -76,7 +76,7 @@ public protocol INDIDelegate {
     /**
      * This function is called when an INDI client recieves data from the INDI server. The recieved data is
      * in XML form. It provides access to raw INDI XML data.
-     * - Parameter server: The `BasicINDIServer` which was disconnected from the server.
+     * - Parameter server: The `BasicINDIServer` that recieved the data.
      * - Parameter size: The number of bytes recieved.
      * - Parameter xml: The XML string that was recieved.
      * - Parameter server: The server address (host) .
@@ -89,14 +89,14 @@ public protocol INDIDelegate {
     
     /**
      * Called when a new device was defined (created) in the client as a result of a response from the INDI server.
-     * - Parameter server: The `BasicINDIServer` which was disconnected from the server.
+     * - Parameter server: The `BasicINDIServer` that defined the device.
      * - Parameter device: The device that was defined.
      */
     func deviceDefined(_ server: BasicINDIServer, device: INDIDevice)
     
     /**
      * Called when a new property vector was defined (created) in the client as a result of a response from the INDI server.
-     * - Parameter server: The `BasicINDIServer` which was disconnected from the server.
+     * - Parameter server: The `BasicINDIServer` that defined the property vector.
      * - Parameter device: The device for which a property vector was defined.
      * - Parameter propertyVector: The property vector that was defined.
      */
@@ -104,10 +104,29 @@ public protocol INDIDelegate {
     
     /**
      * Called when a new property was defined (created) in the client as a result of a response from the INDI server.
-     * - Parameter server: The `BasicINDIServer` which was disconnected from the server.
+     * - Parameter server: The `BasicINDIServer` that defined the property.
      * - Parameter device: The device for which a property vector was defined.
      * - Parameter propertyVector: The property vector of which the newly defined property is a member.
      * - Parameter property: The property that was defined.
      */
     func propertyDefined(_ server: BasicINDIServer, device: INDIDevice, propertyVector: INDIPropertyVector, property: INDIProperty)
+    
+    
+    // MARK: - Changing properties by the client
+    
+    /**
+     * Called when a property's value will change.
+     * - Parameter server: The `BasicINDIServer`.
+     * - Parameter property: The property whose value will be changed.
+     * - Parameter device: The device for which the property was defined.
+     */
+    func propertyWillChange(_ server: BasicINDIServer, property: INDIProperty, device: INDIDevice)
+    
+    /**
+     * Called when a property's value did change.
+     * - Parameter server: The `BasicINDIServer`.
+     * - Parameter property: The property whose value was changed.
+     * - Parameter device: The device for which the property was defined.
+     */
+    func propertyDidChange(_ server: BasicINDIServer, property: INDIProperty, device: INDIDevice)
 }

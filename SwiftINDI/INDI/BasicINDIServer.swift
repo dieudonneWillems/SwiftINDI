@@ -296,6 +296,25 @@ public class BasicINDIServer : CustomStringConvertible {
         }
     }
     
+    // MARK: - Changing INDI property values
+    
+    /**
+     * This method chould be called when a property's value has changed. The device will be
+     * notified by the property vector whose property has changed.
+     *
+     * - Parameter property: The property that has been changed.
+     * - Parameter propertyVector: The property vector whose property has changed.
+     * - Parameter newValue: The new value of the property.
+     */
+    func property(_ property: INDIProperty, for device: INDIDevice, hasChangedTo newValue: Any?) {
+        print("property \(property.name) has a new value: \(String(describing: newValue))")
+        self.delegate?.propertyWillChange(self, property: property, device: device)
+        
+        // TODO: Send a newXXXVector XML message to the server to change the property on the device
+        
+        self.delegate?.propertyDidChange(self, property: property, device: device)
+    }
+    
     // MARK: - Parsing XML responses from the INDI server
     
     /**

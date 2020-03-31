@@ -136,6 +136,6 @@ public class INDIDevice {
      * - Parameter newValue: The new value of the property.
      */
     func property(_ property: INDIProperty, in propertyVector: INDIPropertyVector, hasChangedTo newValue: Any?) {
-        
+        server.property(property, for: self, hasChangedTo: newValue)
     }
 }

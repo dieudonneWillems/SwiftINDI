@@ -153,6 +153,15 @@ public protocol INDIPropertyVector {
      * The member properties of this vector.
      */
     var memberProperties : [INDIProperty] {get}
+    
+    /**
+     * This method chould be called when a property's value has changed. The property vector will
+     * notify the `device` that the property has changed.
+     *
+     * - Parameter property: The property that has been changed.
+     * - Parameter newValue: The new value of the property.
+     */
+    func property(_ property: INDIProperty, hasChangedTo newValue: Any?)
 }
 
 

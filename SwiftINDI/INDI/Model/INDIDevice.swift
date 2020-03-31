@@ -125,4 +125,17 @@ public class INDIDevice {
         }
         return grouped
     }
+    
+    
+    /**
+     * This method chould be called when a property's value has changed. The device will be
+     * notified by the property vector whose property has changed.
+     *
+     * - Parameter property: The property that has been changed.
+     * - Parameter propertyVector: The property vector whose property has changed.
+     * - Parameter newValue: The new value of the property.
+     */
+    func property(_ property: INDIProperty, in propertyVector: INDIPropertyVector, hasChangedTo newValue: Any?) {
+        
+    }
 }

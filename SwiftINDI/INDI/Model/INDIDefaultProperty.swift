@@ -136,6 +136,17 @@ public class INDIDefaultPropertyVector : INDIPropertyVector {
         self.timestamp = timestamp
         self.message = message
     }
+    
+    /**
+     * This method chould be called when a property's value has changed. The property vector will
+     * notify the `device` that the property has changed.
+     *
+     * - Parameter property: The property that has been changed.
+     * - Parameter newValue: The new value of the property.
+     */
+    public func property(_ property: INDIProperty, hasChangedTo newValue: Any?) {
+        device.property(property, in: self, hasChangedTo: newValue)
+    }
 }
 
 
@@ -176,6 +187,11 @@ public class INDIDefaultProperty : INDIProperty {
     }
     
     /**
+     * The property vector for which this property is a member.
+     */
+    private var propertyVector: INDIPropertyVector?
+    
+    /**
      * Initialises the INDI property with the supplied values. INDI properties and
      * property vectors should only be created within the SwiftINDI framework.
      *
@@ -191,6 +207,7 @@ public class INDIDefaultProperty : INDIProperty {
         self.label = label
         self.propertyType = type
         self.value = nil
+        self.propertyVector = vector
         if (vector as? INDIDefaultPropertyVector) != nil {
             (vector as! INDIDefaultPropertyVector)._memberProperties.append(self)
         }
@@ -201,7 +218,8 @@ public class INDIDefaultProperty : INDIProperty {
      */
     public var value: Any? {
         willSet(newValue) {
-            // TODO: Notify client and forward to INDI server.
+            // Tell the INDI property vector that this property has changed.
+            self.propertyVector?.property(self, hasChangedTo: newValue)
         }
     }
 }

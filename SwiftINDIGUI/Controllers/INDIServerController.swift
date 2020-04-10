@@ -139,6 +139,11 @@ public class INDIServerController: NSViewController, NSOutlineViewDataSource, NS
         }
     }
     
+    /**
+     * Returns the detail view controller used for a specific property.
+     * - Parameter property: The property whose details need to be displayed.
+     * - Returns: The view controller.
+     */
     public func detailViewController(for property: INDIProperty) -> INDIViewController? {
         let bundle = Bundle(for: type(of: self))
         if (property as? INDITextProperty) != nil {

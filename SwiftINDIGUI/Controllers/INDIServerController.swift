@@ -92,8 +92,6 @@ public class INDIServerController: NSViewController, NSOutlineViewDataSource, NS
     
     public private(set) var selectedProperty : INDIProperty?
     
-    private var itemViewControllers = [String : INDIViewController]()
-    
     public func reload() {
         navigationView?.reloadData()
         navigationView?.needsDisplay = true
@@ -138,12 +136,17 @@ public class INDIServerController: NSViewController, NSOutlineViewDataSource, NS
             propertyListView!.register(nibPropertyVectorValue, forIdentifier: .propertyVectorValueView)
             
             self.registeredViews = true
-            
-            // Item Detail Views
+        }
+    }
+    
+    public func detailViewController(for property: INDIProperty) -> INDIViewController? {
+        let bundle = Bundle(for: type(of: self))
+        if (property as? INDITextProperty) != nil {
             let textPropertyController = INDITextPropertyViewController()
             _ = bundle.loadNibNamed("INDITextPropertyView", owner: textPropertyController, topLevelObjects: nil)
-            itemViewControllers[.textPropertyItemDetailView] = textPropertyController
+            return textPropertyController
         }
+        return nil
     }
     
     /**
@@ -153,10 +156,20 @@ public class INDIServerController: NSViewController, NSOutlineViewDataSource, NS
     func showPropertyDetailView() {
         var selectedViewControllers = [INDIViewController]()
         if selectedPropertyVector != nil {
-            
+            if (selectedPropertyVector as? INDITextPropertyVector) != nil {
+                for property in selectedPropertyVector!.memberProperties {
+                    let viewController = self.detailViewController(for: property)
+                    if viewController != nil {
+                        selectedViewControllers.append(viewController!)
+                        viewController?.property = property
+                    } else {
+                        print("WARNING: No detail view found for text property.")
+                    }
+                }
+            }
         } else if selectedProperty != nil {
+            let viewController = self.detailViewController(for: selectedProperty!)
             if (selectedProperty as? INDITextProperty) != nil {
-                let viewController = itemViewControllers[.textPropertyItemDetailView]
                 if viewController != nil {
                     selectedViewControllers.append(viewController!)
                     viewController?.property = selectedProperty
@@ -184,8 +197,30 @@ public class INDIServerController: NSViewController, NSOutlineViewDataSource, NS
         }
         
         // Add new subviews
+        detailView?.translatesAutoresizingMaskIntoConstraints = false
+        var previousView : NSView? = nil
         for controller in subviewControllers {
-            detailView?.addSubview(controller.view)
+            if detailView != nil {
+                detailView!.addSubview(controller.view)
+                
+                controller.view.translatesAutoresizingMaskIntoConstraints = false
+                // Set layout constraints
+                let leadingConstraint = NSLayoutConstraint(item: detailView!, attribute: NSLayoutConstraint.Attribute.leading, relatedBy: NSLayoutConstraint.Relation.equal, toItem: controller.view, attribute: NSLayoutConstraint.Attribute.leading, multiplier: 1, constant: 0)
+                let trailingConstraint = NSLayoutConstraint(item: detailView!, attribute: NSLayoutConstraint.Attribute.trailing, relatedBy: NSLayoutConstraint.Relation.equal, toItem: controller.view, attribute: NSLayoutConstraint.Attribute.trailing, multiplier: 1, constant: 0)
+                let widthConstraint = NSLayoutConstraint(item: controller.view, attribute: NSLayoutConstraint.Attribute.width, relatedBy: NSLayoutConstraint.Relation.greaterThanOrEqual, toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute, multiplier: 1, constant: 250.0)
+                // Constraints need to be set to the common superview
+                detailView!.addConstraint(leadingConstraint)
+                detailView!.addConstraint(trailingConstraint)
+                controller.view.addConstraint(widthConstraint)
+                if previousView == nil { // If this is the first view in the detail view, connect the top to the top of the detail view
+                    let topConstraint = NSLayoutConstraint(item: detailView!, attribute: NSLayoutConstraint.Attribute.top, relatedBy: NSLayoutConstraint.Relation.equal, toItem: controller.view, attribute: NSLayoutConstraint.Attribute.top, multiplier: 1, constant: 0)
+                    detailView!.addConstraint(topConstraint)
+                } else { // If this is NOT the first view in the detail view, connect the top to the bottom of the previous view
+                    let topConstraint = NSLayoutConstraint(item: previousView!, attribute: NSLayoutConstraint.Attribute.bottom, relatedBy: NSLayoutConstraint.Relation.equal, toItem: controller.view, attribute: NSLayoutConstraint.Attribute.top, multiplier: 1, constant: 0)
+                    detailView!.addConstraint(topConstraint)
+                }
+                previousView = controller.view
+            }
         }
     }
     
@@ -430,8 +465,4 @@ extension NSUserInterfaceItemIdentifier {
     static let propertyValueView = NSUserInterfaceItemIdentifier("propertyValueView")
     static let propertyVectorValueView = NSUserInterfaceItemIdentifier("propertyVectorValueView")
     
-}
-
-extension String {
-    static let textPropertyItemDetailView = "textPropertyItemDetailView"
 }

@@ -14,6 +14,8 @@ public class INDIServerController: NSViewController, NSOutlineViewDataSource, NS
     @IBOutlet weak public var propertyListView : NSOutlineView?
     @IBOutlet weak public var navigationView : NSOutlineView?
     
+    @IBOutlet weak public var detailView : NSView?
+    
     public static var instance : INDIServerController? {
         get {
             let bundle = Bundle(for: INDIServerController.self)
@@ -86,6 +88,12 @@ public class INDIServerController: NSViewController, NSOutlineViewDataSource, NS
         }
     }
     
+    public private(set) var selectedPropertyVector : INDIPropertyVector?
+    
+    public private(set) var selectedProperty : INDIProperty?
+    
+    private var itemViewControllers = [String : INDIViewController]()
+    
     public func reload() {
         navigationView?.reloadData()
         navigationView?.needsDisplay = true
@@ -130,6 +138,54 @@ public class INDIServerController: NSViewController, NSOutlineViewDataSource, NS
             propertyListView!.register(nibPropertyVectorValue, forIdentifier: .propertyVectorValueView)
             
             self.registeredViews = true
+            
+            // Item Detail Views
+            let textPropertyController = INDITextPropertyViewController()
+            _ = bundle.loadNibNamed("INDITextPropertyView", owner: textPropertyController, topLevelObjects: nil)
+            itemViewControllers[.textPropertyItemDetailView] = textPropertyController
+        }
+    }
+    
+    /**
+     * Shows the relevant views in the property detail view in which the user can change values, depending on the
+     * selected `INDIPropertyVector` or `INDIProperty`.
+     */
+    func showPropertyDetailView() {
+        var selectedViewControllers = [INDIViewController]()
+        if selectedPropertyVector != nil {
+            
+        } else if selectedProperty != nil {
+            if (selectedProperty as? INDITextProperty) != nil {
+                let viewController = itemViewControllers[.textPropertyItemDetailView]
+                if viewController != nil {
+                    selectedViewControllers.append(viewController!)
+                    viewController?.property = selectedProperty
+                } else {
+                    print("WARNING: No detail view found for text property.")
+                }
+            }
+        }
+        self.changePropertyDetailView(subviewControllers: selectedViewControllers)
+    }
+    
+    /**
+     * Removes the current subviews of the details view and replaces them with the views connected to the
+     * specified view controllers.
+     * - Parameter subviewControllers: The view controllers for the
+     */
+    private func changePropertyDetailView(subviewControllers: [NSViewController]) {
+        // Remove subviews
+        let subviews = detailView?.subviews
+        if subviews != nil {
+            // Itterate through subviews
+            for subview in subviews! {
+                subview.removeFromSuperview()
+            }
+        }
+        
+        // Add new subviews
+        for controller in subviewControllers {
+            detailView?.addSubview(controller.view)
         }
     }
     
@@ -250,6 +306,17 @@ public class INDIServerController: NSViewController, NSOutlineViewDataSource, NS
                     self.device = (selectedItem as! INDIDevice)
                 }
             }
+        } else if (notification.object as? NSOutlineView) != nil && (notification.object as? NSOutlineView) == propertyListView {
+            if propertyListView?.selectedRow != nil {
+                let selectedItem = propertyListView?.item(atRow: propertyListView!.selectedRow)
+                if (selectedItem as? INDIPropertyVector) != nil {
+                    self.selectedPropertyVector = (selectedItem as! INDIPropertyVector)
+                    self.showPropertyDetailView()
+                } else if (selectedItem as? INDIProperty) != nil {
+                    self.selectedProperty = (selectedItem as! INDIProperty)
+                    self.showPropertyDetailView()
+                }
+            }
         }
     }
 		
@@ -362,4 +429,9 @@ extension NSUserInterfaceItemIdentifier {
     static let propertyVectorItemView = NSUserInterfaceItemIdentifier("propertyVectorItemView")
     static let propertyValueView = NSUserInterfaceItemIdentifier("propertyValueView")
     static let propertyVectorValueView = NSUserInterfaceItemIdentifier("propertyVectorValueView")
+    
+}
+
+extension String {
+    static let textPropertyItemDetailView = "textPropertyItemDetailView"
 }

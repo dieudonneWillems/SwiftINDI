@@ -18,8 +18,9 @@
 		020FE5F02422EB5D00427BE6 /* INDIBLOBProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020FE5EF2422EB5D00427BE6 /* INDIBLOBProperty.swift */; };
 		02249D9E2430EDF800BE9BDB /* INDIPropertyVectorValueView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02249D9D2430EDF800BE9BDB /* INDIPropertyVectorValueView.xib */; };
 		02249DA02430EE4A00BE9BDB /* INDIPropertyVectorValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02249D9F2430EE4A00BE9BDB /* INDIPropertyVectorValueView.swift */; };
+		02631815244078EF008FEBE5 /* INDIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02631814244078EF008FEBE5 /* INDIViewController.swift */; };
 		028E360E24339E0A000A73C4 /* INDITextPropertyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 028E360D24339E0A000A73C4 /* INDITextPropertyView.xib */; };
-		028E361124339E6B000A73C4 /* INDITextPropertyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 028E361024339E6B000A73C4 /* INDITextPropertyView.swift */; };
+		028E361124339E6B000A73C4 /* INDITextPropertyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 028E361024339E6B000A73C4 /* INDITextPropertyViewController.swift */; };
 		029061A2242CB68200778B28 /* INDIServerItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 029061A1242CB68200778B28 /* INDIServerItemView.xib */; };
 		029061A4242CB9FE00778B28 /* INDIServerItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029061A3242CB9FE00778B28 /* INDIServerItemView.swift */; };
 		029BBD02241D93EA004E60E4 /* INDIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029BBD01241D93EA004E60E4 /* INDIError.swift */; };
@@ -134,8 +135,9 @@
 		020FE5EF2422EB5D00427BE6 /* INDIBLOBProperty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = INDIBLOBProperty.swift; sourceTree = "<group>"; };
 		02249D9D2430EDF800BE9BDB /* INDIPropertyVectorValueView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = INDIPropertyVectorValueView.xib; sourceTree = "<group>"; };
 		02249D9F2430EE4A00BE9BDB /* INDIPropertyVectorValueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = INDIPropertyVectorValueView.swift; sourceTree = "<group>"; };
+		02631814244078EF008FEBE5 /* INDIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = INDIViewController.swift; sourceTree = "<group>"; };
 		028E360D24339E0A000A73C4 /* INDITextPropertyView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = INDITextPropertyView.xib; sourceTree = "<group>"; };
-		028E361024339E6B000A73C4 /* INDITextPropertyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = INDITextPropertyView.swift; sourceTree = "<group>"; };
+		028E361024339E6B000A73C4 /* INDITextPropertyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = INDITextPropertyViewController.swift; sourceTree = "<group>"; };
 		029061A1242CB68200778B28 /* INDIServerItemView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = INDIServerItemView.xib; sourceTree = "<group>"; };
 		029061A3242CB9FE00778B28 /* INDIServerItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = INDIServerItemView.swift; sourceTree = "<group>"; };
 		029BBD01241D93EA004E60E4 /* INDIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = INDIError.swift; sourceTree = "<group>"; };
@@ -230,13 +232,14 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		028E360F24339E14000A73C4 /* Popover Views */ = {
+		028E360F24339E14000A73C4 /* Item Detail Views */ = {
 			isa = PBXGroup;
 			children = (
-				028E361024339E6B000A73C4 /* INDITextPropertyView.swift */,
+				02631814244078EF008FEBE5 /* INDIViewController.swift */,
+				028E361024339E6B000A73C4 /* INDITextPropertyViewController.swift */,
 				028E360D24339E0A000A73C4 /* INDITextPropertyView.xib */,
 			);
-			path = "Popover Views";
+			path = "Item Detail Views";
 			sourceTree = "<group>";
 		};
 		029BBD00241D93CB004E60E4 /* Errors */ = {
@@ -290,7 +293,7 @@
 		029FC5A6242535C40027279A /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				028E360F24339E14000A73C4 /* Popover Views */,
+				028E360F24339E14000A73C4 /* Item Detail Views */,
 				02DD8745242ECB2D000D1F1D /* Cell Views */,
 				029FC5A9242593970027279A /* INDIPropertyListViewController.xib */,
 			);
@@ -586,6 +589,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02631815244078EF008FEBE5 /* INDIViewController.swift in Sources */,
 				02249DA02430EE4A00BE9BDB /* INDIPropertyVectorValueView.swift in Sources */,
 				02DD8747242ECB58000D1F1D /* INDIPropertyItemVIew.swift in Sources */,
 				02DD874B242ED0FB000D1F1D /* INDIPropertyValueView.swift in Sources */,
@@ -594,7 +598,7 @@
 				02F84890242D6525007D3084 /* INDIDeviceItemView.swift in Sources */,
 				02DD873E242E6D90000D1F1D /* INDIPropertyVectorItemView.swift in Sources */,
 				029FC5AA242593970027279A /* INDIServerController.swift in Sources */,
-				028E361124339E6B000A73C4 /* INDITextPropertyView.swift in Sources */,
+				028E361124339E6B000A73C4 /* INDITextPropertyViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

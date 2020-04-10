@@ -5,10 +5,17 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner"/>
+        <customObject id="-2" userLabel="File's Owner" customClass="INDITextPropertyViewController" customModule="SwiftINDIGUI" customModuleProvider="target">
+            <connections>
+                <outlet property="identifierTF" destination="g9M-Mu-FPO" id="hSN-RM-Oey"/>
+                <outlet property="labelTF" destination="Bic-s7-7L0" id="ixW-WT-48T"/>
+                <outlet property="valueTF" destination="6hx-gd-cDK" id="PW9-Be-X1t"/>
+                <outlet property="view" destination="c22-O7-iKe" id="SYp-9A-Yq5"/>
+            </connections>
+        </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <customView id="c22-O7-iKe" customClass="INDITextPropertyView" customModule="SwiftINDIGUI" customModuleProvider="target">
+        <customView id="c22-O7-iKe">
             <rect key="frame" x="0.0" y="0.0" width="240" height="76"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
@@ -30,7 +37,7 @@
                         <constraint firstAttribute="width" constant="62" id="WGS-Tw-aEI"/>
                     </constraints>
                     <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" alignment="right" title="Value" id="mTe-ku-0xQ">
-                        <font key="font" metaFont="toolTip"/>
+                        <font key="font" metaFont="controlContent" size="11"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
@@ -42,7 +49,7 @@
                         <constraint firstAttribute="width" constant="62" id="x9i-SW-JJc"/>
                     </constraints>
                     <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" alignment="right" title="Identifier" id="hme-MZ-jAA">
-                        <font key="font" metaFont="toolTip"/>
+                        <font key="font" metaFont="controlContent" size="11"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
@@ -53,7 +60,7 @@
                         <constraint firstAttribute="height" constant="14" id="rbJ-Zh-wWC"/>
                     </constraints>
                     <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" alignment="left" title="Identifier" id="22N-Dz-NWZ">
-                        <font key="font" metaFont="toolTip"/>
+                        <font key="font" metaFont="controlContent" size="11"/>
                         <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
@@ -67,12 +74,12 @@
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="6hx-gd-cDK">
                     <rect key="frame" x="76" y="11" width="160" height="19"/>
                     <textFieldCell key="cell" controlSize="small" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Value of this Text Property" drawsBackground="YES" id="96l-2h-ntb">
-                        <font key="font" metaFont="toolTip"/>
+                        <font key="font" metaFont="controlContent" size="11"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
-                        <action selector="textPropertyValueChangedWithSender:" target="c22-O7-iKe" id="zcp-we-mer"/>
+                        <action selector="textPropertyValueChangedWithSender:" target="-2" id="ILd-6b-7sF"/>
                     </connections>
                 </textField>
             </subviews>
@@ -96,11 +103,6 @@
                 <constraint firstItem="RI6-AP-Hxv" firstAttribute="top" secondItem="6hx-gd-cDK" secondAttribute="bottom" constant="10" id="v7h-LF-g6p"/>
                 <constraint firstItem="HmJ-9T-DEw" firstAttribute="top" secondItem="Cu6-Qe-pxi" secondAttribute="bottom" constant="9" id="yel-vU-Aaq"/>
             </constraints>
-            <connections>
-                <outlet property="identifierTF" destination="g9M-Mu-FPO" id="ocg-ta-BsO"/>
-                <outlet property="labelTF" destination="Bic-s7-7L0" id="vJr-1a-oYT"/>
-                <outlet property="valueTF" destination="6hx-gd-cDK" id="wjo-NA-des"/>
-            </connections>
             <point key="canvasLocation" x="20" y="63"/>
         </customView>
     </objects>

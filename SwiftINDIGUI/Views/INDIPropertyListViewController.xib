@@ -7,6 +7,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="INDIServerController" customModule="SwiftINDIGUI" customModuleProvider="target">
             <connections>
+                <outlet property="detailView" destination="ELT-bg-bqF" id="7ep-qO-wGT"/>
                 <outlet property="navigationView" destination="nMX-gu-hNX" id="BJ9-Ws-ubs"/>
                 <outlet property="propertyListView" destination="jbT-lf-47H" id="zAE-g5-UEb"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
@@ -72,8 +73,8 @@
                                                                     <outlet property="textField" destination="v1D-B3-yzd" id="XLF-VQ-Nnk"/>
                                                                 </connections>
                                                             </tableCellView>
-                                                            <tableCellView id="blf-Jt-3hO">
-                                                                <rect key="frame" x="1" y="17" width="121" height="17"/>
+                                                            <tableCellView misplaced="YES" id="blf-Jt-3hO">
+                                                                <rect key="frame" x="1" y="17" width="111" height="17"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                 <subviews>
                                                                     <imageView translatesAutoresizingMaskIntoConstraints="NO" id="oIx-l5-nJH">
@@ -164,7 +165,7 @@
                                                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                         </tableHeaderCell>
                                                                         <textFieldCell key="dataCell" controlSize="small" lineBreakMode="truncatingTail" selectable="YES" editable="YES" title="Text Cell" id="y96-Cu-ABD">
-                                                                            <font key="font" metaFont="message" size="11"/>
+                                                                            <font key="font" metaFont="controlContent" size="11"/>
                                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                         </textFieldCell>
@@ -180,7 +181,7 @@
                                                                                             <constraint firstAttribute="height" constant="17" id="gUt-g9-bWh"/>
                                                                                         </constraints>
                                                                                         <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="8ox-ui-Q3E">
-                                                                                            <font key="font" metaFont="message" size="11"/>
+                                                                                            <font key="font" metaFont="controlContent" size="11"/>
                                                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                                         </textFieldCell>
@@ -203,7 +204,7 @@
                                                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                         </tableHeaderCell>
                                                                         <textFieldCell key="dataCell" controlSize="small" lineBreakMode="truncatingTail" selectable="YES" editable="YES" title="Text Cell" id="2Ol-oJ-tuo">
-                                                                            <font key="font" metaFont="message" size="11"/>
+                                                                            <font key="font" metaFont="controlContent" size="11"/>
                                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                         </textFieldCell>
@@ -219,7 +220,7 @@
                                                                                             <constraint firstAttribute="height" constant="17" id="qrE-Sz-qVw"/>
                                                                                         </constraints>
                                                                                         <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="Mk1-Mu-iaQ">
-                                                                                            <font key="font" metaFont="message" size="11"/>
+                                                                                            <font key="font" metaFont="controlContent" size="11"/>
                                                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                                         </textFieldCell>
@@ -244,7 +245,7 @@
                                                             </outlineView>
                                                         </subviews>
                                                     </clipView>
-                                                    <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="qdr-ml-IHR">
+                                                    <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="0.94666666666666666" horizontal="YES" id="qdr-ml-IHR">
                                                         <rect key="frame" x="0.0" y="468" width="217" height="15"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                     </scroller>
@@ -265,7 +266,7 @@
                                             <rect key="frame" x="218" y="0.0" width="213" height="483"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <subviews>
-                                                <customView translatesAutoresizingMaskIntoConstraints="NO" id="ELT-bg-bqF" customClass="NSVisualEffectView">
+                                                <customView translatesAutoresizingMaskIntoConstraints="NO" id="ELT-bg-bqF">
                                                     <rect key="frame" x="0.0" y="0.0" width="213" height="483"/>
                                                 </customView>
                                             </subviews>

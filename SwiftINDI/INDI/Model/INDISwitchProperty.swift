@@ -123,6 +123,38 @@ public class INDISwitchPropertyVector : INDIDefaultPropertyVector {
     }
     
     /**
+     * Switches the property with the specified state to `.on`.
+     * - Parameter name: The name (id) of the property.
+     */
+    public func switchOn(name: String) {
+        for property in self.memberProperties {
+            let switchProperty = property as! INDISwitchProperty
+            if switchProperty.switchState == .off && switchProperty.name == name {
+                switchProperty.switchState = .on
+            } else if self.rule == .oneOfMany || self.rule == .atMostOne {
+                switchProperty.switchState = .off
+            }
+        }
+    }
+    
+    /**
+     * Switches the property with the specified state to `.off`.
+     * - Parameter name: The name (id) of the property.
+     */
+    public func switchOff(name: String) {
+        for property in self.memberProperties {
+            let switchProperty = property as! INDISwitchProperty
+            if switchProperty.switchState == .off && switchProperty.name == name {
+                if self.rule == .anyOfMany || self.rule == .atMostOne {
+                    switchProperty.switchState = .off
+                } else {
+                    print("WARNING: Try to switch a property OFF while at least one should be on.")
+                }
+            }
+        }
+    }
+    
+    /**
      * This property is `true` when the switch vector is in a valid state depending on the `rule` specified
      * during initialisation.
      */
@@ -166,7 +198,8 @@ public class INDISwitchProperty : INDIDefaultProperty {
     public var switchValue : String? {
         get {
             return value as? String
-        } set {
+        }
+        set {
             value = newValue
         }
     }
@@ -187,6 +220,13 @@ public class INDISwitchProperty : INDIDefaultProperty {
                 return .on
             }
             return .off
+        }
+        set {
+            if newValue == .off {
+                self.value = "Off"
+            } else {
+                self.value = "On"
+            }
         }
     }
 }

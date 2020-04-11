@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16096" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16096"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="INDIConnectPropertyViewController" customModule="SwiftINDIGUI" customModuleProvider="target">
+            <connections>
+                <outlet property="connectButton" destination="14O-6O-nwI" id="Vyu-e7-ZCa"/>
+                <outlet property="identifierTF" destination="Esw-IR-n3u" id="n3C-GZ-qmr"/>
+                <outlet property="labelTF" destination="K64-g0-ZEn" id="cPf-9O-T7o"/>
+                <outlet property="view" destination="Ksd-ic-8uv" id="61A-2e-xCh"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="Ksd-ic-8uv">
+            <rect key="frame" x="0.0" y="0.0" width="240" height="76"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="K64-g0-ZEn">
+                    <rect key="frame" x="2" y="58" width="236" height="14"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="14" id="CM3-f5-QiN"/>
+                    </constraints>
+                    <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" title="Label" id="97P-zl-JKP">
+                        <font key="font" size="11" name="HelveticaNeue-Medium"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="itZ-EX-WfT">
+                    <rect key="frame" x="4" y="36" width="66" height="14"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="62" id="RNa-uz-4g4"/>
+                        <constraint firstAttribute="height" constant="14" id="bYh-iN-NVt"/>
+                    </constraints>
+                    <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" alignment="right" title="Identifier" id="PoF-vE-lOh">
+                        <font key="font" metaFont="menu" size="11"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Esw-IR-n3u">
+                    <rect key="frame" x="74" y="36" width="164" height="14"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="14" id="ZCT-0l-btP"/>
+                    </constraints>
+                    <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" alignment="left" title="Identifier" id="e2J-BF-vIR">
+                        <font key="font" metaFont="menu" size="11"/>
+                        <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="Pk5-XY-e3r">
+                    <rect key="frame" x="0.0" y="-2" width="240" height="5"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="k0X-bI-Qxy"/>
+                    </constraints>
+                </box>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="14O-6O-nwI">
+                    <rect key="frame" x="71" y="4" width="170" height="27"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="18" id="tif-cr-5xg"/>
+                    </constraints>
+                    <buttonCell key="cell" type="push" title="Connect" bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Mcg-nM-ncq">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
+                        <font key="font" metaFont="menu" size="11"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="switchPropertyValueChangedWithSender:" target="-2" id="nQM-wT-aZl"/>
+                    </connections>
+                </button>
+            </subviews>
+            <constraints>
+                <constraint firstItem="K64-g0-ZEn" firstAttribute="top" secondItem="Ksd-ic-8uv" secondAttribute="top" constant="4" id="0iP-0f-XUr"/>
+                <constraint firstAttribute="trailing" secondItem="Pk5-XY-e3r" secondAttribute="trailing" id="37M-8b-XOc"/>
+                <constraint firstAttribute="trailing" secondItem="K64-g0-ZEn" secondAttribute="trailing" constant="4" id="41w-aY-GTh"/>
+                <constraint firstAttribute="trailing" secondItem="Esw-IR-n3u" secondAttribute="trailing" constant="4" id="5TS-0S-SW6"/>
+                <constraint firstItem="K64-g0-ZEn" firstAttribute="leading" secondItem="Ksd-ic-8uv" secondAttribute="leading" constant="4" id="9MD-na-KHo"/>
+                <constraint firstItem="itZ-EX-WfT" firstAttribute="leading" secondItem="Ksd-ic-8uv" secondAttribute="leading" constant="6" id="C44-OC-jUu"/>
+                <constraint firstItem="itZ-EX-WfT" firstAttribute="top" secondItem="K64-g0-ZEn" secondAttribute="bottom" constant="8" id="Ecu-aW-WqH"/>
+                <constraint firstAttribute="trailing" secondItem="14O-6O-nwI" secondAttribute="trailing" constant="4" id="MYD-eQ-LgA"/>
+                <constraint firstItem="14O-6O-nwI" firstAttribute="leading" secondItem="Ksd-ic-8uv" secondAttribute="leading" constant="76" id="PKi-T8-ppD"/>
+                <constraint firstItem="Pk5-XY-e3r" firstAttribute="leading" secondItem="Ksd-ic-8uv" secondAttribute="leading" id="eQc-VV-6Ze"/>
+                <constraint firstAttribute="bottom" secondItem="Pk5-XY-e3r" secondAttribute="bottom" id="mbP-xz-4or"/>
+                <constraint firstItem="Esw-IR-n3u" firstAttribute="top" secondItem="K64-g0-ZEn" secondAttribute="bottom" constant="8" id="peI-WW-pi6"/>
+                <constraint firstItem="Pk5-XY-e3r" firstAttribute="top" secondItem="14O-6O-nwI" secondAttribute="bottom" constant="9" id="v3w-cT-9Xp"/>
+                <constraint firstItem="Esw-IR-n3u" firstAttribute="leading" secondItem="itZ-EX-WfT" secondAttribute="trailing" constant="8" id="xBF-d3-DNz"/>
+                <constraint firstItem="14O-6O-nwI" firstAttribute="top" secondItem="Esw-IR-n3u" secondAttribute="bottom" constant="8" id="zL6-kn-ML3"/>
+            </constraints>
+            <point key="canvasLocation" x="20" y="63"/>
+        </customView>
+    </objects>
+</document>

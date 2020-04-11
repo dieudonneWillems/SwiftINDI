@@ -106,6 +106,8 @@ public class INDIServerController: NSViewController, NSOutlineViewDataSource, NS
     
     private var registeredViews = false
     
+    private var detailViewControllers = [INDIViewController]()
+    
     /**
      * Load all cell views that can be used in the outline views and registers them.
      */
@@ -140,11 +142,28 @@ public class INDIServerController: NSViewController, NSOutlineViewDataSource, NS
     }
     
     /**
+     * Returns the detail view controller used for a specific property vector.
+     * - Parameter propertyVector: The property vwctor whose details need to be displayed.
+     * - Returns: The view controller.
+     */
+    public func detailViewController(propertyVector: INDIPropertyVector) -> INDIViewController? {
+        let bundle = Bundle(for: type(of: self))
+        if (propertyVector as? INDISwitchPropertyVector) != nil {
+            if propertyVector.name == "CONNECTION" {
+                let connectPropertyController = INDIConnectPropertyViewController()
+                _ = bundle.loadNibNamed("INDIConnectPropertyViewController", owner: connectPropertyController, topLevelObjects: nil)
+                return connectPropertyController
+            }
+        }
+        return nil
+    }
+    
+    /**
      * Returns the detail view controller used for a specific property.
      * - Parameter property: The property whose details need to be displayed.
      * - Returns: The view controller.
      */
-    public func detailViewController(for property: INDIProperty) -> INDIViewController? {
+    public func detailViewController(property: INDIProperty) -> INDIViewController? {
         let bundle = Bundle(for: type(of: self))
         if (property as? INDITextProperty) != nil {
             let textPropertyController = INDITextPropertyViewController()
@@ -159,11 +178,12 @@ public class INDIServerController: NSViewController, NSOutlineViewDataSource, NS
      * selected `INDIPropertyVector` or `INDIProperty`.
      */
     func showPropertyDetailView() {
+        self.detailViewControllers.removeAll()
         var selectedViewControllers = [INDIViewController]()
         if selectedPropertyVector != nil {
             if (selectedPropertyVector as? INDITextPropertyVector) != nil {
                 for property in selectedPropertyVector!.memberProperties {
-                    let viewController = self.detailViewController(for: property)
+                    let viewController = self.detailViewController(property: property)
                     if viewController != nil {
                         selectedViewControllers.append(viewController!)
                         viewController?.property = property
@@ -171,9 +191,17 @@ public class INDIServerController: NSViewController, NSOutlineViewDataSource, NS
                         print("WARNING: No detail view found for text property.")
                     }
                 }
+            } else if (selectedPropertyVector as? INDISwitchPropertyVector) != nil {
+                let viewController = self.detailViewController(propertyVector: selectedPropertyVector!)
+                if viewController != nil {
+                    selectedViewControllers.append(viewController!)
+                    viewController?.propertyVector = selectedPropertyVector
+                } else {
+                    print("WARNING: No detail view found for switch property vector.")
+                }
             }
         } else if selectedProperty != nil {
-            let viewController = self.detailViewController(for: selectedProperty!)
+            let viewController = self.detailViewController(property: selectedProperty!)
             if (selectedProperty as? INDITextProperty) != nil {
                 if viewController != nil {
                     selectedViewControllers.append(viewController!)
@@ -183,6 +211,7 @@ public class INDIServerController: NSViewController, NSOutlineViewDataSource, NS
                 }
             }
         }
+        self.detailViewControllers = selectedViewControllers
         self.changePropertyDetailView(subviewControllers: selectedViewControllers)
     }
     
@@ -350,9 +379,11 @@ public class INDIServerController: NSViewController, NSOutlineViewDataSource, NS
             if propertyListView?.selectedRow != nil {
                 let selectedItem = propertyListView?.item(atRow: propertyListView!.selectedRow)
                 if (selectedItem as? INDIPropertyVector) != nil {
+                    self.selectedProperty = nil
                     self.selectedPropertyVector = (selectedItem as! INDIPropertyVector)
                     self.showPropertyDetailView()
                 } else if (selectedItem as? INDIProperty) != nil {
+                    self.selectedPropertyVector = nil
                     self.selectedProperty = (selectedItem as! INDIProperty)
                     self.showPropertyDetailView()
                 }

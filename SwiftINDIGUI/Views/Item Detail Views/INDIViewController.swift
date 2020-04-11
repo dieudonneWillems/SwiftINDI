@@ -13,4 +13,5 @@ public class INDIViewController: NSViewController {
     
     public var property : INDIProperty? 
     
+    public var propertyVector : INDIPropertyVector?
 }

@@ -53,6 +53,8 @@
 		02DD8749242ECC3E000D1F1D /* INDIPropertyItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02DD8748242ECC3E000D1F1D /* INDIPropertyItemView.xib */; };
 		02DD874B242ED0FB000D1F1D /* INDIPropertyValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02DD874A242ED0FB000D1F1D /* INDIPropertyValueView.swift */; };
 		02DD874D242ED241000D1F1D /* INDIPropertyValueView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02DD874C242ED241000D1F1D /* INDIPropertyValueView.xib */; };
+		02E065C82441DA0B0033EC16 /* INDINumberPropertyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E065C62441DA0B0033EC16 /* INDINumberPropertyViewController.swift */; };
+		02E065C92441DA0B0033EC16 /* INDINumberPropertyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02E065C72441DA0B0033EC16 /* INDINumberPropertyViewController.xib */; };
 		02F8488E242D6334007D3084 /* INDIDeviceItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02F8488D242D6334007D3084 /* INDIDeviceItemView.xib */; };
 		02F84890242D6525007D3084 /* INDIDeviceItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F8488F242D6525007D3084 /* INDIDeviceItemView.swift */; };
 /* End PBXBuildFile section */
@@ -173,6 +175,8 @@
 		02DD8748242ECC3E000D1F1D /* INDIPropertyItemView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = INDIPropertyItemView.xib; sourceTree = "<group>"; };
 		02DD874A242ED0FB000D1F1D /* INDIPropertyValueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = INDIPropertyValueView.swift; sourceTree = "<group>"; };
 		02DD874C242ED241000D1F1D /* INDIPropertyValueView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = INDIPropertyValueView.xib; sourceTree = "<group>"; };
+		02E065C62441DA0B0033EC16 /* INDINumberPropertyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = INDINumberPropertyViewController.swift; sourceTree = "<group>"; };
+		02E065C72441DA0B0033EC16 /* INDINumberPropertyViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = INDINumberPropertyViewController.xib; sourceTree = "<group>"; };
 		02F8488D242D6334007D3084 /* INDIDeviceItemView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = INDIDeviceItemView.xib; sourceTree = "<group>"; };
 		02F8488F242D6525007D3084 /* INDIDeviceItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = INDIDeviceItemView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -244,6 +248,8 @@
 				028E360D24339E0A000A73C4 /* INDITextPropertyView.xib */,
 				02631816244130C3008FEBE5 /* INDIConnectPropertyViewController.swift */,
 				02631817244130C3008FEBE5 /* INDIConnectPropertyViewController.xib */,
+				02E065C62441DA0B0033EC16 /* INDINumberPropertyViewController.swift */,
+				02E065C72441DA0B0033EC16 /* INDINumberPropertyViewController.xib */,
 			);
 			path = "Item Detail Views";
 			sourceTree = "<group>";
@@ -556,6 +562,7 @@
 				02DD8742242EC660000D1F1D /* INDIGroupItemView.xib in Resources */,
 				029061A2242CB68200778B28 /* INDIServerItemView.xib in Resources */,
 				02DD874D242ED241000D1F1D /* INDIPropertyValueView.xib in Resources */,
+				02E065C92441DA0B0033EC16 /* INDINumberPropertyViewController.xib in Resources */,
 				02DD8740242E6DD0000D1F1D /* INDIPropertyVectorItemView.xib in Resources */,
 				02249D9E2430EDF800BE9BDB /* INDIPropertyVectorValueView.xib in Resources */,
 				02F8488E242D6334007D3084 /* INDIDeviceItemView.xib in Resources */,
@@ -598,6 +605,7 @@
 			files = (
 				02631818244130C4008FEBE5 /* INDIConnectPropertyViewController.swift in Sources */,
 				02631815244078EF008FEBE5 /* INDIViewController.swift in Sources */,
+				02E065C82441DA0B0033EC16 /* INDINumberPropertyViewController.swift in Sources */,
 				02249DA02430EE4A00BE9BDB /* INDIPropertyVectorValueView.swift in Sources */,
 				02DD8747242ECB58000D1F1D /* INDIPropertyItemVIew.swift in Sources */,
 				02DD874B242ED0FB000D1F1D /* INDIPropertyValueView.swift in Sources */,

@@ -20,7 +20,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Bic-s7-7L0">
-                    <rect key="frame" x="2" y="58" width="236" height="14"/>
+                    <rect key="frame" x="6" y="58" width="228" height="14"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="14" id="P55-zA-qUc"/>
                     </constraints>
@@ -37,7 +37,7 @@
                         <constraint firstAttribute="width" constant="62" id="WGS-Tw-aEI"/>
                     </constraints>
                     <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" alignment="right" title="Value" id="mTe-ku-0xQ">
-                        <font key="font" metaFont="message" size="11"/>
+                        <font key="font" metaFont="toolTip"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
@@ -49,18 +49,18 @@
                         <constraint firstAttribute="width" constant="62" id="x9i-SW-JJc"/>
                     </constraints>
                     <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" alignment="right" title="Identifier" id="hme-MZ-jAA">
-                        <font key="font" metaFont="message" size="11"/>
+                        <font key="font" metaFont="toolTip"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="g9M-Mu-FPO">
-                    <rect key="frame" x="74" y="36" width="164" height="14"/>
+                    <rect key="frame" x="74" y="36" width="160" height="14"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="14" id="rbJ-Zh-wWC"/>
                     </constraints>
                     <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" alignment="left" title="Identifier" id="22N-Dz-NWZ">
-                        <font key="font" metaFont="message" size="11"/>
+                        <font key="font" metaFont="toolTip"/>
                         <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
@@ -72,9 +72,9 @@
                     </constraints>
                 </box>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="6hx-gd-cDK">
-                    <rect key="frame" x="76" y="11" width="160" height="19"/>
+                    <rect key="frame" x="76" y="11" width="156" height="19"/>
                     <textFieldCell key="cell" controlSize="small" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Value of this Text Property" drawsBackground="YES" id="96l-2h-ntb">
-                        <font key="font" metaFont="message" size="11"/>
+                        <font key="font" metaFont="toolTip"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
@@ -89,16 +89,16 @@
                 <constraint firstItem="RI6-AP-Hxv" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" id="O2P-XN-vDv"/>
                 <constraint firstItem="6hx-gd-cDK" firstAttribute="leading" secondItem="HmJ-9T-DEw" secondAttribute="trailing" constant="8" id="P7J-mC-GQp"/>
                 <constraint firstItem="HmJ-9T-DEw" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="6" id="QGn-mh-8SS"/>
-                <constraint firstAttribute="trailing" secondItem="6hx-gd-cDK" secondAttribute="trailing" constant="4" id="QcQ-Dx-KFk"/>
+                <constraint firstAttribute="trailing" secondItem="6hx-gd-cDK" secondAttribute="trailing" constant="8" id="QcQ-Dx-KFk"/>
                 <constraint firstAttribute="bottom" secondItem="RI6-AP-Hxv" secondAttribute="bottom" id="RCW-Ig-mj6"/>
                 <constraint firstItem="g9M-Mu-FPO" firstAttribute="top" secondItem="Bic-s7-7L0" secondAttribute="bottom" constant="8" id="RD7-0B-jI1"/>
-                <constraint firstAttribute="trailing" secondItem="g9M-Mu-FPO" secondAttribute="trailing" constant="4" id="SM1-Mh-qaO"/>
+                <constraint firstAttribute="trailing" secondItem="g9M-Mu-FPO" secondAttribute="trailing" constant="8" id="SM1-Mh-qaO"/>
                 <constraint firstItem="g9M-Mu-FPO" firstAttribute="leading" secondItem="Cu6-Qe-pxi" secondAttribute="trailing" constant="8" id="UdT-fe-i71"/>
-                <constraint firstAttribute="trailing" secondItem="Bic-s7-7L0" secondAttribute="trailing" constant="4" id="YCl-Pg-W00"/>
+                <constraint firstAttribute="trailing" secondItem="Bic-s7-7L0" secondAttribute="trailing" constant="8" id="YCl-Pg-W00"/>
                 <constraint firstItem="Cu6-Qe-pxi" firstAttribute="top" secondItem="Bic-s7-7L0" secondAttribute="bottom" constant="8" id="hdK-FB-Lwb"/>
                 <constraint firstItem="Cu6-Qe-pxi" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="6" id="kHa-0L-zU9"/>
                 <constraint firstAttribute="trailing" secondItem="RI6-AP-Hxv" secondAttribute="trailing" id="p7M-xy-yhI"/>
-                <constraint firstItem="Bic-s7-7L0" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="4" id="pN7-Ks-2EY"/>
+                <constraint firstItem="Bic-s7-7L0" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="8" id="pN7-Ks-2EY"/>
                 <constraint firstItem="RI6-AP-Hxv" firstAttribute="top" secondItem="6hx-gd-cDK" secondAttribute="bottom" constant="10" id="v7h-LF-g6p"/>
                 <constraint firstItem="HmJ-9T-DEw" firstAttribute="top" secondItem="Cu6-Qe-pxi" secondAttribute="bottom" constant="9" id="yel-vU-Aaq"/>
             </constraints>

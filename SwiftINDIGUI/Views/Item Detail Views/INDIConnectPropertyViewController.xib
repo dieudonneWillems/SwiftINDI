@@ -20,7 +20,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="K64-g0-ZEn">
-                    <rect key="frame" x="2" y="58" width="236" height="14"/>
+                    <rect key="frame" x="6" y="58" width="228" height="14"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="14" id="CM3-f5-QiN"/>
                     </constraints>
@@ -37,18 +37,18 @@
                         <constraint firstAttribute="height" constant="14" id="bYh-iN-NVt"/>
                     </constraints>
                     <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" alignment="right" title="Identifier" id="PoF-vE-lOh">
-                        <font key="font" metaFont="menu" size="11"/>
+                        <font key="font" metaFont="toolTip"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Esw-IR-n3u">
-                    <rect key="frame" x="74" y="36" width="164" height="14"/>
+                    <rect key="frame" x="74" y="36" width="160" height="14"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="14" id="ZCT-0l-btP"/>
                     </constraints>
                     <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" alignment="left" title="Identifier" id="e2J-BF-vIR">
-                        <font key="font" metaFont="menu" size="11"/>
+                        <font key="font" metaFont="toolTip"/>
                         <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
@@ -60,13 +60,13 @@
                     </constraints>
                 </box>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="14O-6O-nwI">
-                    <rect key="frame" x="71" y="4" width="170" height="27"/>
+                    <rect key="frame" x="71" y="4" width="166" height="27"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="18" id="tif-cr-5xg"/>
                     </constraints>
                     <buttonCell key="cell" type="push" title="Connect" bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Mcg-nM-ncq">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
-                        <font key="font" metaFont="menu" size="11"/>
+                        <font key="font" metaFont="toolTip"/>
                     </buttonCell>
                     <connections>
                         <action selector="switchPropertyValueChangedWithSender:" target="-2" id="nQM-wT-aZl"/>
@@ -76,12 +76,12 @@
             <constraints>
                 <constraint firstItem="K64-g0-ZEn" firstAttribute="top" secondItem="Ksd-ic-8uv" secondAttribute="top" constant="4" id="0iP-0f-XUr"/>
                 <constraint firstAttribute="trailing" secondItem="Pk5-XY-e3r" secondAttribute="trailing" id="37M-8b-XOc"/>
-                <constraint firstAttribute="trailing" secondItem="K64-g0-ZEn" secondAttribute="trailing" constant="4" id="41w-aY-GTh"/>
-                <constraint firstAttribute="trailing" secondItem="Esw-IR-n3u" secondAttribute="trailing" constant="4" id="5TS-0S-SW6"/>
-                <constraint firstItem="K64-g0-ZEn" firstAttribute="leading" secondItem="Ksd-ic-8uv" secondAttribute="leading" constant="4" id="9MD-na-KHo"/>
+                <constraint firstAttribute="trailing" secondItem="K64-g0-ZEn" secondAttribute="trailing" constant="8" id="41w-aY-GTh"/>
+                <constraint firstAttribute="trailing" secondItem="Esw-IR-n3u" secondAttribute="trailing" constant="8" id="5TS-0S-SW6"/>
+                <constraint firstItem="K64-g0-ZEn" firstAttribute="leading" secondItem="Ksd-ic-8uv" secondAttribute="leading" constant="8" id="9MD-na-KHo"/>
                 <constraint firstItem="itZ-EX-WfT" firstAttribute="leading" secondItem="Ksd-ic-8uv" secondAttribute="leading" constant="6" id="C44-OC-jUu"/>
                 <constraint firstItem="itZ-EX-WfT" firstAttribute="top" secondItem="K64-g0-ZEn" secondAttribute="bottom" constant="8" id="Ecu-aW-WqH"/>
-                <constraint firstAttribute="trailing" secondItem="14O-6O-nwI" secondAttribute="trailing" constant="4" id="MYD-eQ-LgA"/>
+                <constraint firstAttribute="trailing" secondItem="14O-6O-nwI" secondAttribute="trailing" constant="8" id="MYD-eQ-LgA"/>
                 <constraint firstItem="14O-6O-nwI" firstAttribute="leading" secondItem="Ksd-ic-8uv" secondAttribute="leading" constant="76" id="PKi-T8-ppD"/>
                 <constraint firstItem="Pk5-XY-e3r" firstAttribute="leading" secondItem="Ksd-ic-8uv" secondAttribute="leading" id="eQc-VV-6Ze"/>
                 <constraint firstAttribute="bottom" secondItem="Pk5-XY-e3r" secondAttribute="bottom" id="mbP-xz-4or"/>

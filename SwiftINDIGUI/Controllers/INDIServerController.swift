@@ -169,6 +169,10 @@ public class INDIServerController: NSViewController, NSOutlineViewDataSource, NS
             let textPropertyController = INDITextPropertyViewController()
             _ = bundle.loadNibNamed("INDITextPropertyView", owner: textPropertyController, topLevelObjects: nil)
             return textPropertyController
+        } else if (property as? INDINumberProperty) != nil {
+            let numberPropertyController = INDINumberPropertyViewController()
+            _ = bundle.loadNibNamed("INDINumberPropertyViewController", owner: numberPropertyController, topLevelObjects: nil)
+            return numberPropertyController
         }
         return nil
     }
@@ -181,7 +185,7 @@ public class INDIServerController: NSViewController, NSOutlineViewDataSource, NS
         self.detailViewControllers.removeAll()
         var selectedViewControllers = [INDIViewController]()
         if selectedPropertyVector != nil {
-            if (selectedPropertyVector as? INDITextPropertyVector) != nil {
+            if (selectedPropertyVector as? INDITextPropertyVector) != nil || (selectedPropertyVector as? INDINumberPropertyVector) != nil {
                 for property in selectedPropertyVector!.memberProperties {
                     let viewController = self.detailViewController(property: property)
                     if viewController != nil {
@@ -202,13 +206,11 @@ public class INDIServerController: NSViewController, NSOutlineViewDataSource, NS
             }
         } else if selectedProperty != nil {
             let viewController = self.detailViewController(property: selectedProperty!)
-            if (selectedProperty as? INDITextProperty) != nil {
-                if viewController != nil {
-                    selectedViewControllers.append(viewController!)
-                    viewController?.property = selectedProperty
-                } else {
-                    print("WARNING: No detail view found for text property.")
-                }
+            if viewController != nil {
+                selectedViewControllers.append(viewController!)
+                viewController?.property = selectedProperty
+            } else {
+                print("WARNING: No detail view found for property.")
             }
         }
         self.detailViewControllers = selectedViewControllers

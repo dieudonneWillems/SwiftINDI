@@ -20,7 +20,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var serverController : INDIServerController? = nil
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        clientController.addINDIServer(at: "revisionist.local", port: 7624, with: "Revisionist")
+        clientController.addINDIServer(at: "astroberry.local", port: 7624, with: "Revisionist")
         serverController = INDIServerController.instance
         clientController.serverController = serverController
         let newView = serverController!.view

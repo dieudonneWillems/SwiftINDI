@@ -75,7 +75,7 @@ public class INDIDefaultPropertyVector : INDIPropertyVector {
      * The worse-case time to affect. The default value should be `0`. If the INDI property is read only, this property
      * is not relevant.
      */
-    public let timeout: Int
+    public var timeout: Int
     
     /**
      * The moment when the propery was valid.
@@ -85,7 +85,7 @@ public class INDIDefaultPropertyVector : INDIPropertyVector {
     /**
      * A commentary (description) of the property.
      */
-    public let message: String?
+    public var message: String?
     
     /**
      * The member properties of this vector. This property is a `fileprivate`
@@ -135,6 +135,32 @@ public class INDIDefaultPropertyVector : INDIPropertyVector {
         self.timeout = timeout
         self.timestamp = timestamp
         self.message = message
+    }
+    
+    /**
+     * Returns the property with the specified name, or `nil` if the name is not known.
+     *
+     * - Parameter name: The name of the property.
+     * - Returns: The property.
+     */
+    public func property(name: String) -> INDIProperty? {
+        for property in _memberProperties {
+            if property.name == name {
+                return property
+            }
+        }
+        return nil
+    }
+    
+    /**
+     * This method chould be called when a property's value will change. The property vector will
+     * notify the `device` that the property will change.
+     *
+     * - Parameter property: The property that will change.
+     * - Parameter newValue: The new value of the property.
+     */
+    public func property(_ property: INDIProperty, willChangeTo newValue: Any?) {
+        device.property(property, in: self, willChangeTo: newValue)
     }
     
     /**
@@ -219,7 +245,11 @@ public class INDIDefaultProperty : INDIProperty {
     public var value: Any? {
         willSet(newValue) {
             // Tell the INDI property vector that this property has changed.
-            self.propertyVector?.property(self, hasChangedTo: newValue)
+            self.propertyVector?.property(self, willChangeTo: newValue)
+        }
+        didSet {
+            // Tell the INDI property vector that this property has changed.
+            self.propertyVector?.property(self, hasChangedTo: value)
         }
     }
 }

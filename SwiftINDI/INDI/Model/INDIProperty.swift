@@ -121,7 +121,7 @@ public protocol INDIPropertyVector {
      * A GUI may represent the state in different colours. Suggested colours would be gray, green, yellow, and
      * red respectively.
      */
-    var state : INDIPropertyState {get}
+    var state : INDIPropertyState {get set}
     
     /**
      * Specifies that the INDI property can be read by the client.
@@ -137,22 +137,39 @@ public protocol INDIPropertyVector {
      * The worse-case time to affect. The default value should be `0`. If the INDI property is read only, this property
      * is not relevant.
      */
-    var timeout : Int {get}
+    var timeout : Int {get set}
     
     /**
      * The moment when the propery was valid.
      */
-    var timestamp : Date? {get}
+    var timestamp : Date? {get set}
     
     /**
      * A commentary (description) of the property.
      */
-    var message : String? {get}
+    var message : String? {get set}
     
     /**
      * The member properties of this vector.
      */
     var memberProperties : [INDIProperty] {get}
+    
+    /**
+     * Returns the property with the specified name, or `nil` if the name is not known.
+     *
+     * - Parameter name: The name of the property.
+     * - Returns: The property.
+     */
+    func property(name: String) -> INDIProperty?
+    
+    /**
+     * This method chould be called when a property's value will change. The property vector will
+     * notify the `device` that the property will change.
+     *
+     * - Parameter property: The property that will change.
+     * - Parameter newValue: The new value of the property.
+     */
+    func property(_ property: INDIProperty, willChangeTo newValue: Any?)
     
     /**
      * This method chould be called when a property's value has changed. The property vector will

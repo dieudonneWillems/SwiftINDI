@@ -60,7 +60,11 @@ public class INDIDevice {
      *  - Returns: The property vector containing the value.
      */
     public func getPropertyVector(name : String) -> INDIPropertyVector? {
-        // TODO: Implement function
+        for vector in self.propertyVectors {
+            if vector.name == name {
+                return vector
+            }
+        }
         return nil
     }
     
@@ -126,6 +130,18 @@ public class INDIDevice {
         return grouped
     }
     
+    
+    /**
+     * This method chould be called when a property's value will change. The device will be
+     * notified by the property vector whose property will change.
+     *
+     * - Parameter property: The property that has will change.
+     * - Parameter propertyVector: The property vector whose property will change.
+     * - Parameter newValue: The new value of the property.
+     */
+    func property(_ property: INDIProperty, in propertyVector: INDIPropertyVector, willChangeTo newValue: Any?) {
+        server.property(property, for: self, willChangeTo: newValue)
+    }
     
     /**
      * This method chould be called when a property's value has changed. The device will be

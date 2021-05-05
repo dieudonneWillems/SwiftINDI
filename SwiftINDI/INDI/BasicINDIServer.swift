@@ -201,6 +201,7 @@ public class BasicINDIServer : CustomStringConvertible {
                         let message = "No connection to the INDI server at \(self.host!) and port \(self.port) could be established."
                         let error = INDIError.connectionError(message: message, causedBy: error)
                         self.delegate?.encounteredINDIError(self, error: error, message: message)
+                        self.delegate?.connectionRequestIgnored(self, to: self.host, port: self.port, message: "The INDI could not connect to the INDI server.")
                     }
             }
         }
@@ -244,6 +245,10 @@ public class BasicINDIServer : CustomStringConvertible {
     private func send(message: String) {
         switch tcpClient!.send(string: message) {
             case .success:
+                DispatchQueue.main.async {
+                    let size = message.utf8.count
+                    self.delegate?.sendData(self, size: size, xml: message, from: self.host!, port: self.port)
+                }
                 sleep(1)
             case .failure(let error):
                 let message = "An error occurred when data was send to the INDI server."
@@ -257,7 +262,6 @@ public class BasicINDIServer : CustomStringConvertible {
      */
     private func listen() {
         DispatchQueue.global(qos: .background).async { // Start new background thread
-            print("Started listening")
             var current = "" // Current element to be parsed where characters are added to the stream
             var nodeDepth = 0 // The depth of the element. Elements are returned (current) when the element at depth 0 is closed.
             var lastc = "" // The previous character added.
@@ -282,7 +286,7 @@ public class BasicINDIServer : CustomStringConvertible {
                     lastc = c!
                     if nodeDepth == 0 {  // Root element has been found
                         let response = current.trimmingCharacters(in: .whitespacesAndNewlines)
-                        print("response=\n\(response)")
+                        //print("response=\n\(response)")
                         if response.count > 3 {
                             current = ""
                             lastc = ""
@@ -292,7 +296,6 @@ public class BasicINDIServer : CustomStringConvertible {
                     }
                 }
             }
-            print("Stopped listening")
         }
     }
     
@@ -306,12 +309,19 @@ public class BasicINDIServer : CustomStringConvertible {
      * - Parameter propertyVector: The property vector whose property has changed.
      * - Parameter newValue: The new value of the property.
      */
-    func property(_ property: INDIProperty, for device: INDIDevice, hasChangedTo newValue: Any?) {
-        print("property \(property.name) has a new value: \(String(describing: newValue))")
+    func property(_ property: INDIProperty, for device: INDIDevice, willChangeTo newValue: Any?) {
         self.delegate?.propertyWillChange(self, property: property, device: device)
-        
-        // TODO: Send a newXXXVector XML message to the server to change the property on the device
-        
+    }
+    
+    /**
+     * This method chould be called when a property's value has changed. The device will be
+     * notified by the property vector whose property has changed.
+     *
+     * - Parameter property: The property that has been changed.
+     * - Parameter propertyVector: The property vector whose property has changed.
+     * - Parameter newValue: The new value of the property.
+     */
+    func property(_ property: INDIProperty, for device: INDIDevice, hasChangedTo newValue: Any?) {
         self.delegate?.propertyDidChange(self, property: property, device: device)
     }
     
@@ -324,11 +334,8 @@ public class BasicINDIServer : CustomStringConvertible {
     private func parseResponseAndCreateEvents(response: String) {
         DispatchQueue.main.async {
             do {
-                print("\n\n-----------------------------------------------------")
-                print(response)
-                print("-----------------------------------------------------")
-                try self.parseResponse(response)
                 self.delegate?.recievedData(self, size: response.count, xml: response, from: self.host!, port: self.port)
+                try self.parseResponse(response)
             } catch {
                 let message = "An error occurred when parsing the data to XML.\n\(response)"
                 let indierror = INDIError.connectionError(message: message, causedBy: error)
@@ -349,7 +356,6 @@ public class BasicINDIServer : CustomStringConvertible {
         xmlParser.delegate = parserDelegate
         xmlParser.parse()
         if parserDelegate.element != nil {
-            print("\(parserDelegate.element!)")
             self.interpret(node: parserDelegate.element!)
         }
     }
@@ -363,7 +369,7 @@ public class BasicINDIServer : CustomStringConvertible {
             if node.name!.starts(with: "def") {
                 self.interpretDefinition(node: node)
             } else if node.name!.starts(with: "set") {
-                
+                self.interpretSet(node: node)
             } else if node.name!.starts(with: "delProperty") {
                            
             } else if node.name!.starts(with: "one") {
@@ -372,13 +378,7 @@ public class BasicINDIServer : CustomStringConvertible {
         }
     }
     
-    /**
-     * Interprets a property definition.
-     * - Parameter node: The XML node.
-     */
-    private func interpretDefinition(node: INDINode) {
-        let deviceName = node.attributes!["device"]
-        let stateString = node.attributes!["state"]
+    private func parseState(from stateString: String?) -> INDIPropertyState {
         var state : INDIPropertyState = .idle
         switch stateString?.lowercased() {
         case "idle":
@@ -392,7 +392,10 @@ public class BasicINDIServer : CustomStringConvertible {
         default:
             state = .idle
         }
-        let permString = node.attributes!["perm"]
+        return state
+    }
+    
+    private func parsePermissions(from permString: String?) -> (read: Bool, write: Bool) {
         var readFlag = false
         var writeFlag = false
         if permString != nil && permString!.contains("r") {
@@ -401,7 +404,10 @@ public class BasicINDIServer : CustomStringConvertible {
         if permString != nil && permString!.contains("w") {
             writeFlag = true
         }
-        let timeoutString = node.attributes!["timeout"]
+        return (read: readFlag, write: writeFlag)
+    }
+    
+    private func parseTimeOut(from timeoutString: String?) -> Int {
         var timeout = 0
         if timeoutString != nil {
             let timeoutInt = Int(timeoutString!)
@@ -409,11 +415,100 @@ public class BasicINDIServer : CustomStringConvertible {
                 timeout = timeoutInt!
             }
         }
-        let timestampString = node.attributes!["timestamp"]
+        return timeout
+    }
+    
+    private func parseTimestamp(from timestampString: String?) -> Date? {
         var timestamp : Date? = Date()
         if timestampString != nil {
             timestamp = BasicINDIServer.iso8601().date(from: timestampString!)
         }
+        return timestamp
+    }
+    
+    private func parseSwitchRule(from rule: String?) -> INDISwitchRule {
+        var switchRule : INDISwitchRule = .oneOfMany
+        switch rule {
+        case "OneOfMany":
+            switchRule = .oneOfMany
+        case "AtMostOne":
+            switchRule = .atMostOne
+        case "AnyOfMany":
+            switchRule = .anyOfMany
+        default:
+            switchRule = .oneOfMany
+        }
+        return switchRule
+    }
+    
+    /**
+     * Interprets a property set.
+     * - Parameter node: The XML node.
+     */
+    private func interpretSet(node: INDINode) {
+        let deviceName = node.attributes!["device"]
+        let stateString = node.attributes!["state"]
+        let state = self.parseState(from: stateString)
+        let timeoutString = node.attributes!["timeout"]
+        let timeout = self.parseTimeOut(from: timeoutString)
+        let timestampString = node.attributes!["timestamp"]
+        let timestamp : Date? = self.parseTimestamp(from: timestampString)
+        if deviceName != nil {
+            let device = self.devices[deviceName!]
+            if device != nil {
+                let propertyVectorName = node.attributes!["name"]!
+                var propertyVector = device!.getPropertyVector(name: propertyVectorName)
+                let message = node.attributes!["message"]
+                propertyVector?.timestamp = timestamp
+                propertyVector?.timeout = timeout
+                propertyVector?.state = state
+                propertyVector?.message = message
+                if node.name! == "setTextVector" {
+                    let textVector = propertyVector as? INDITextPropertyVector
+                    if textVector != nil {
+                        self.interpretTextPropertyChanges(from: node, inPropertyVector: textVector!)
+                    } else {
+                        // TODO: Call Error message
+                    }
+                } else if node.name! == "setNumberVector" {
+                    let numberVector = propertyVector as? INDINumberPropertyVector
+                    if numberVector != nil {
+                        self.interpretNumberPropertyChanges(from: node, inPropertyVector: numberVector!)
+                    } else {
+                        // TODO: Call Error message
+                    }
+                } else if node.name! == "setSwitchVector" {
+                    let switchVector = propertyVector as? INDISwitchPropertyVector
+                    if switchVector != nil {
+                        self.interpretSwitchPropertyChanges(from: node, inPropertyVector: switchVector!)
+                    } else {
+                        // TODO: Call Error message
+                    }
+                } else if node.name! == "setBLOBVector" {
+                    // TODO: Remember to switch accepting BLOBs on!!!!
+                }
+            } else {
+                // TODO: Call Error message
+            }
+        } else {
+            // TODO: Call Error message
+        }
+    }
+    
+    /**
+     * Interprets a property definition.
+     * - Parameter node: The XML node.
+     */
+    private func interpretDefinition(node: INDINode) {
+        let deviceName = node.attributes!["device"]
+        let stateString = node.attributes!["state"]
+        let state = self.parseState(from: stateString)
+        let permString = node.attributes!["perm"]
+        let perm = self.parsePermissions(from: permString)
+        let timeoutString = node.attributes!["timeout"]
+        let timeout = self.parseTimeOut(from: timeoutString)
+        let timestampString = node.attributes!["timestamp"]
+        let timestamp : Date? = self.parseTimestamp(from: timestampString)
         if deviceName != nil {
             var device = self.devices[deviceName!]
             if device == nil {
@@ -422,28 +517,18 @@ public class BasicINDIServer : CustomStringConvertible {
                 delegate?.deviceDefined(self, device: device!)
             }
             if node.name! == "defTextVector" {
-                let textVector = INDITextPropertyVector(node.attributes!["name"]!, device: device!, label: node.attributes!["label"], group: node.attributes!["group"], state: state, read: readFlag, write: writeFlag, timeout: timeout, timestamp: timestamp, message: node.attributes!["message"])
+                let textVector = INDITextPropertyVector(node.attributes!["name"]!, device: device!, label: node.attributes!["label"], group: node.attributes!["group"], state: state, read: perm.read, write: perm.write, timeout: timeout, timestamp: timestamp, message: node.attributes!["message"])
                 self.interpretTextPropertyDefinitions(from: node, toIncludeIn: textVector)
                 device!.define(propertyVector: textVector)
                 delegate?.propertyVectorDefined(self, device: device!, propertyVector: textVector)
             } else if node.name! == "defNumberVector" {
-                let numberVector = INDINumberPropertyVector(node.attributes!["name"]!, device: device!, label: node.attributes!["label"], group: node.attributes!["group"], state: state, read: readFlag, write: writeFlag, timeout: timeout, timestamp: timestamp, message: node.attributes!["message"])
+                let numberVector = INDINumberPropertyVector(node.attributes!["name"]!, device: device!, label: node.attributes!["label"], group: node.attributes!["group"], state: state, read: perm.read, write: perm.write, timeout: timeout, timestamp: timestamp, message: node.attributes!["message"])
                 self.interpretNumberPropertyDefinitions(from: node, toIncludeIn: numberVector)
                 device!.define(propertyVector: numberVector)
                 delegate?.propertyVectorDefined(self, device: device!, propertyVector: numberVector)
             } else if node.name! == "defSwitchVector" {
-                var switchRule : INDISwitchRule = .oneOfMany
-                switch node.attributes!["rule"] {
-                case "OneOfMany":
-                    switchRule = .oneOfMany
-                case "AtMostOne":
-                    switchRule = .atMostOne
-                case "AnyOfMany":
-                    switchRule = .anyOfMany
-                default:
-                    switchRule = .oneOfMany
-                }
-                let switchVector = INDISwitchPropertyVector(node.attributes!["name"]!, device: device!, label: node.attributes!["label"], group: node.attributes!["group"], state: state, rule: switchRule, read: readFlag, write: writeFlag, timeout: timeout, timestamp: timestamp, message: node.attributes!["message"])
+                let switchRule = parseSwitchRule(from: node.attributes!["rule"])
+                let switchVector = INDISwitchPropertyVector(node.attributes!["name"]!, device: device!, label: node.attributes!["label"], group: node.attributes!["group"], state: state, rule: switchRule, read: perm.read, write: perm.write, timeout: timeout, timestamp: timestamp, message: node.attributes!["message"])
                 self.interpretSwitchPropertyDefinitions(from: node, toIncludeIn: switchVector)
                 device!.define(propertyVector: switchVector)
                 delegate?.propertyVectorDefined(self, device: device!, propertyVector: switchVector)
@@ -453,7 +538,7 @@ public class BasicINDIServer : CustomStringConvertible {
                 device!.define(propertyVector: lightVector)
                 delegate?.propertyVectorDefined(self, device: device!, propertyVector: lightVector)
             } else if node.name! == "defBLOBVector" {
-                let blobVector = INDIBLOBPropertyVector(node.attributes!["name"]!, device: device!, label: node.attributes!["label"], group: node.attributes!["group"], state: state, read: readFlag, write: writeFlag, timeout: timeout, timestamp: timestamp, message: node.attributes!["message"])
+                let blobVector = INDIBLOBPropertyVector(node.attributes!["name"]!, device: device!, label: node.attributes!["label"], group: node.attributes!["group"], state: state, read: perm.read, write: perm.write, timeout: timeout, timestamp: timestamp, message: node.attributes!["message"])
                 self.interpretBLOBPropertyDefinitions(from: node, toIncludeIn: blobVector)
                 device!.define(propertyVector: blobVector)
                 delegate?.propertyVectorDefined(self, device: device!, propertyVector: blobVector)
@@ -471,6 +556,25 @@ public class BasicINDIServer : CustomStringConvertible {
             if propertyNode.name != nil && propertyNode.name! == "defText" {
                 let property = INDITextProperty(propertyNode.attributes!["name"]!, label: propertyNode.attributes!["label"], inPropertyVector: vector)
                 property.textValue = propertyNode.text
+            }
+        }
+    }
+    
+    private func interpretTextPropertyChanges(from parent: INDINode, inPropertyVector vector: INDITextPropertyVector) {
+        for propertyNode in parent.childNodes! {
+            if propertyNode.name != nil && propertyNode.name! == "oneText" {
+                let propertyName = propertyNode.attributes!["name"]!
+                var property = vector.property(name: propertyName)
+                if property != nil {
+                    let valueString = propertyNode.text
+                    if valueString != nil {
+                        property!.value = valueString!
+                    } else {
+                        // TODO Error with no value
+                    }
+                } else {
+                    // TODO Error Unkown property
+                }
             }
         }
     }
@@ -498,6 +602,30 @@ public class BasicINDIServer : CustomStringConvertible {
         }
     }
     
+    private func interpretNumberPropertyChanges(from parent: INDINode, inPropertyVector vector: INDINumberPropertyVector) {
+        for propertyNode in parent.childNodes! {
+            if propertyNode.name != nil && propertyNode.name! == "oneNumber" {
+                let propertyName = propertyNode.attributes!["name"]!
+                var property = vector.property(name: propertyName)
+                if property != nil {
+                    let valueString = propertyNode.text
+                    if valueString != nil {
+                        let value = Double(valueString!)
+                        if value != nil {
+                            property!.value = value
+                        } else {
+                            // TODO Error with non-valid value
+                        }
+                    } else {
+                        // TODO Error with no value
+                    }
+                } else {
+                    // TODO Error Unkown property
+                }
+            }
+        }
+    }
+    
     /**
      * Interpret all child switch property member definitions of a switch property vector.
      * - Parameter parent: The parent (property vector) node.
@@ -508,6 +636,25 @@ public class BasicINDIServer : CustomStringConvertible {
             if propertyNode.name != nil && propertyNode.name! == "defSwitch" {
                 let property = INDISwitchProperty(propertyNode.attributes!["name"]!, label: propertyNode.attributes!["label"], inPropertyVector: vector)
                 property.switchValue = propertyNode.text
+            }
+        }
+    }
+    
+    private func interpretSwitchPropertyChanges(from parent: INDINode, inPropertyVector vector: INDISwitchPropertyVector) {
+        for propertyNode in parent.childNodes! {
+            if propertyNode.name != nil && propertyNode.name! == "oneSwitch" {
+                let propertyName = propertyNode.attributes!["name"]!
+                var property = vector.property(name: propertyName)
+                if property != nil {
+                    let valueString = propertyNode.text
+                    if valueString != nil {
+                        property!.value = valueString!
+                    } else {
+                        // TODO Error with no value
+                    }
+                } else {
+                    // TODO Error Unkown property
+                }
             }
         }
     }
@@ -600,7 +747,6 @@ fileprivate class INDIXMLParserDelegate : NSObject, XMLParserDelegate {
      *  - Parameter attributeDict: The attributes in a dictionary containing the name as the key, and the value as the value.
      */
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
-        print("Start Element:  \(elementName)")
         currentElement = INDINode(elementName: elementName, attributes: attributeDict, parentElement: currentElement)
         if currentElement?.parentElement == nil {
             element = currentElement
@@ -615,7 +761,6 @@ fileprivate class INDIXMLParserDelegate : NSObject, XMLParserDelegate {
      *  - Parameter qName: The qualified name of the element.
      */
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
-        print("End Element:  \(elementName)")
         currentElement = currentElement?.parentElement
     }
     
@@ -643,7 +788,6 @@ fileprivate class INDIXMLParserDelegate : NSObject, XMLParserDelegate {
      *  - Parameter string: The characters.
      */
     func parser(_ parser: XMLParser, foundCharacters string: String) {
-        print("Found Characters:  \(string)")
         let _ = INDINode(text: string, parentElement: currentElement)
     }
     

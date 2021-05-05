@@ -43,8 +43,6 @@
 		02A9EDC924184AC100484226 /* SwiftINDITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A9EDC824184AC100484226 /* SwiftINDITests.swift */; };
 		02A9EDCB24184AC100484226 /* SwiftINDI.h in Headers */ = {isa = PBXBuildFile; fileRef = 02A9EDBD24184AC100484226 /* SwiftINDI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		02A9EDE72418525000484226 /* BasicINDIServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A9EDE62418525000484226 /* BasicINDIServer.swift */; };
-		02DD873B242E086B000D1F1D /* SwiftSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02DD8739242E0812000D1F1D /* SwiftSocket.framework */; };
-		02DD873C242E086B000D1F1D /* SwiftSocket.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 02DD8739242E0812000D1F1D /* SwiftSocket.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		02DD873E242E6D90000D1F1D /* INDIPropertyVectorItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02DD873D242E6D90000D1F1D /* INDIPropertyVectorItemView.swift */; };
 		02DD8740242E6DD0000D1F1D /* INDIPropertyVectorItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02DD873F242E6DD0000D1F1D /* INDIPropertyVectorItemView.xib */; };
 		02DD8742242EC660000D1F1D /* INDIGroupItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02DD8741242EC660000D1F1D /* INDIGroupItemView.xib */; };
@@ -57,6 +55,19 @@
 		02E065C92441DA0B0033EC16 /* INDINumberPropertyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02E065C72441DA0B0033EC16 /* INDINumberPropertyViewController.xib */; };
 		02F8488E242D6334007D3084 /* INDIDeviceItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02F8488D242D6334007D3084 /* INDIDeviceItemView.xib */; };
 		02F84890242D6525007D3084 /* INDIDeviceItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F8488F242D6525007D3084 /* INDIDeviceItemView.swift */; };
+		C7586CCD26419CFB008B87B0 /* INDIControllerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7586CCC26419CFB008B87B0 /* INDIControllerModel.swift */; };
+		C7586CD526434325008B87B0 /* DeviceDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7586CD426434325008B87B0 /* DeviceDetail.swift */; };
+		C772C08A2640484400BD676F /* DeviceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C772C0892640484400BD676F /* DeviceRow.swift */; };
+		C7F104452639899200D85C26 /* SwiftSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7F1042B2639896600D85C26 /* SwiftSocket.framework */; };
+		C7F104462639899200D85C26 /* SwiftSocket.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C7F1042B2639896600D85C26 /* SwiftSocket.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C7F10457263C51F800D85C26 /* INDI_ControllerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F10456263C51F800D85C26 /* INDI_ControllerApp.swift */; };
+		C7F10459263C51F800D85C26 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F10458263C51F800D85C26 /* ContentView.swift */; };
+		C7F1045B263C51FC00D85C26 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7F1045A263C51FC00D85C26 /* Assets.xcassets */; };
+		C7F1045E263C51FC00D85C26 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7F1045D263C51FC00D85C26 /* Preview Assets.xcassets */; };
+		C7F104B3263E0A6500D85C26 /* AddServerSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F104B2263E0A6500D85C26 /* AddServerSheet.swift */; };
+		C7F104F9263ECF3700D85C26 /* ServerRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F104F8263ECF3600D85C26 /* ServerRow.swift */; };
+		C7F104FD263ECF6100D85C26 /* ServerDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F104FC263ECF6100D85C26 /* ServerDetail.swift */; };
+		C7F10501263F3CE600D85C26 /* ConnectToolbarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F10500263F3CE600D85C26 /* ConnectToolbarItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,6 +98,34 @@
 			proxyType = 1;
 			remoteGlobalIDString = 02A9EDB924184AC100484226;
 			remoteInfo = SwiftINDI;
+		};
+		C7F104282639896600D85C26 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C7F104212639896600D85C26 /* SwiftSocket.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 377DAA691DCDE40200009697;
+			remoteInfo = "SwiftSocket iOS";
+		};
+		C7F1042A2639896600D85C26 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C7F104212639896600D85C26 /* SwiftSocket.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 377DAA761DCDE45D00009697;
+			remoteInfo = "SwiftSocket macOS";
+		};
+		C7F1042C2639896600D85C26 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C7F104212639896600D85C26 /* SwiftSocket.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 37454ECA1E06158200800AE5;
+			remoteInfo = "SwiftSocket tvOS";
+		};
+		C7F1042E2639896600D85C26 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C7F104212639896600D85C26 /* SwiftSocket.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 375C482D1DDC4C56008C701D;
+			remoteInfo = "iOS Example";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -120,7 +159,17 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				02DD873C242E086B000D1F1D /* SwiftSocket.framework in Embed Frameworks */,
+				C7F104462639899200D85C26 /* SwiftSocket.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C7F104C4263E296F00D85C26 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -166,7 +215,6 @@
 		02A9EDC824184AC100484226 /* SwiftINDITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftINDITests.swift; sourceTree = "<group>"; };
 		02A9EDCA24184AC100484226 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		02A9EDE62418525000484226 /* BasicINDIServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicINDIServer.swift; sourceTree = "<group>"; };
-		02DD8739242E0812000D1F1D /* SwiftSocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SwiftSocket.framework; sourceTree = "<group>"; };
 		02DD873D242E6D90000D1F1D /* INDIPropertyVectorItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = INDIPropertyVectorItemView.swift; sourceTree = "<group>"; };
 		02DD873F242E6DD0000D1F1D /* INDIPropertyVectorItemView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = INDIPropertyVectorItemView.xib; sourceTree = "<group>"; };
 		02DD8741242EC660000D1F1D /* INDIGroupItemView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = INDIGroupItemView.xib; sourceTree = "<group>"; };
@@ -179,6 +227,23 @@
 		02E065C72441DA0B0033EC16 /* INDINumberPropertyViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = INDINumberPropertyViewController.xib; sourceTree = "<group>"; };
 		02F8488D242D6334007D3084 /* INDIDeviceItemView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = INDIDeviceItemView.xib; sourceTree = "<group>"; };
 		02F8488F242D6525007D3084 /* INDIDeviceItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = INDIDeviceItemView.swift; sourceTree = "<group>"; };
+		C7586CCC26419CFB008B87B0 /* INDIControllerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = INDIControllerModel.swift; sourceTree = "<group>"; };
+		C7586CD426434325008B87B0 /* DeviceDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetail.swift; sourceTree = "<group>"; };
+		C772C0892640484400BD676F /* DeviceRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceRow.swift; sourceTree = "<group>"; };
+		C7F104212639896600D85C26 /* SwiftSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SwiftSocket.xcodeproj; path = ../SwiftSocket/SwiftSocket.xcodeproj; sourceTree = "<group>"; };
+		C7F10454263C51F800D85C26 /* INDI Controller.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "INDI Controller.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C7F10456263C51F800D85C26 /* INDI_ControllerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = INDI_ControllerApp.swift; sourceTree = "<group>"; };
+		C7F10458263C51F800D85C26 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		C7F1045A263C51FC00D85C26 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C7F1045D263C51FC00D85C26 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		C7F1045F263C51FC00D85C26 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C7F10460263C51FC00D85C26 /* INDI_Controller.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = INDI_Controller.entitlements; sourceTree = "<group>"; };
+		C7F1047F263D8D8200D85C26 /* INDIUIModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = INDIUIModelTests.swift; sourceTree = "<group>"; };
+		C7F10481263D8D8300D85C26 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C7F104B2263E0A6500D85C26 /* AddServerSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddServerSheet.swift; sourceTree = "<group>"; };
+		C7F104F8263ECF3600D85C26 /* ServerRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerRow.swift; sourceTree = "<group>"; };
+		C7F104FC263ECF6100D85C26 /* ServerDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerDetail.swift; sourceTree = "<group>"; };
+		C7F10500263F3CE600D85C26 /* ConnectToolbarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectToolbarItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -203,7 +268,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				02DD873B242E086B000D1F1D /* SwiftSocket.framework in Frameworks */,
+				C7F104452639899200D85C26 /* SwiftSocket.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -212,6 +277,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				02A9EDC424184AC100484226 /* SwiftINDI.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C7F10451263C51F800D85C26 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -323,11 +395,13 @@
 		02A9EDB024184AC100484226 = {
 			isa = PBXGroup;
 			children = (
-				02DD8739242E0812000D1F1D /* SwiftSocket.framework */,
+				C7F104212639896600D85C26 /* SwiftSocket.xcodeproj */,
 				02A9EDBC24184AC100484226 /* SwiftINDI */,
 				02A9EDC724184AC100484226 /* SwiftINDITests */,
 				029FC5962425355E0027279A /* SwiftINDIGUI */,
 				029FC57F24252AFB0027279A /* INDI Client */,
+				C7F10455263C51F800D85C26 /* INDI Controller */,
+				C7F1047E263D8D8200D85C26 /* INDIUIModelTests */,
 				02A9EDBB24184AC100484226 /* Products */,
 				020D2D66241CE7FB00A97EA5 /* Frameworks */,
 			);
@@ -340,6 +414,7 @@
 				02A9EDC324184AC100484226 /* SwiftINDITests.xctest */,
 				029FC57E24252AFB0027279A /* INDI Client.app */,
 				029FC5952425355E0027279A /* SwiftINDIGUI.framework */,
+				C7F10454263C51F800D85C26 /* INDI Controller.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -393,6 +468,94 @@
 				02249D9D2430EDF800BE9BDB /* INDIPropertyVectorValueView.xib */,
 			);
 			path = "Cell Views";
+			sourceTree = "<group>";
+		};
+		C772C06B263F477C00BD676F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C7586CCC26419CFB008B87B0 /* INDIControllerModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		C772C0862640480400BD676F /* Navigation Views */ = {
+			isa = PBXGroup;
+			children = (
+				C7F104F8263ECF3600D85C26 /* ServerRow.swift */,
+				C772C0892640484400BD676F /* DeviceRow.swift */,
+			);
+			path = "Navigation Views";
+			sourceTree = "<group>";
+		};
+		C772C0872640481500BD676F /* Detail Views */ = {
+			isa = PBXGroup;
+			children = (
+				C7F104FC263ECF6100D85C26 /* ServerDetail.swift */,
+				C7586CD426434325008B87B0 /* DeviceDetail.swift */,
+			);
+			path = "Detail Views";
+			sourceTree = "<group>";
+		};
+		C772C0882640482400BD676F /* Sheets */ = {
+			isa = PBXGroup;
+			children = (
+				C7F104B2263E0A6500D85C26 /* AddServerSheet.swift */,
+			);
+			path = Sheets;
+			sourceTree = "<group>";
+		};
+		C7F104222639896600D85C26 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C7F104292639896600D85C26 /* SwiftSocket.framework */,
+				C7F1042B2639896600D85C26 /* SwiftSocket.framework */,
+				C7F1042D2639896600D85C26 /* SwiftSocket.framework */,
+				C7F1042F2639896600D85C26 /* iOS Example.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C7F10455263C51F800D85C26 /* INDI Controller */ = {
+			isa = PBXGroup;
+			children = (
+				C772C06B263F477C00BD676F /* Model */,
+				C7F104B1263E0A0B00D85C26 /* Views */,
+				C7F10456263C51F800D85C26 /* INDI_ControllerApp.swift */,
+				C7F1045A263C51FC00D85C26 /* Assets.xcassets */,
+				C7F1045F263C51FC00D85C26 /* Info.plist */,
+				C7F10460263C51FC00D85C26 /* INDI_Controller.entitlements */,
+				C7F1045C263C51FC00D85C26 /* Preview Content */,
+			);
+			path = "INDI Controller";
+			sourceTree = "<group>";
+		};
+		C7F1045C263C51FC00D85C26 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				C7F1045D263C51FC00D85C26 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		C7F1047E263D8D8200D85C26 /* INDIUIModelTests */ = {
+			isa = PBXGroup;
+			children = (
+				C7F1047F263D8D8200D85C26 /* INDIUIModelTests.swift */,
+				C7F10481263D8D8300D85C26 /* Info.plist */,
+			);
+			path = INDIUIModelTests;
+			sourceTree = "<group>";
+		};
+		C7F104B1263E0A0B00D85C26 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				C772C0882640482400BD676F /* Sheets */,
+				C772C0872640481500BD676F /* Detail Views */,
+				C772C0862640480400BD676F /* Navigation Views */,
+				C7F10458263C51F800D85C26 /* ContentView.swift */,
+				C7F10500263F3CE600D85C26 /* ConnectToolbarItem.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -496,14 +659,32 @@
 			productReference = 02A9EDC324184AC100484226 /* SwiftINDITests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		C7F10453263C51F800D85C26 /* INDI Controller */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C7F10467263C51FC00D85C26 /* Build configuration list for PBXNativeTarget "INDI Controller" */;
+			buildPhases = (
+				C7F10450263C51F800D85C26 /* Sources */,
+				C7F10451263C51F800D85C26 /* Frameworks */,
+				C7F10452263C51F800D85C26 /* Resources */,
+				C7F104C4263E296F00D85C26 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "INDI Controller";
+			productName = "INDI Controller";
+			productReference = C7F10454263C51F800D85C26 /* INDI Controller.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		02A9EDB124184AC100484226 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1130;
-				LastUpgradeCheck = 1140;
+				LastSwiftUpdateCheck = 1240;
+				LastUpgradeCheck = 1240;
 				ORGANIZATIONNAME = lapsedpacifist;
 				TargetAttributes = {
 					029FC57D24252AFB0027279A = {
@@ -520,6 +701,9 @@
 					02A9EDC224184AC100484226 = {
 						CreatedOnToolsVersion = 11.3.1;
 					};
+					C7F10453263C51F800D85C26 = {
+						CreatedOnToolsVersion = 12.4;
+					};
 				};
 			};
 			buildConfigurationList = 02A9EDB424184AC100484226 /* Build configuration list for PBXProject "SwiftINDI" */;
@@ -535,15 +719,53 @@
 			);
 			productRefGroup = 02A9EDBB24184AC100484226 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = C7F104222639896600D85C26 /* Products */;
+					ProjectRef = C7F104212639896600D85C26 /* SwiftSocket.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				02A9EDB924184AC100484226 /* SwiftINDI */,
 				02A9EDC224184AC100484226 /* SwiftINDITests */,
 				029FC57D24252AFB0027279A /* INDI Client */,
 				029FC5942425355E0027279A /* SwiftINDIGUI */,
+				C7F10453263C51F800D85C26 /* INDI Controller */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		C7F104292639896600D85C26 /* SwiftSocket.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SwiftSocket.framework;
+			remoteRef = C7F104282639896600D85C26 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C7F1042B2639896600D85C26 /* SwiftSocket.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SwiftSocket.framework;
+			remoteRef = C7F1042A2639896600D85C26 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C7F1042D2639896600D85C26 /* SwiftSocket.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SwiftSocket.framework;
+			remoteRef = C7F1042C2639896600D85C26 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C7F1042F2639896600D85C26 /* iOS Example.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "iOS Example.app";
+			remoteRef = C7F1042E2639896600D85C26 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		029FC57C24252AFB0027279A /* Resources */ = {
@@ -584,6 +806,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C7F10452263C51F800D85C26 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C7F1045E263C51FC00D85C26 /* Preview Assets.xcassets in Resources */,
+				C7F1045B263C51FC00D85C26 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -641,6 +872,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				02A9EDC924184AC100484226 /* SwiftINDITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C7F10450263C51F800D85C26 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C772C08A2640484400BD676F /* DeviceRow.swift in Sources */,
+				C7F104FD263ECF6100D85C26 /* ServerDetail.swift in Sources */,
+				C7586CD526434325008B87B0 /* DeviceDetail.swift in Sources */,
+				C7F10459263C51F800D85C26 /* ContentView.swift in Sources */,
+				C7F104F9263ECF3700D85C26 /* ServerRow.swift in Sources */,
+				C7586CCD26419CFB008B87B0 /* INDIControllerModel.swift in Sources */,
+				C7F10501263F3CE600D85C26 /* ConnectToolbarItem.swift in Sources */,
+				C7F104B3263E0A6500D85C26 /* AddServerSheet.swift in Sources */,
+				C7F10457263C51F800D85C26 /* INDI_ControllerApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -743,6 +990,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 11.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.lapsedpacifist.SwiftINDIGUI;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -769,6 +1017,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 11.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.lapsedpacifist.SwiftINDIGUI;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -802,6 +1051,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -827,7 +1077,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MACOSX_DEPLOYMENT_TARGET = 11.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -865,6 +1115,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -884,7 +1135,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MACOSX_DEPLOYMENT_TARGET = 11.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;
@@ -899,7 +1150,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
@@ -918,6 +1169,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 11.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.lapsedpacifist.SwiftINDI;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -931,7 +1183,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
@@ -950,6 +1202,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 11.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.lapsedpacifist.SwiftINDI;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -991,6 +1244,58 @@
 					"@loader_path/../Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.lapsedpacifist.SwiftINDITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		C7F10461263C51FC00D85C26 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_ENTITLEMENTS = "INDI Controller/INDI_Controller.entitlements";
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"INDI Controller/Preview Content\"";
+				DEVELOPMENT_TEAM = J2S9726G2L;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = "INDI Controller/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.1;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.lapsedpacifist.INDI-Controller";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		C7F10462263C51FC00D85C26 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_ENTITLEMENTS = "INDI Controller/INDI_Controller.entitlements";
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"INDI Controller/Preview Content\"";
+				DEVELOPMENT_TEAM = J2S9726G2L;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = "INDI Controller/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.1;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.lapsedpacifist.INDI-Controller";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};
@@ -1040,6 +1345,15 @@
 			buildConfigurations = (
 				02A9EDD224184AC100484226 /* Debug */,
 				02A9EDD324184AC100484226 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C7F10467263C51FC00D85C26 /* Build configuration list for PBXNativeTarget "INDI Controller" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C7F10461263C51FC00D85C26 /* Debug */,
+				C7F10462263C51FC00D85C26 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

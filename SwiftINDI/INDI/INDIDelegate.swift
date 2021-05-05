@@ -79,10 +79,24 @@ public protocol INDIDelegate {
      * - Parameter server: The `BasicINDIServer` that recieved the data.
      * - Parameter size: The number of bytes recieved.
      * - Parameter xml: The XML string that was recieved.
-     * - Parameter server: The server address (host) .
+     * - Parameter host: The server address (host) .
      * - Parameter port: The port at which the client was connected to the server.
      */
-    func recievedData(_ server: BasicINDIServer, size: Int, xml: String, from server: String, port: Int)
+    func recievedData(_ server: BasicINDIServer, size: Int, xml: String, from host: String, port: Int)
+    
+    
+    // MARK: - Sending data to the INDI server
+    
+    /**
+     * This function is called when an INDI client sends data to the INDI server. The send data is
+     * in XML form. It provides access to raw INDI XML data.
+     * - Parameter server: The `BasicINDIServer` that send the data.
+     * - Parameter size: The number of bytes send.
+     * - Parameter xml: The XML string that was send.
+     * - Parameter host: The server address (host) .
+     * - Parameter port: The port at which the client was connected to the server.
+     */
+    func sendData(_ server: BasicINDIServer, size: Int, xml: String, from host: String, port: Int)
     
     
     // MARK: - Defining devices, property vectors and properties

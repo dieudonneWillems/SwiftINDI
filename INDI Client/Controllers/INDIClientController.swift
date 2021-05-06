@@ -52,6 +52,10 @@ class INDIClientController : NSObject, INDIDelegate {
     func recievedData(_ server: BasicINDIServer, size: Int, xml: String, from host: String, port: Int) {
         print("Recieved data from the INDI server of size \(size):\n\(xml)")
     }
+    
+    func sendData(_ server: BasicINDIServer, size: Int, xml: String, from host: String, port: Int) {
+        print("Send data to the INDI server of size \(size):\n\(xml)")
+    }
      
     func encounteredINDIError(_ server: BasicINDIServer, error: Error, message: String) {
         print("Error encountered: \(message) => \(error)")

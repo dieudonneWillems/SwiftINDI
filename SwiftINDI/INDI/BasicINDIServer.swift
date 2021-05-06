@@ -457,7 +457,7 @@ public class BasicINDIServer : CustomStringConvertible {
             let device = self.devices[deviceName!]
             if device != nil {
                 let propertyVectorName = node.attributes!["name"]!
-                var propertyVector = device!.getPropertyVector(name: propertyVectorName)
+                var propertyVector = device!.propertyVector(name: propertyVectorName)
                 let message = node.attributes!["message"]
                 propertyVector?.timestamp = timestamp
                 propertyVector?.timeout = timeout
@@ -518,30 +518,30 @@ public class BasicINDIServer : CustomStringConvertible {
             }
             if node.name! == "defTextVector" {
                 let textVector = INDITextPropertyVector(node.attributes!["name"]!, device: device!, label: node.attributes!["label"], group: node.attributes!["group"], state: state, read: perm.read, write: perm.write, timeout: timeout, timestamp: timestamp, message: node.attributes!["message"])
-                self.interpretTextPropertyDefinitions(from: node, toIncludeIn: textVector)
                 device!.define(propertyVector: textVector)
                 delegate?.propertyVectorDefined(self, device: device!, propertyVector: textVector)
+                self.interpretTextPropertyDefinitions(from: node, toIncludeIn: textVector)
             } else if node.name! == "defNumberVector" {
                 let numberVector = INDINumberPropertyVector(node.attributes!["name"]!, device: device!, label: node.attributes!["label"], group: node.attributes!["group"], state: state, read: perm.read, write: perm.write, timeout: timeout, timestamp: timestamp, message: node.attributes!["message"])
-                self.interpretNumberPropertyDefinitions(from: node, toIncludeIn: numberVector)
                 device!.define(propertyVector: numberVector)
                 delegate?.propertyVectorDefined(self, device: device!, propertyVector: numberVector)
+                self.interpretNumberPropertyDefinitions(from: node, toIncludeIn: numberVector)
             } else if node.name! == "defSwitchVector" {
                 let switchRule = parseSwitchRule(from: node.attributes!["rule"])
                 let switchVector = INDISwitchPropertyVector(node.attributes!["name"]!, device: device!, label: node.attributes!["label"], group: node.attributes!["group"], state: state, rule: switchRule, read: perm.read, write: perm.write, timeout: timeout, timestamp: timestamp, message: node.attributes!["message"])
-                self.interpretSwitchPropertyDefinitions(from: node, toIncludeIn: switchVector)
                 device!.define(propertyVector: switchVector)
                 delegate?.propertyVectorDefined(self, device: device!, propertyVector: switchVector)
+                self.interpretSwitchPropertyDefinitions(from: node, toIncludeIn: switchVector)
             } else if node.name! == "defLightVector" {
                 let lightVector = INDILightPropertyVector(node.attributes!["name"]!, device: device!, label: node.attributes!["label"], group: node.attributes!["group"], state: state, timeout: timeout, timestamp: timestamp, message: node.attributes!["message"]!)
-                self.interpretLightPropertyDefinitions(from: node, toIncludeIn: lightVector)
                 device!.define(propertyVector: lightVector)
                 delegate?.propertyVectorDefined(self, device: device!, propertyVector: lightVector)
+                self.interpretLightPropertyDefinitions(from: node, toIncludeIn: lightVector)
             } else if node.name! == "defBLOBVector" {
                 let blobVector = INDIBLOBPropertyVector(node.attributes!["name"]!, device: device!, label: node.attributes!["label"], group: node.attributes!["group"], state: state, read: perm.read, write: perm.write, timeout: timeout, timestamp: timestamp, message: node.attributes!["message"])
-                self.interpretBLOBPropertyDefinitions(from: node, toIncludeIn: blobVector)
                 device!.define(propertyVector: blobVector)
                 delegate?.propertyVectorDefined(self, device: device!, propertyVector: blobVector)
+                self.interpretBLOBPropertyDefinitions(from: node, toIncludeIn: blobVector)
             }
         }
     }
@@ -556,6 +556,7 @@ public class BasicINDIServer : CustomStringConvertible {
             if propertyNode.name != nil && propertyNode.name! == "defText" {
                 let property = INDITextProperty(propertyNode.attributes!["name"]!, label: propertyNode.attributes!["label"], inPropertyVector: vector)
                 property.textValue = propertyNode.text
+                delegate?.propertyDefined(self, device: vector.device, propertyVector: vector, property: property)
             }
         }
     }
@@ -597,6 +598,7 @@ public class BasicINDIServer : CustomStringConvertible {
                         let value = Double(valueText!)
                         property.numberValue = value
                     }
+                    delegate?.propertyDefined(self, device: vector.device, propertyVector: vector, property: property)
                 }
             }
         }
@@ -636,6 +638,7 @@ public class BasicINDIServer : CustomStringConvertible {
             if propertyNode.name != nil && propertyNode.name! == "defSwitch" {
                 let property = INDISwitchProperty(propertyNode.attributes!["name"]!, label: propertyNode.attributes!["label"], inPropertyVector: vector)
                 property.switchValue = propertyNode.text
+                delegate?.propertyDefined(self, device: vector.device, propertyVector: vector, property: property)
             }
         }
     }
@@ -680,6 +683,7 @@ public class BasicINDIServer : CustomStringConvertible {
                 default:
                     property.lightValue = nil
                 }
+                delegate?.propertyDefined(self, device: vector.device, propertyVector: vector, property: property)
             }
         }
     }
@@ -692,7 +696,8 @@ public class BasicINDIServer : CustomStringConvertible {
     private func interpretBLOBPropertyDefinitions(from parent: INDINode, toIncludeIn vector: INDIBLOBPropertyVector) {
         for propertyNode in parent.childNodes! {
             if propertyNode.name != nil && propertyNode.name! == "defBLOB" {
-                let _ = INDIBLOBProperty(propertyNode.attributes!["name"]!, label: propertyNode.attributes!["label"], inPropertyVector: vector)
+                let property = INDIBLOBProperty(propertyNode.attributes!["name"]!, label: propertyNode.attributes!["label"], inPropertyVector: vector)
+                delegate?.propertyDefined(self, device: vector.device, propertyVector: vector, property: property)
             }
         }
     }

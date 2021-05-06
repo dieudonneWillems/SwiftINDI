@@ -9,6 +9,37 @@
 import Foundation
 
 /**
+ * The different types of interfaces that are supported by the devices driver.
+ *
+ * A driver can support multiple interfaces, e.g. a telescope and a guider.
+ * The driver interface is specified in the `DRIVER_INTERFACE` property of the `DRIVER_INFO`
+ * property vector. The driver interface value is a bitwise AND combination of the cases in this
+ * enumeration.
+ *
+ * The enumeration was originally defined in C++ in https://indilib.org/api/basedevice_8h_source.html
+ */
+public enum INDIInterfaceType : UInt16, CaseIterable {
+    case general        = 0
+    case telescope      = 1
+    case CCD            = 2
+    case guider         = 4
+    case focuser        = 8
+    case filter         = 16
+    case dome           = 32
+    case GPS            = 64
+    case weather        = 128
+    case adaptiveOptics = 256
+    case dustcap        = 512
+    case lightBox       = 1024
+    case detector       = 2048
+    case rotator        = 4096
+    case spectograph    = 8192
+    case correlator     = 16384
+    case auxiliary      = 32768
+ //   case sensor         = (1 << 13) | (1 << 11) | (1 << 14)[0,1,2,4,8,16,32,64,128,256,512,1024,2048,4096,8192,16384]
+}
+
+/**
  * This class represents a device connected to  an INDI server.
  */
 public class INDIDevice {
@@ -29,6 +60,36 @@ public class INDIDevice {
     public let server : BasicINDIServer
     
     /**
+     * All the device types that are supported by this device.
+     * A device can have multiple device types as it supports multiple interfaces, e.g. a device might
+     * function both as a telescope and a guider.
+     */
+    public var deviceTypes: [INDIInterfaceType] {
+        get {
+            var types = [INDIInterfaceType]()
+            for type in INDIInterfaceType.allCases {
+                if self.supportsDeviceType(type) {
+                    types.append(type)
+                }
+            }
+            return types
+        }
+    }
+    
+    private var driverInterface: UInt16 {
+        get {
+            let interfacePropValue = self.propertyVector(name: "DRIVER_INFO")?.property(name: "DRIVER_INTERFACE")?.value
+            if interfacePropValue != nil {
+                let intValue = UInt16(String("\(interfacePropValue!)"))
+                if intValue != nil {
+                    return intValue!
+                }
+            }
+            return 0
+        }
+    }
+    
+    /**
      * Initialises a device with the specified name.
      *
      * - Parameter name: The name of the device.
@@ -36,6 +97,17 @@ public class INDIDevice {
     public init(name: String, server: BasicINDIServer) {
         self.name = name
         self.server = server
+    }
+    
+    /**
+     * Determines whether the device  supports the specific device interface  type.
+     *
+     * - Parameter type: The interface type being queried.
+     * - Returns: True when the interface is supported by the device, false otherwise.
+     */
+    public func supportsDeviceType(_ type: INDIInterfaceType) -> Bool {
+        let andOpp = (driverInterface & type.rawValue)
+        return andOpp > 0
     }
     
     /**
@@ -59,7 +131,7 @@ public class INDIDevice {
      *  - Parameter name: The name of the property.
      *  - Returns: The property vector containing the value.
      */
-    public func getPropertyVector(name : String) -> INDIPropertyVector? {
+    public func propertyVector(name : String) -> INDIPropertyVector? {
         for vector in self.propertyVectors {
             if vector.name == name {
                 return vector

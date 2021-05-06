@@ -15,7 +15,13 @@ struct DeviceDetail: View {
     @EnvironmentObject var model: INDIControllerModel
     
     var body: some View {
-        Text("Hello, \(device.name)!")
+        List() {
+            Text("\(device.groups.count) Groups")
+            Text("\(model.device(id: device.id)!.groups.count) Groups")
+            ForEach(device.groups, id: \.self) { group in
+                Text(group.name)
+            }
+        }
     }
 }
 /*

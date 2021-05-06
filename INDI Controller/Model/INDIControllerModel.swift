@@ -42,10 +42,13 @@ class Server : NSObject, ObservableObject {
 
 class Device : NSObject, ObservableObject  {
     
-    var id : String
+    let id : String
     
     let name: String
     let server: Server
+    
+    @Published var groups = [Group]()
+    @Published var propertyVectors = [PropertyVector]()
     
     public init(name: String, server: Server) {
         self.id = "\(server.id)/\(name)"
@@ -56,12 +59,68 @@ class Device : NSObject, ObservableObject  {
     static func == (lhs: Device, rhs: Device) -> Bool {
         return lhs.id == rhs.id
     }
+    
+    public func add(group: Group) {
+        self.groups.append(group)
+    }
+    
+    public func add(propertyVector: PropertyVector) {
+        self.propertyVectors.append(propertyVector)
+    }
 }
+
+class Group : NSObject, ObservableObject {
+    
+    let id : String
+    let name: String
+    let device: Device
+    
+    @Published var propertyVectors = [PropertyVector]()
+    
+    public init(name: String, device: Device) {
+        self.id = "\(device.id)/\(name)"
+        self.name = name
+        self.device = device
+    }
+    
+    public func add(propertyVector: PropertyVector) {
+        self.propertyVectors.append(propertyVector)
+    }
+}
+
+class PropertyVector : NSObject, ObservableObject {
+    
+    let id : String
+    let name: String
+    let label: String
+    let canBeRead: Bool
+    let canBeWrittenTo: Bool
+    let timeout: Int
+    let group: Group
+    
+    @Published var state: INDIPropertyState = .ok
+    @Published var timestamp: Date = Date()
+    
+    public init(name: String, label: String, group: Group, state: INDIPropertyState, canBeRead: Bool, canBeWrittenTo: Bool, timeout: Int, timestamp: Date) {
+        self.id = "\(group.id)/\(name)"
+        self.name = name
+        self.label = label
+        self.group = group
+        self.state = state
+        self.canBeRead = canBeRead
+        self.canBeWrittenTo = canBeWrittenTo
+        self.timestamp = timestamp
+        self.timeout = timeout
+    }
+}
+
 
 class INDIControllerModel : ObservableObject {
     
     @Published var servers = [Server]()
     @Published var devices = [Device]()
+    var groups = [String: Group]()
+    var propertyVectors = [String: PropertyVector]()
     
     var indiServers = [String: BasicINDIServer]()
     
@@ -93,6 +152,41 @@ class INDIControllerModel : ObservableObject {
             }
         }
         return nil
+    }
+    
+    func add(group: Group) -> Group {
+        if self.group(id: group.id) == nil {
+            let device = group.device
+            objectWillChange.send()
+            device.objectWillChange.send()
+            device.add(group: group)
+            self.groups[group.id] = group
+            return group
+        }
+        return self.group(id: group.id)!
+    }
+    
+    func group(id: String) -> Group? {
+        return groups[id]
+    }
+
+    func add(propertyVector: PropertyVector) -> PropertyVector {
+        if self.propertyVector(id: propertyVector.id) == nil {
+            let group = propertyVector.group
+            group.add(propertyVector: propertyVector)
+            group.device.add(propertyVector: propertyVector)
+            self.propertyVectors[propertyVector.id] = propertyVector
+            return propertyVector
+        } else {
+            let vector = self.propertyVector(id: propertyVector.id)!
+            vector.timestamp = propertyVector.timestamp
+            vector.state = propertyVector.state
+            return vector
+        }
+    }
+    
+    func propertyVector(id: String) -> PropertyVector? {
+        return propertyVectors[id]
     }
     
     func connect(server: Server) {
@@ -173,10 +267,21 @@ class INDIMonitor : INDIDelegate {
     
     func propertyVectorDefined(_ server: BasicINDIServer, device: INDIDevice, propertyVector: INDIPropertyVector) {
         print("Property vector \(propertyVector.name) for device \(device.name) defined.")
+        let modelServer = model.server(id: serverID)
+        if modelServer != nil {
+            let modelDevice = Device(name: device.name, server: modelServer!)
+            var group = Group(name:"\(propertyVector.group != nil ? propertyVector.group! : "Other")", device: modelDevice)
+            group = model.add(group: group)
+            var vector = PropertyVector(name: propertyVector.name, label: propertyVector.label ?? propertyVector.name, group: group, state: propertyVector.state, canBeRead: propertyVector.canBeRead, canBeWrittenTo: propertyVector.canBeWritten, timeout: propertyVector.timeout, timestamp: propertyVector.timestamp ?? Date())
+            vector = model.add(propertyVector: vector)
+        }
     }
     
     func propertyDefined(_ server: BasicINDIServer, device: INDIDevice, propertyVector: INDIPropertyVector, property: INDIProperty) {
         print("Property \(property.name) for vector \(propertyVector.name) for device \(device.name) defined.")
+        if property.name == "DRIVER_INTERFACE" {
+            print("     Device interface type: \(device.deviceTypes)")
+        }
     }
     
     func propertyWillChange(_ server: BasicINDIServer, property: INDIProperty, device: INDIDevice) {

@@ -24,8 +24,8 @@ struct ServerRow: View {
                     .font(.title3)
                 Spacer()
                 Image(systemName: server.connected ? "circle.fill" : "circle")
-                    .controlSize(.small)
-                    .foregroundColor(server.connected ? .green : .white)
+                    .font(.footnote)
+                    .foregroundColor(server.connected ? .green : .none)
             }
             Text(server.url)
                 .controlSize(.mini)

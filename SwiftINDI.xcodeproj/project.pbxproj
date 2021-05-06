@@ -57,6 +57,9 @@
 		02F84890242D6525007D3084 /* INDIDeviceItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F8488F242D6525007D3084 /* INDIDeviceItemView.swift */; };
 		C7586CCD26419CFB008B87B0 /* INDIControllerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7586CCC26419CFB008B87B0 /* INDIControllerModel.swift */; };
 		C7586CD526434325008B87B0 /* DeviceDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7586CD426434325008B87B0 /* DeviceDetail.swift */; };
+		C7586CD92643ECE8008B87B0 /* SwiftINDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02A9EDBA24184AC100484226 /* SwiftINDI.framework */; };
+		C7586CDA2643ECE8008B87B0 /* SwiftINDI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 02A9EDBA24184AC100484226 /* SwiftINDI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C7586CE026443D43008B87B0 /* ConnectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7586CDF26443D43008B87B0 /* ConnectionView.swift */; };
 		C772C08A2640484400BD676F /* DeviceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C772C0892640484400BD676F /* DeviceRow.swift */; };
 		C7F104452639899200D85C26 /* SwiftSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7F1042B2639896600D85C26 /* SwiftSocket.framework */; };
 		C7F104462639899200D85C26 /* SwiftSocket.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C7F1042B2639896600D85C26 /* SwiftSocket.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -93,6 +96,20 @@
 			remoteInfo = SwiftINDI;
 		};
 		02A9EDC524184AC100484226 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 02A9EDB124184AC100484226 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 02A9EDB924184AC100484226;
+			remoteInfo = SwiftINDI;
+		};
+		C7586CD72643ECCC008B87B0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 02A9EDB124184AC100484226 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 02A9EDB924184AC100484226;
+			remoteInfo = SwiftINDI;
+		};
+		C7586CDB2643ECE8008B87B0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 02A9EDB124184AC100484226 /* Project object */;
 			proxyType = 1;
@@ -170,6 +187,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				C7586CDA2643ECE8008B87B0 /* SwiftINDI.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -229,6 +247,7 @@
 		02F8488F242D6525007D3084 /* INDIDeviceItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = INDIDeviceItemView.swift; sourceTree = "<group>"; };
 		C7586CCC26419CFB008B87B0 /* INDIControllerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = INDIControllerModel.swift; sourceTree = "<group>"; };
 		C7586CD426434325008B87B0 /* DeviceDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetail.swift; sourceTree = "<group>"; };
+		C7586CDF26443D43008B87B0 /* ConnectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionView.swift; sourceTree = "<group>"; };
 		C772C0892640484400BD676F /* DeviceRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceRow.swift; sourceTree = "<group>"; };
 		C7F104212639896600D85C26 /* SwiftSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SwiftSocket.xcodeproj; path = ../SwiftSocket/SwiftSocket.xcodeproj; sourceTree = "<group>"; };
 		C7F10454263C51F800D85C26 /* INDI Controller.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "INDI Controller.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -284,6 +303,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C7586CD92643ECE8008B87B0 /* SwiftINDI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -470,6 +490,14 @@
 			path = "Cell Views";
 			sourceTree = "<group>";
 		};
+		C7586CDE26443D25008B87B0 /* Property Views */ = {
+			isa = PBXGroup;
+			children = (
+				C7586CDF26443D43008B87B0 /* ConnectionView.swift */,
+			);
+			path = "Property Views";
+			sourceTree = "<group>";
+		};
 		C772C06B263F477C00BD676F /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -549,6 +577,7 @@
 		C7F104B1263E0A0B00D85C26 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C7586CDE26443D25008B87B0 /* Property Views */,
 				C772C0882640482400BD676F /* Sheets */,
 				C772C0872640481500BD676F /* Detail Views */,
 				C772C0862640480400BD676F /* Navigation Views */,
@@ -671,6 +700,8 @@
 			buildRules = (
 			);
 			dependencies = (
+				C7586CD82643ECCC008B87B0 /* PBXTargetDependency */,
+				C7586CDC2643ECE8008B87B0 /* PBXTargetDependency */,
 			);
 			name = "INDI Controller";
 			productName = "INDI Controller";
@@ -885,6 +916,7 @@
 				C7F10459263C51F800D85C26 /* ContentView.swift in Sources */,
 				C7F104F9263ECF3700D85C26 /* ServerRow.swift in Sources */,
 				C7586CCD26419CFB008B87B0 /* INDIControllerModel.swift in Sources */,
+				C7586CE026443D43008B87B0 /* ConnectionView.swift in Sources */,
 				C7F10501263F3CE600D85C26 /* ConnectToolbarItem.swift in Sources */,
 				C7F104B3263E0A6500D85C26 /* AddServerSheet.swift in Sources */,
 				C7F10457263C51F800D85C26 /* INDI_ControllerApp.swift in Sources */,
@@ -913,6 +945,16 @@
 			isa = PBXTargetDependency;
 			target = 02A9EDB924184AC100484226 /* SwiftINDI */;
 			targetProxy = 02A9EDC524184AC100484226 /* PBXContainerItemProxy */;
+		};
+		C7586CD82643ECCC008B87B0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 02A9EDB924184AC100484226 /* SwiftINDI */;
+			targetProxy = C7586CD72643ECCC008B87B0 /* PBXContainerItemProxy */;
+		};
+		C7586CDC2643ECE8008B87B0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 02A9EDB924184AC100484226 /* SwiftINDI */;
+			targetProxy = C7586CDB2643ECE8008B87B0 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

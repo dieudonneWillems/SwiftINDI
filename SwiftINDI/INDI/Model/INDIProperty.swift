@@ -72,6 +72,23 @@ public enum INDIPropertyState {
     case alert
 }
 
+/**
+ * An enumeration of standard property vector names.
+ */
+public enum INDIStandardPropertyVectorName :  String, CaseIterable {
+    /**
+     * The connection switch used to establish a connection to a device.
+     * This property vector will have `CONNECT` and `DISCONNECT` properties that can be either
+     * `On` or `Off`.
+     */
+    case connection = "CONNECTION"
+    
+    /**
+     * The property vector is not one of the standard property vectors.
+     */
+    case other = "Not a stamdard Property Vector"
+}
+
 
 /**
  * This protocol defines the intrerface of a vector of INDI properties.

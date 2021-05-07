@@ -22,7 +22,7 @@ class Server : NSObject, ObservableObject {
     let port: Int
     @Published var connected: Bool = false
     @Published var autoConnect: Bool = false
-    @Published var devices = [Device]()
+    @Published var devices = [String]()
     
     public init(name: String, url: String, port: Int, autoConnect: Bool = false) {
         self.name = name
@@ -32,7 +32,7 @@ class Server : NSObject, ObservableObject {
     }
     
     public func add(device: Device) {
-        devices.append(device)
+        devices.append(device.id)
     }
     
     static func == (lhs: Server, rhs: Server) -> Bool {
@@ -45,15 +45,15 @@ class Device : NSObject, ObservableObject  {
     let id : String
     
     let name: String
-    let server: Server
+    let server: String
     
-    @Published var groups = [Group]()
-    @Published var propertyVectors = [PropertyVector]()
+    var groups = [String]()
+    var propertyVectors = [String]()
     
     public init(name: String, server: Server) {
         self.id = "\(server.id)/\(name)"
         self.name = name
-        self.server = server
+        self.server = server.id
     }
     
     static func == (lhs: Device, rhs: Device) -> Bool {
@@ -61,11 +61,11 @@ class Device : NSObject, ObservableObject  {
     }
     
     public func add(group: Group) {
-        self.groups.append(group)
+        self.groups.append(group.id)
     }
     
     public func add(propertyVector: PropertyVector) {
-        self.propertyVectors.append(propertyVector)
+        self.propertyVectors.append(propertyVector.id)
     }
 }
 
@@ -73,18 +73,18 @@ class Group : NSObject, ObservableObject {
     
     let id : String
     let name: String
-    let device: Device
+    let device: String
     
-    @Published var propertyVectors = [PropertyVector]()
+    @Published var propertyVectors = [String]()
     
     public init(name: String, device: Device) {
         self.id = "\(device.id)/\(name)"
         self.name = name
-        self.device = device
+        self.device = device.id
     }
     
     public func add(propertyVector: PropertyVector) {
-        self.propertyVectors.append(propertyVector)
+        self.propertyVectors.append(propertyVector.id)
     }
 }
 
@@ -96,7 +96,7 @@ class PropertyVector : NSObject, ObservableObject {
     let canBeRead: Bool
     let canBeWrittenTo: Bool
     let timeout: Int
-    let group: Group
+    let group: String
     
     @Published var state: INDIPropertyState = .ok
     @Published var timestamp: Date = Date()
@@ -105,7 +105,7 @@ class PropertyVector : NSObject, ObservableObject {
         self.id = "\(group.id)/\(name)"
         self.name = name
         self.label = label
-        self.group = group
+        self.group = group.id
         self.state = state
         self.canBeRead = canBeRead
         self.canBeWrittenTo = canBeWrittenTo
@@ -119,8 +119,8 @@ class INDIControllerModel : ObservableObject {
     
     @Published var servers = [Server]()
     @Published var devices = [Device]()
-    var groups = [String: Group]()
-    var propertyVectors = [String: PropertyVector]()
+    @Published var propertyVectors = [PropertyVector]()
+    @Published var groups = [Group]()
     
     var indiServers = [String: BasicINDIServer]()
     
@@ -140,9 +140,15 @@ class INDIControllerModel : ObservableObject {
         return nil
     }
     
-    func add(device: Device) {
-        device.server.add(device: device)
-        devices.append(device)
+    func add(device: Device) -> Device {
+        if self.device(id: device.id) == nil {
+            let server = self.server(id: device.server)
+            server?.add(device: device)
+            devices.append(device)
+            return device
+        } else {
+            return self.device(id: device.id)!
+        }
     }
     
     func device(id: String) -> Device? {
@@ -156,26 +162,32 @@ class INDIControllerModel : ObservableObject {
     
     func add(group: Group) -> Group {
         if self.group(id: group.id) == nil {
-            let device = group.device
+            let device = self.device(id: group.device)!
             objectWillChange.send()
             device.objectWillChange.send()
             device.add(group: group)
-            self.groups[group.id] = group
+            self.groups.append(group)
             return group
         }
         return self.group(id: group.id)!
     }
     
     func group(id: String) -> Group? {
-        return groups[id]
+        for group in groups {
+            if group.id == id {
+                return group
+            }
+        }
+        return nil
     }
 
     func add(propertyVector: PropertyVector) -> PropertyVector {
         if self.propertyVector(id: propertyVector.id) == nil {
-            let group = propertyVector.group
-            group.add(propertyVector: propertyVector)
-            group.device.add(propertyVector: propertyVector)
-            self.propertyVectors[propertyVector.id] = propertyVector
+            let group = self.group(id: propertyVector.group)
+            let device = self.device(id: group!.device)
+            group!.add(propertyVector: propertyVector)
+            device!.add(propertyVector: propertyVector)
+            self.propertyVectors.append(propertyVector)
             return propertyVector
         } else {
             let vector = self.propertyVector(id: propertyVector.id)!
@@ -186,7 +198,12 @@ class INDIControllerModel : ObservableObject {
     }
     
     func propertyVector(id: String) -> PropertyVector? {
-        return propertyVectors[id]
+        for propertyVector in propertyVectors {
+            if propertyVector.id == id {
+                return propertyVector
+            }
+        }
+        return nil
     }
     
     func connect(server: Server) {
@@ -261,7 +278,7 @@ class INDIMonitor : INDIDelegate {
         let modelServer = model.server(id: serverID)
         if modelServer != nil {
             let modelDevice = Device(name: device.name, server: modelServer!)
-            model.add(device: modelDevice)
+            _ = model.add(device: modelDevice)
         }
     }
     

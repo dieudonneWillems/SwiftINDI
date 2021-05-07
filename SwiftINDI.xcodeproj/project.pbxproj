@@ -60,6 +60,8 @@
 		C7586CD92643ECE8008B87B0 /* SwiftINDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02A9EDBA24184AC100484226 /* SwiftINDI.framework */; };
 		C7586CDA2643ECE8008B87B0 /* SwiftINDI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 02A9EDBA24184AC100484226 /* SwiftINDI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C7586CE026443D43008B87B0 /* ConnectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7586CDF26443D43008B87B0 /* ConnectionView.swift */; };
+		C7586CE4264471E3008B87B0 /* GroupDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7586CE3264471E3008B87B0 /* GroupDetail.swift */; };
+		C7586CE7264497E6008B87B0 /* GroupRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7586CE6264497E6008B87B0 /* GroupRow.swift */; };
 		C772C08A2640484400BD676F /* DeviceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C772C0892640484400BD676F /* DeviceRow.swift */; };
 		C7F104452639899200D85C26 /* SwiftSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7F1042B2639896600D85C26 /* SwiftSocket.framework */; };
 		C7F104462639899200D85C26 /* SwiftSocket.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C7F1042B2639896600D85C26 /* SwiftSocket.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -248,6 +250,8 @@
 		C7586CCC26419CFB008B87B0 /* INDIControllerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = INDIControllerModel.swift; sourceTree = "<group>"; };
 		C7586CD426434325008B87B0 /* DeviceDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetail.swift; sourceTree = "<group>"; };
 		C7586CDF26443D43008B87B0 /* ConnectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionView.swift; sourceTree = "<group>"; };
+		C7586CE3264471E3008B87B0 /* GroupDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupDetail.swift; sourceTree = "<group>"; };
+		C7586CE6264497E6008B87B0 /* GroupRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupRow.swift; sourceTree = "<group>"; };
 		C772C0892640484400BD676F /* DeviceRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceRow.swift; sourceTree = "<group>"; };
 		C7F104212639896600D85C26 /* SwiftSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SwiftSocket.xcodeproj; path = ../SwiftSocket/SwiftSocket.xcodeproj; sourceTree = "<group>"; };
 		C7F10454263C51F800D85C26 /* INDI Controller.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "INDI Controller.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -511,6 +515,7 @@
 			children = (
 				C7F104F8263ECF3600D85C26 /* ServerRow.swift */,
 				C772C0892640484400BD676F /* DeviceRow.swift */,
+				C7586CE6264497E6008B87B0 /* GroupRow.swift */,
 			);
 			path = "Navigation Views";
 			sourceTree = "<group>";
@@ -520,6 +525,7 @@
 			children = (
 				C7F104FC263ECF6100D85C26 /* ServerDetail.swift */,
 				C7586CD426434325008B87B0 /* DeviceDetail.swift */,
+				C7586CE3264471E3008B87B0 /* GroupDetail.swift */,
 			);
 			path = "Detail Views";
 			sourceTree = "<group>";
@@ -912,7 +918,9 @@
 			files = (
 				C772C08A2640484400BD676F /* DeviceRow.swift in Sources */,
 				C7F104FD263ECF6100D85C26 /* ServerDetail.swift in Sources */,
+				C7586CE7264497E6008B87B0 /* GroupRow.swift in Sources */,
 				C7586CD526434325008B87B0 /* DeviceDetail.swift in Sources */,
+				C7586CE4264471E3008B87B0 /* GroupDetail.swift in Sources */,
 				C7F10459263C51F800D85C26 /* ContentView.swift in Sources */,
 				C7F104F9263ECF3700D85C26 /* ServerRow.swift in Sources */,
 				C7586CCD26419CFB008B87B0 /* INDIControllerModel.swift in Sources */,

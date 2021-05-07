@@ -15,11 +15,14 @@ struct DeviceDetail: View {
     @EnvironmentObject var model: INDIControllerModel
     
     var body: some View {
-        List() {
-            Text("\(device.groups.count) Groups")
-            Text("\(model.device(id: device.id)!.groups.count) Groups")
-            ForEach(device.groups, id: \.self) { group in
-                Text(group.name)
+        NavigationView {
+            List() {
+                ForEach(device.groups, id: \.self) { group in
+                    let groupObject = model.group(id: group)!
+                    NavigationLink(destination: GroupDetail(device: device, group: groupObject)) {
+                        GroupRow(group: groupObject)
+                    }
+                }
             }
         }
     }

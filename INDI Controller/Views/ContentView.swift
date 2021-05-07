@@ -22,8 +22,9 @@ struct ContentView: View {
                         ServerRow(server: server)
                     }
                     ForEach(server.devices, id: \.self) { device in
-                        NavigationLink(destination: DeviceDetail(device: device)) {
-                            DeviceRow(device: device)
+                        let deviceObject = model.device(id: device)!
+                        NavigationLink(destination: DeviceDetail(device: deviceObject)) {
+                            DeviceRow(device: deviceObject)
                         }
                     }
                 }

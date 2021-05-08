@@ -26,11 +26,11 @@ struct AddServerSheet: View {
     }()
     
     var body: some View {
-        VStack(alignment: .leading) {
-            Image("AppIcon")
-                .frame(width: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, height: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, alignment: .center)
+        VStack() {
+            Image(nsImage: NSImage(named: "AppIcon") ?? NSImage())
+                .scaleEffect(0.6)
+                .frame(width: 100, height: 100, alignment: .center)
             Text("Provide the Name, Host and Port number for the INDI server.")
-                .bold()
                 .font(.title3)
                 .frame(width: 250, height: 50, alignment: .center)
                 .padding(.bottom, 10)
@@ -55,18 +55,18 @@ struct AddServerSheet: View {
                     .frame(width: 50, height: nil)
                 Toggle("Automatically Connect all Devices", isOn: $autoConnect)
                     .help("Automatically connect all devices connected to the server when a connection is established with the server.")
-                    .frame(height: 40, alignment: .leading)
+                    .frame(maxWidth: .infinity, minHeight: 40.0, alignment: .leading)
                     .multilineTextAlignment(.leading)
             }
-            .frame(alignment: .leading)
+            .frame(maxWidth: .infinity ,alignment: .leading)
             HStack {
-                Button(action: {
+                Button("Cancel",action: {
                     isPresented.toggle()
-                }) {
-                    Text("Cancel")
-                }
+                })
+                .frame(minWidth: 0, maxWidth: .infinity)
+                .padding()
                 .keyboardShortcut(.cancelAction)
-                Button(action: {
+                Button("OK", action: {
                     isPresented.toggle()
                     let newServer = Server(name: name, url: url, port: port, autoConnect: autoConnect)
                     do {
@@ -74,11 +74,12 @@ struct AddServerSheet: View {
                     } catch {
                         print("Could not add server.")
                     }
-                }) {
-                    Text("OK")
-                }
+                })
+                .frame(minWidth: 0, maxWidth: .infinity)
+                .padding()
                 .keyboardShortcut(.defaultAction)
             }
+            .frame(maxWidth: .infinity)
             .padding(.top, 20)
         }
         .padding()

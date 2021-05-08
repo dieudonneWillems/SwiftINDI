@@ -73,6 +73,8 @@
 		C7F104F9263ECF3700D85C26 /* ServerRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F104F8263ECF3600D85C26 /* ServerRow.swift */; };
 		C7F104FD263ECF6100D85C26 /* ServerDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F104FC263ECF6100D85C26 /* ServerDetail.swift */; };
 		C7F10501263F3CE600D85C26 /* ConnectToolbarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F10500263F3CE600D85C26 /* ConnectToolbarItem.swift */; };
+		C7F54CEA264609EA008D8965 /* TitleToolbarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F54CE9264609EA008D8965 /* TitleToolbarItem.swift */; };
+		C7F54CEE2646149A008D8965 /* ParkToolbarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F54CED2646149A008D8965 /* ParkToolbarItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -267,6 +269,8 @@
 		C7F104F8263ECF3600D85C26 /* ServerRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerRow.swift; sourceTree = "<group>"; };
 		C7F104FC263ECF6100D85C26 /* ServerDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerDetail.swift; sourceTree = "<group>"; };
 		C7F10500263F3CE600D85C26 /* ConnectToolbarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectToolbarItem.swift; sourceTree = "<group>"; };
+		C7F54CE9264609EA008D8965 /* TitleToolbarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleToolbarItem.swift; sourceTree = "<group>"; };
+		C7F54CED2646149A008D8965 /* ParkToolbarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkToolbarItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -583,14 +587,24 @@
 		C7F104B1263E0A0B00D85C26 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C7F54CE4264609A5008D8965 /* Toolbar Items */,
 				C7586CDE26443D25008B87B0 /* Property Views */,
 				C772C0882640482400BD676F /* Sheets */,
 				C772C0872640481500BD676F /* Detail Views */,
 				C772C0862640480400BD676F /* Navigation Views */,
 				C7F10458263C51F800D85C26 /* ContentView.swift */,
-				C7F10500263F3CE600D85C26 /* ConnectToolbarItem.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		C7F54CE4264609A5008D8965 /* Toolbar Items */ = {
+			isa = PBXGroup;
+			children = (
+				C7F10500263F3CE600D85C26 /* ConnectToolbarItem.swift */,
+				C7F54CE9264609EA008D8965 /* TitleToolbarItem.swift */,
+				C7F54CED2646149A008D8965 /* ParkToolbarItem.swift */,
+			);
+			path = "Toolbar Items";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -918,6 +932,7 @@
 			files = (
 				C772C08A2640484400BD676F /* DeviceRow.swift in Sources */,
 				C7F104FD263ECF6100D85C26 /* ServerDetail.swift in Sources */,
+				C7F54CEA264609EA008D8965 /* TitleToolbarItem.swift in Sources */,
 				C7586CE7264497E6008B87B0 /* GroupRow.swift in Sources */,
 				C7586CD526434325008B87B0 /* DeviceDetail.swift in Sources */,
 				C7586CE4264471E3008B87B0 /* GroupDetail.swift in Sources */,
@@ -925,6 +940,7 @@
 				C7F104F9263ECF3700D85C26 /* ServerRow.swift in Sources */,
 				C7586CCD26419CFB008B87B0 /* INDIControllerModel.swift in Sources */,
 				C7586CE026443D43008B87B0 /* ConnectionView.swift in Sources */,
+				C7F54CEE2646149A008D8965 /* ParkToolbarItem.swift in Sources */,
 				C7F10501263F3CE600D85C26 /* ConnectToolbarItem.swift in Sources */,
 				C7F104B3263E0A6500D85C26 /* AddServerSheet.swift in Sources */,
 				C7F10457263C51F800D85C26 /* INDI_ControllerApp.swift in Sources */,

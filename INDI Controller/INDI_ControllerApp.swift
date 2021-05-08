@@ -18,6 +18,7 @@ struct INDI_ControllerApp: App {
             ContentView()
                 .environmentObject(model)
         }
+        .windowStyle(HiddenTitleBarWindowStyle())
         .commands {
             SidebarCommands()
         }

@@ -24,6 +24,11 @@ struct DeviceDetail: View {
                     }
                 }
             }
+            .toolbar(content: {
+                ToolbarItem(placement: .automatic) {
+                    TitleToolbarItem(title: device.name, subtitle: "\(device.propertyVectors.count) properties")
+                }
+            })
         }
     }
 }

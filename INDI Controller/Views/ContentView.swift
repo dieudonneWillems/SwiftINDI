@@ -31,10 +31,10 @@ struct ContentView: View {
             }
             .listStyle(SidebarListStyle())
             .toolbar {
-                ToolbarItem() {
+                ToolbarItem(placement: ToolbarItemPlacement.automatic) {
                     Spacer()
                 }
-                ToolbarItem(placement: .automatic) {
+                ToolbarItem(placement: ToolbarItemPlacement.automatic) {
                     Button(action: {
                         showingAddServerSheet.toggle()
                     }) {
@@ -49,6 +49,11 @@ struct ContentView: View {
             VStack {
                 Text("Selected devices")
             }
+            .toolbar(content: {
+                ToolbarItem(placement: ToolbarItemPlacement.navigation) {
+                    TitleToolbarItem(title: "INDI Controller", subtitle: model.connectedServers.count == 0 ? "No connected servers" : "\(model.connectedServers.count) connected servers")
+                }
+            })
         }
     }
     

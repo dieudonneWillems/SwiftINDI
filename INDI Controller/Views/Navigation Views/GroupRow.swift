@@ -15,14 +15,19 @@ struct GroupRow: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
-                Text(group.name)
-            }
-            HStack {
                 Image(systemName: "circle.fill")
                     .foregroundColor(.blue)
                     .font(.footnote)
-                Text("3 minutes ago")
+                    .frame(minWidth: 12, maxWidth: 12)
+                Text(group.name)
+                    .font(.headline)
+            }
+            HStack {
+                Text("")
                     .font(.footnote)
+                    .frame(minWidth: 12, maxWidth: 12)
+                Text("3 minutes ago")
+                    .font(.subheadline)
             }
         }
     }

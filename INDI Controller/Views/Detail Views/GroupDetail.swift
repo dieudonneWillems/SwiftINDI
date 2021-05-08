@@ -17,6 +17,14 @@ struct GroupDetail: View {
         VStack {
             Text("Hello, \(group.name)!")
         }
+        .toolbar(content: {
+            ToolbarItem(placement: .automatic) {
+                Spacer()
+            }
+            ToolbarItem(placement: .automatic) {
+                ParkToolbarItem()
+            }
+        })
     }
 }
 

@@ -18,10 +18,10 @@ struct ServerDetail: View {
         Text("Hello, \(server.name)!")
             .toolbar(content: {
                 ToolbarItem(placement: .automatic) {
-                    ConnectToolbarItem(server:server)
+                    TitleToolbarItem(title: server.name, subtitle: !server.connected ? server.url : "\(server.devices.count) devices")
                 }
-                ToolbarItem() {
-                    Spacer()
+                ToolbarItem(placement: .automatic) {
+                    ConnectToolbarItem(server:server)
                 }
             })
     }

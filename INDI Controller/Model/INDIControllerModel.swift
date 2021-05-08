@@ -131,6 +131,18 @@ class INDIControllerModel : ObservableObject {
         servers.append(server)
     }
     
+    var connectedServers : [Server] {
+        get {
+            var cservers = [Server]()
+            for server in servers {
+                if server.connected {
+                    cservers.append(server)
+                }
+            }
+            return cservers
+        }
+    }
+    
     func server(id: String) -> Server? {
         for server in servers {
             if server.id == id {

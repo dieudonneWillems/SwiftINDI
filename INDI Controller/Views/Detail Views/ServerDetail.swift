@@ -16,14 +16,6 @@ struct ServerDetail: View {
     
     var body: some View {
         Text("Hello, \(server.name)!")
-            .toolbar(content: {
-                ToolbarItem(placement: .automatic) {
-                    TitleToolbarItem(title: server.name, subtitle: !server.connected ? server.url : "\(server.devices.count) devices")
-                }
-                ToolbarItem(placement: .automatic) {
-                    ConnectToolbarItem(server:server)
-                }
-            })
     }
 }
 

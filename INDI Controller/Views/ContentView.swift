@@ -13,27 +13,26 @@ struct ContentView: View {
     @State private var showingAddServerSheet = false
 
     @EnvironmentObject var model: INDIControllerModel
+    var server = Server(name: "Test INDI Server", url: "http://example.org", port: 0) // Temp
+    @State var select: String? = "Item 1"
     
     var body: some View {
-        NavigationView {
-            List() {
-                ForEach(model.servers, id: \.self) { server in
-                    NavigationLink(destination: ServerDetail(server: server)) {
+        VStack {
+            NavigationView {
+                List {
+                    ForEach(model.servers, id: \.self) { server in
                         ServerRow(server: server)
-                    }
-                    ForEach(server.devices, id: \.self) { device in
-                        let deviceObject = model.device(id: device)!
-                        NavigationLink(destination: DeviceDetail(device: deviceObject)) {
-                            DeviceRow(device: deviceObject)
+                        ForEach(server.devices, id: \.self) { device in
+                            let deviceObject = model.device(id: device)!
+                            NavigationLink(destination: GroupView(device: device)) {
+                                DeviceRow(device: deviceObject)
+                            }
                         }
                     }
                 }
+                .listStyle(SidebarListStyle())
             }
-            .listStyle(SidebarListStyle())
-            .toolbar {
-                ToolbarItem(placement: ToolbarItemPlacement.automatic) {
-                    Spacer()
-                }
+            .toolbar(content: {
                 ToolbarItem(placement: ToolbarItemPlacement.automatic) {
                     Button(action: {
                         showingAddServerSheet.toggle()
@@ -45,20 +44,43 @@ struct ContentView: View {
                     }
                     .help("Add INDI Server")
                 }
-            }
-            VStack {
-                Text("Selected devices")
-            }
-            .toolbar(content: {
-                ToolbarItem(placement: ToolbarItemPlacement.navigation) {
-                    TitleToolbarItem(title: "INDI Controller", subtitle: model.connectedServers.count == 0 ? "No connected servers" : "\(model.connectedServers.count) connected servers")
+                ToolbarItem(placement: .automatic) {
+                    Spacer()
+                }
+                ToolbarItem(placement: .automatic) {
+                    ParkToolbarItem()
                 }
             })
+            .navigationTitle("INDI Controller")
+            .navigationSubtitle(model.connectedServers.count == 0 ? "No connected servers" : "\(model.connectedServers.count) connected servers")
+            .navigationViewStyle(DoubleColumnNavigationViewStyle())
         }
     }
     
     private func addServer() {
         showingAddServerSheet = true
+    }
+}
+
+struct GroupView: View {
+    
+    @State var device : String
+    @EnvironmentObject var model: INDIControllerModel
+    @State var select: String? = "Item 1"
+
+    var body: some View {
+        NavigationView {
+            List {
+                let deviceObject = model.device(id: device)!
+                ForEach(deviceObject.groups, id: \.self) { group in
+                    let groupObject = model.group(id: group)!
+                    NavigationLink(destination: GroupDetail(device: deviceObject, group: groupObject), tag: group, selection: $select)
+                    {
+                        GroupRow(group: groupObject)
+                    }
+                }
+            }
+        }
     }
 }
 

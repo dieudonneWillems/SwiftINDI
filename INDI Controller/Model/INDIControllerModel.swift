@@ -128,6 +128,7 @@ class INDIControllerModel : ObservableObject {
         let indiServer = BasicINDIServer(label: server.id, delegate: INDIMonitor(model: self, serverID: server.id))
         try indiServer.setServer(at: server.url, port: server.port)
         indiServers[server.id] = indiServer
+        indiServer.connect()
         servers.append(server)
     }
     

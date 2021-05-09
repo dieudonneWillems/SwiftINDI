@@ -60,13 +60,17 @@ struct AddServerSheet: View {
             }
             .frame(maxWidth: .infinity ,alignment: .leading)
             HStack {
-                Button("Cancel",action: {
+                Button(action: {
                     isPresented.toggle()
-                })
-                .frame(minWidth: 0, maxWidth: .infinity)
+                }) {
+                    Text("Cancel")
+                }
+                .padding(0)
+                .frame(minWidth: 0,
+                       maxWidth: .infinity)
                 .padding()
                 .keyboardShortcut(.cancelAction)
-                Button("OK", action: {
+                Button(action: {
                     isPresented.toggle()
                     let newServer = Server(name: name, url: url, port: port, autoConnect: autoConnect)
                     do {
@@ -74,13 +78,18 @@ struct AddServerSheet: View {
                     } catch {
                         print("Could not add server.")
                     }
-                })
-                .frame(minWidth: 0, maxWidth: .infinity)
+                }) {
+                    Text("OK")
+                }
+                .padding()
+                .frame(minWidth: 0,
+                       maxWidth: .infinity)
                 .padding()
                 .keyboardShortcut(.defaultAction)
             }
             .frame(maxWidth: .infinity)
             .padding(.top, 20)
+            .border(Color.blue)
         }
         .padding()
         .frame(minWidth: 300, maxWidth: 300)

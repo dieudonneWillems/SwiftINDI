@@ -17,44 +17,42 @@ struct ContentView: View {
     @State var select: String? = "Item 1"
     
     var body: some View {
-        VStack {
-            NavigationView {
-                List {
-                    ForEach(model.servers, id: \.self) { server in
-                        ServerRow(server: server)
-                        ForEach(server.devices, id: \.self) { device in
-                            let deviceObject = model.device(id: device)!
-                            NavigationLink(destination: GroupView(device: device)) {
-                                DeviceRow(device: deviceObject)
-                            }
+        NavigationView {
+            List {
+                ForEach(model.servers, id: \.self) { server in
+                    ServerRow(server: server)
+                    ForEach(server.devices, id: \.self) { device in
+                        let deviceObject = model.device(id: device)!
+                        NavigationLink(destination: GroupView(device: device)) {
+                            DeviceRow(device: deviceObject)
                         }
                     }
                 }
-                .listStyle(SidebarListStyle())
             }
-            .toolbar(content: {
-                ToolbarItem(placement: ToolbarItemPlacement.automatic) {
-                    Button(action: {
-                        showingAddServerSheet.toggle()
-                    }) {
-                        Image(systemName: "plus")
-                    }
-                    .sheet(isPresented: $showingAddServerSheet) {
-                        AddServerSheet(isPresented: $showingAddServerSheet)
-                    }
-                    .help("Add INDI Server")
-                }
-                ToolbarItem(placement: .automatic) {
-                    Spacer()
-                }
-                ToolbarItem(placement: .automatic) {
-                    ParkToolbarItem()
-                }
-            })
-            .navigationTitle("INDI Controller")
-            .navigationSubtitle(model.connectedServers.count == 0 ? "No connected servers" : "\(model.connectedServers.count) connected servers")
-            .navigationViewStyle(DoubleColumnNavigationViewStyle())
+            .listStyle(SidebarListStyle())
         }
+        .toolbar(content: {
+            ToolbarItem(placement: ToolbarItemPlacement.navigation) {
+                Button(action: {
+                    showingAddServerSheet.toggle()
+                }) {
+                    Image(systemName: "plus")
+                }
+                .sheet(isPresented: $showingAddServerSheet) {
+                    AddServerSheet(isPresented: $showingAddServerSheet)
+                }
+                .help("Add INDI Server")
+            }
+            ToolbarItem(placement: .automatic) {
+                Spacer()
+            }
+            ToolbarItem(placement: .automatic) {
+                ParkToolbarItem()
+            }
+        })
+        .navigationTitle("INDI Controller")
+        .navigationSubtitle(model.connectedServers.count == 0 ? "No connected servers" : "\(model.connectedServers.count) connected servers")
+        .navigationViewStyle(DoubleColumnNavigationViewStyle())
     }
     
     private func addServer() {

@@ -15,7 +15,7 @@ struct ServerDetail: View {
     @EnvironmentObject var model: INDIControllerModel
     
     var body: some View {
-        Text("Hello, \(server.name)!")
+        Text("Hello, Server: \(server.name)!")
     }
 }
 

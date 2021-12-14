@@ -555,8 +555,8 @@ public class BasicINDIServer : CustomStringConvertible {
         for propertyNode in parent.childNodes! {
             if propertyNode.name != nil && propertyNode.name! == "defText" {
                 let property = INDITextProperty(propertyNode.attributes!["name"]!, label: propertyNode.attributes!["label"], inPropertyVector: vector)
-                property.textValue = propertyNode.text
                 delegate?.propertyDefined(self, device: vector.device, propertyVector: vector, property: property)
+                property.textValue = propertyNode.text
             }
         }
     }
@@ -593,12 +593,12 @@ public class BasicINDIServer : CustomStringConvertible {
                 let stepsize = Double(propertyNode.attributes!["step"]!)
                 if minimum != nil && maximum != nil && stepsize != nil {
                     let property = INDINumberProperty(propertyNode.attributes!["name"]!, label: propertyNode.attributes!["label"], format: propertyNode.attributes!["format"]!, minimumValue: minimum!, maximumValue: maximum!, stepSize: stepsize!, inPropertyVector: vector)
+                    delegate?.propertyDefined(self, device: vector.device, propertyVector: vector, property: property)
                     let valueText = propertyNode.text
                     if valueText != nil {
                         let value = Double(valueText!)
                         property.numberValue = value
                     }
-                    delegate?.propertyDefined(self, device: vector.device, propertyVector: vector, property: property)
                 }
             }
         }
@@ -637,8 +637,8 @@ public class BasicINDIServer : CustomStringConvertible {
         for propertyNode in parent.childNodes! {
             if propertyNode.name != nil && propertyNode.name! == "defSwitch" {
                 let property = INDISwitchProperty(propertyNode.attributes!["name"]!, label: propertyNode.attributes!["label"], inPropertyVector: vector)
-                property.switchValue = propertyNode.text
                 delegate?.propertyDefined(self, device: vector.device, propertyVector: vector, property: property)
+                property.switchValue = propertyNode.text
             }
         }
     }
@@ -671,6 +671,7 @@ public class BasicINDIServer : CustomStringConvertible {
         for propertyNode in parent.childNodes! {
             if propertyNode.name != nil && propertyNode.name! == "defLight" {
                 let property = INDILightProperty(propertyNode.attributes!["name"]!, label: propertyNode.attributes!["label"], inPropertyVector: vector)
+                delegate?.propertyDefined(self, device: vector.device, propertyVector: vector, property: property)
                 switch propertyNode.text?.lowercased() {
                 case "idle":
                     property.lightValue = .idle
@@ -683,7 +684,6 @@ public class BasicINDIServer : CustomStringConvertible {
                 default:
                     property.lightValue = nil
                 }
-                delegate?.propertyDefined(self, device: vector.device, propertyVector: vector, property: property)
             }
         }
     }

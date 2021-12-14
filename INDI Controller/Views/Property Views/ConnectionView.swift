@@ -9,13 +9,23 @@
 import SwiftUI
 
 struct ConnectionView: View {
+    
+    @StateObject var propertyVector : ConnectionPropertyVector
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        HStack {
+            Image(systemName: "bolt.fill")
+            Toggle("\(propertyVector.label)", isOn: $propertyVector.connected)
+                .toggleStyle(.switch)
+                .font(.headline)
+        }
     }
 }
 
+/*
 struct ConnectionView_Previews: PreviewProvider {
     static var previews: some View {
         ConnectionView()
     }
 }
+ */

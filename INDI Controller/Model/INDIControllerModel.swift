@@ -8,6 +8,7 @@
 
 import Foundation
 import SwiftINDI
+import SwiftUI
 
 class Server : NSObject, ObservableObject {
     
@@ -91,27 +92,107 @@ class Group : NSObject, ObservableObject {
 class PropertyVector : NSObject, ObservableObject {
     
     let id : String
-    let name: String
-    let label: String
-    let canBeRead: Bool
-    let canBeWrittenTo: Bool
-    let timeout: Int
+    
+    var name: String {
+        get {
+            return indiPropertyVector.name
+        }
+    }
+    
+    var label: String {
+        get {
+            return indiPropertyVector.uiLabel
+        }
+    }
+    
+    var canBeRead: Bool {
+        get {
+            return indiPropertyVector.canBeRead
+        }
+    }
+    
+    var canBeWrittenTo: Bool {
+        get {
+            return indiPropertyVector.canBeWritten
+        }
+    }
+    
+    var timeout: Int {
+        get {
+            return indiPropertyVector.timeout
+        }
+    }
+    
     let group: String
+    
+    let indiPropertyVector: INDIPropertyVector
     
     @Published var state: INDIPropertyState = .ok
     @Published var timestamp: Date = Date()
     
-    public init(name: String, label: String, group: Group, state: INDIPropertyState, canBeRead: Bool, canBeWrittenTo: Bool, timeout: Int, timestamp: Date) {
-        self.id = "\(group.id)/\(name)"
-        self.name = name
-        self.label = label
+    fileprivate init(_ indiPropertyVector: INDIPropertyVector, group: Group) {
+        self.id = "\(group.id)/\(indiPropertyVector.name)"
         self.group = group.id
-        self.state = state
-        self.canBeRead = canBeRead
-        self.canBeWrittenTo = canBeWrittenTo
-        self.timestamp = timestamp
-        self.timeout = timeout
+        self.indiPropertyVector = indiPropertyVector
     }
+    
+    func update() {
+        print("updating...")
+    }
+    
+    static func propertyVector(from indiPropertyVector: INDIPropertyVector, group: Group) -> PropertyVector {
+        if (indiPropertyVector as? INDISwitchPropertyVector) != nil {
+            let switchPropertyVector = indiPropertyVector as! INDISwitchPropertyVector
+            if switchPropertyVector.rule == .oneOfMany && switchPropertyVector.name.lowercased() == "connection" {
+                return ConnectionPropertyVector(switchPropertyVector, group: group)
+            }
+            return SwitchPropertyVector(switchPropertyVector, group: group)
+        }
+        return PropertyVector(indiPropertyVector, group: group)
+    }
+}
+
+class SwitchPropertyVector: PropertyVector {
+    
+}
+
+class ConnectionPropertyVector: SwitchPropertyVector {
+    
+    @Published var connected: Bool {
+        willSet(newValue) {
+            let printValue = newValue ? "Connecting..." : "Disconnecting"
+            print("\(printValue)")
+            let switchPropertyVector = indiPropertyVector as! INDISwitchPropertyVector
+            switchPropertyVector.switchOff(name: "CONNECT")
+        }
+        didSet(oldValue) {
+            let printValue = connected ? "Connected" : "Disconnected"
+            print("\(printValue)")
+        }
+    }
+    
+    fileprivate init(_ indiPropertyVector: INDISwitchPropertyVector, group: Group) {
+        let on = indiPropertyVector.on
+        self.connected = false
+        for onProperty in on {
+            if onProperty.name == "CONNECT" {
+                self.connected = true
+            }
+        }
+        super.init(indiPropertyVector, group: group)
+    }
+    
+    override func update() {
+        super.update()
+        let on = (indiPropertyVector as! INDISwitchPropertyVector).on
+        self.connected = false
+        for onProperty in on {
+            if onProperty.name == "CONNECT" {
+                self.connected = true
+            }
+        }
+    }
+    
 }
 
 
@@ -123,6 +204,11 @@ class INDIControllerModel : ObservableObject {
     @Published var groups = [Group]()
     
     var indiServers = [String: BasicINDIServer]()
+    var propertyViewMapping = [String: String]()
+    
+    init() {
+        self.readPropertyViewMapping()
+    }
     
     func add(server: Server) throws {
         let indiServer = BasicINDIServer(label: server.id, delegate: INDIMonitor(model: self, serverID: server.id))
@@ -219,6 +305,28 @@ class INDIControllerModel : ObservableObject {
         return nil
     }
     
+    func viewForPropertyVector(propertyVector: PropertyVector) -> some View {
+        let key = propertyVector.id.lowercased()
+        var viewName = self.propertyViewMapping[key]
+        if viewName == nil {
+            let lastPathComponent = URL(fileURLWithPath: key).lastPathComponent
+            viewName = self.propertyViewMapping[lastPathComponent]
+        }
+        if viewName != nil {
+            if viewName == "ConnectionView" && (propertyVector as? ConnectionPropertyVector) != nil {
+                return AnyView(ConnectionView(propertyVector: propertyVector as! ConnectionPropertyVector))
+            }
+        }
+        return AnyView(Text("\(propertyVector.label)"))
+    }
+    
+    private func readPropertyViewMapping() {
+        let propertyViewMappingURL = Bundle.main.url(forResource: "propertyViewMapping", withExtension: "json")
+        let JSON = try! String(contentsOf: propertyViewMappingURL!, encoding: .utf8)
+        let jsonData = JSON.data(using: String.Encoding.utf8)!
+        self.propertyViewMapping = try! JSONDecoder().decode([String: String].self, from: jsonData)
+    }
+    
     func connect(server: Server) {
         let indi = indiServers[server.id]
         if indi != nil {
@@ -302,7 +410,7 @@ class INDIMonitor : INDIDelegate {
             let modelDevice = Device(name: device.name, server: modelServer!)
             var group = Group(name:"\(propertyVector.group != nil ? propertyVector.group! : "Other")", device: modelDevice)
             group = model.add(group: group)
-            var vector = PropertyVector(name: propertyVector.name, label: propertyVector.label ?? propertyVector.name, group: group, state: propertyVector.state, canBeRead: propertyVector.canBeRead, canBeWrittenTo: propertyVector.canBeWritten, timeout: propertyVector.timeout, timestamp: propertyVector.timestamp ?? Date())
+            var vector = PropertyVector.propertyVector(from: propertyVector, group: group)
             vector = model.add(propertyVector: vector)
         }
     }
@@ -320,5 +428,9 @@ class INDIMonitor : INDIDelegate {
     
     func propertyDidChange(_ server: BasicINDIServer, property: INDIProperty, device: INDIDevice) {
         print("Property \(property.name) for device \(device.name) did change. Value= \(property.value ?? "Not set")")
+        let indiPropertyVector = property.propertyVector
+        let propertyVectorID = "\(serverID)/\(device.name)/\(indiPropertyVector.group!)/\(indiPropertyVector.name)"
+        let pv = model.propertyVector(id: propertyVectorID)
+        pv?.update()
     }
 }

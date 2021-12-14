@@ -63,6 +63,8 @@
 		C7586CE4264471E3008B87B0 /* GroupDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7586CE3264471E3008B87B0 /* GroupDetail.swift */; };
 		C7586CE7264497E6008B87B0 /* GroupRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7586CE6264497E6008B87B0 /* GroupRow.swift */; };
 		C772C08A2640484400BD676F /* DeviceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C772C0892640484400BD676F /* DeviceRow.swift */; };
+		C7A72A64276926E8006A4345 /* propertyViewMapping.json in Resources */ = {isa = PBXBuildFile; fileRef = C7A72A63276926E8006A4345 /* propertyViewMapping.json */; };
+		C7A72A66276932D2006A4345 /* OnCoordinateSetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A72A65276932D2006A4345 /* OnCoordinateSetView.swift */; };
 		C7F104452639899200D85C26 /* SwiftSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7F1042B2639896600D85C26 /* SwiftSocket.framework */; };
 		C7F104462639899200D85C26 /* SwiftSocket.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C7F1042B2639896600D85C26 /* SwiftSocket.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C7F10457263C51F800D85C26 /* INDI_ControllerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F10456263C51F800D85C26 /* INDI_ControllerApp.swift */; };
@@ -255,6 +257,8 @@
 		C7586CE3264471E3008B87B0 /* GroupDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupDetail.swift; sourceTree = "<group>"; };
 		C7586CE6264497E6008B87B0 /* GroupRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupRow.swift; sourceTree = "<group>"; };
 		C772C0892640484400BD676F /* DeviceRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceRow.swift; sourceTree = "<group>"; };
+		C7A72A63276926E8006A4345 /* propertyViewMapping.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = propertyViewMapping.json; sourceTree = "<group>"; };
+		C7A72A65276932D2006A4345 /* OnCoordinateSetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnCoordinateSetView.swift; sourceTree = "<group>"; };
 		C7F104212639896600D85C26 /* SwiftSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SwiftSocket.xcodeproj; path = ../SwiftSocket/SwiftSocket.xcodeproj; sourceTree = "<group>"; };
 		C7F10454263C51F800D85C26 /* INDI Controller.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "INDI Controller.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7F10456263C51F800D85C26 /* INDI_ControllerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = INDI_ControllerApp.swift; sourceTree = "<group>"; };
@@ -502,6 +506,7 @@
 			isa = PBXGroup;
 			children = (
 				C7586CDF26443D43008B87B0 /* ConnectionView.swift */,
+				C7A72A65276932D2006A4345 /* OnCoordinateSetView.swift */,
 			);
 			path = "Property Views";
 			sourceTree = "<group>";
@@ -542,6 +547,14 @@
 			path = Sheets;
 			sourceTree = "<group>";
 		};
+		C7A72A62276926C2006A4345 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C7A72A63276926E8006A4345 /* propertyViewMapping.json */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		C7F104222639896600D85C26 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -556,6 +569,7 @@
 		C7F10455263C51F800D85C26 /* INDI Controller */ = {
 			isa = PBXGroup;
 			children = (
+				C7A72A62276926C2006A4345 /* Resources */,
 				C772C06B263F477C00BD676F /* Model */,
 				C7F104B1263E0A0B00D85C26 /* Views */,
 				C7F10456263C51F800D85C26 /* INDI_ControllerApp.swift */,
@@ -866,6 +880,7 @@
 			files = (
 				C7F1045E263C51FC00D85C26 /* Preview Assets.xcassets in Resources */,
 				C7F1045B263C51FC00D85C26 /* Assets.xcassets in Resources */,
+				C7A72A64276926E8006A4345 /* propertyViewMapping.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -941,6 +956,7 @@
 				C7586CCD26419CFB008B87B0 /* INDIControllerModel.swift in Sources */,
 				C7586CE026443D43008B87B0 /* ConnectionView.swift in Sources */,
 				C7F54CEE2646149A008D8965 /* ParkToolbarItem.swift in Sources */,
+				C7A72A66276932D2006A4345 /* OnCoordinateSetView.swift in Sources */,
 				C7F10501263F3CE600D85C26 /* ConnectToolbarItem.swift in Sources */,
 				C7F104B3263E0A6500D85C26 /* AddServerSheet.swift in Sources */,
 				C7F10457263C51F800D85C26 /* INDI_ControllerApp.swift in Sources */,
@@ -1235,7 +1251,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 11.1;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.lapsedpacifist.SwiftINDI;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1268,7 +1284,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 11.1;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.lapsedpacifist.SwiftINDI;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1334,7 +1350,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 11.1;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.lapsedpacifist.INDI-Controller";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1360,7 +1376,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 11.1;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.lapsedpacifist.INDI-Controller";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

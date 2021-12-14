@@ -86,7 +86,7 @@ public enum INDIStandardPropertyVectorName :  String, CaseIterable {
     /**
      * The property vector is not one of the standard property vectors.
      */
-    case other = "Not a stamdard Property Vector"
+    case other = "Not a standard Property Vector"
 }
 
 
@@ -235,6 +235,11 @@ public protocol INDIProperty {
      * The current value of the property, or `nil` if the property's value has not been set.
      */
     var value: Any? {get set}
+    
+    /**
+     * The property vector associated with this property.
+     */
+    var propertyVector: INDIPropertyVector {get}
     
 }
 

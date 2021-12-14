@@ -12,10 +12,17 @@ struct GroupDetail: View {
     
     @StateObject var device : Device
     @StateObject var group : Group
+    @EnvironmentObject var model: INDIControllerModel
     
     var body: some View {
         VStack {
-            Text("Hello, \(group.name)!")
+            ForEach(group.propertyVectors, id: \.self) { propertyVectorID in
+                let propertyVector = model.propertyVector(id: propertyVectorID)
+                model.viewForPropertyVector(propertyVector: propertyVector!)
+                Text("\(propertyVector!.id)")
+                    .font(.footnote)
+                    .padding(.bottom)
+            }
         }
         .toolbar(content: {
             ToolbarItem(placement: .automatic) {

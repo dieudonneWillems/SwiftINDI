@@ -182,7 +182,6 @@ public class INDIDefaultPropertyVector : INDIPropertyVector {
  */
 public class INDIDefaultProperty : INDIProperty {
     
-    
     /**
      * The type of the INDI property (text, numeric, switch, light, or BLOB).
      */
@@ -215,7 +214,7 @@ public class INDIDefaultProperty : INDIProperty {
     /**
      * The property vector for which this property is a member.
      */
-    private var propertyVector: INDIPropertyVector?
+    public let propertyVector: INDIPropertyVector
     
     /**
      * Initialises the INDI property with the supplied values. INDI properties and
@@ -244,12 +243,12 @@ public class INDIDefaultProperty : INDIProperty {
      */
     public var value: Any? {
         willSet(newValue) {
-            // Tell the INDI property vector that this property has changed.
-            self.propertyVector?.property(self, willChangeTo: newValue)
+            // Tell the INDI property vector that this property will change.
+            self.propertyVector.property(self, willChangeTo: newValue)
         }
         didSet {
             // Tell the INDI property vector that this property has changed.
-            self.propertyVector?.property(self, hasChangedTo: value)
+            self.propertyVector.property(self, hasChangedTo: value)
         }
     }
 }
